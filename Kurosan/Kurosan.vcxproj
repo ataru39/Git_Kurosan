@@ -27,6 +27,7 @@
     <ClCompile Include="Code\SceneManager.cpp" />
     <ClCompile Include="Code\Title.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Enemy.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Code\SceneBase.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Title.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
