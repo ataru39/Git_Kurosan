@@ -15,10 +15,3 @@ private:
 
 };
 
-Wall::Wall()
-{
-}
-
-Wall::~Wall()
-{
-}

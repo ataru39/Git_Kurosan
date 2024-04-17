@@ -4,12 +4,12 @@
 
 GameMainScene::GameMainScene()
 {
-
+	wall = new Wall;
 }
 
 GameMainScene::~GameMainScene()
 {
-
+	delete wall;
 }
 
 //‰Šú‰»ˆ—
@@ -27,7 +27,8 @@ eSceneType GameMainScene::Update()
 //•`‰æˆ—
 void GameMainScene::Draw()const
 {
-
+	wall->Draw();
+	DrawBox(0, 0, 1280, 100, 0xff0000, TRUE);
 }
 
 //I—¹Žžˆ—

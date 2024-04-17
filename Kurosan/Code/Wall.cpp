@@ -24,7 +24,7 @@ void Wall::Update()
 
 void Wall::Draw()
 {
-	DrawBox(0, 120, 200, 720, 0x0000ff, TRUE);
+	DrawBox(0, 100, 200, 720, 0x0000ff, TRUE);
 }
 
 void Wall::Finalize()
