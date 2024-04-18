@@ -30,6 +30,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Common.h" />
     <ClInclude Include="Code\Enemy.h" />
     <ClInclude Include="Code\GameMainScene.h" />
     <ClInclude Include="Code\Player.h" />

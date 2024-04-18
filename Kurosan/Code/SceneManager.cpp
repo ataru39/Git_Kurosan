@@ -4,6 +4,7 @@
 #include "Title.h"
 #include "GameMainScene.h"
 #include "ResultScene.h"
+#include "Common.h"
 
 SceneManager::SceneManager()
 {
@@ -26,7 +27,7 @@ void SceneManager::Initialize()
 	{
 		throw("ウィンドウモードで起動できませんでした\n");
 	}
-	SetGraphMode(1280, 720, 32, 60);
+	SetGraphMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, 60);
 	//DXライブラリの初期化
 	if (DxLib_Init() == -1)
 	{
