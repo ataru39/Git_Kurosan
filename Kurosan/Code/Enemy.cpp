@@ -41,6 +41,11 @@ void Enemy::Finalize()
 
 }
 
+void Enemy::Movement()
+{
+
+}
+
 //“Gƒ^ƒCƒv‚ğæ“¾
 int Enemy::GetType()const
 {

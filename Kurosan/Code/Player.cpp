@@ -16,6 +16,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	location = Vector2D(140.0f, 260.0f);
+	level = 1;
 }
 
 //çXêVèàóù
@@ -66,4 +67,13 @@ void Player::Movement()
 	//}
 
 		location += move;
+}
+
+void Player::LevelUP()
+{
+	if (InputControl::GetButton(XINPUT_BUTTON_B)==TRUE)
+	{
+		level++;
+
+	}
 }
