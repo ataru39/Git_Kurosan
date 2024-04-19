@@ -25,6 +25,7 @@
     <ClCompile Include="Code\Player.cpp" />
     <ClCompile Include="Code\ResultScene.cpp" />
     <ClCompile Include="Code\SceneManager.cpp" />
+    <ClCompile Include="Code\Skill.cpp" />
     <ClCompile Include="Code\Title.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
@@ -35,6 +36,7 @@
     <ClInclude Include="Code\ResultScene.h" />
     <ClInclude Include="Code\SceneBase.h" />
     <ClInclude Include="Code\SceneManager.h" />
+    <ClInclude Include="Code\Skill.h" />
     <ClInclude Include="Code\Title.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -5,9 +5,9 @@
 class Player
 {
 private:
-	int image;				//描画する画像データ
-	Vector2D location;		//位置座標
-	Vector2D box_size;		//当たり判定の大きさ
+	int image;			  //描画する画像データ
+	Vector2D location;	  //位置座標
+	Vector2D box_size;	  //当たり判定の大きさ
 
 public:
 	Player();
@@ -23,4 +23,3 @@ public:
 	Vector2D GetBoxSize()const;    //当たり判定の大きさ取得
 	void Movement();
 };
-
