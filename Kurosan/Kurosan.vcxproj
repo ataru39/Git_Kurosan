@@ -27,9 +27,11 @@
     <ClCompile Include="Code\SceneManager.cpp" />
     <ClCompile Include="Code\Skill.cpp" />
     <ClCompile Include="Code\Title.cpp" />
+    <ClCompile Include="Code\Wall.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Common.h" />
     <ClInclude Include="Code\Enemy.h" />
     <ClInclude Include="Code\GameMainScene.h" />
     <ClInclude Include="Code\Player.h" />
@@ -38,6 +40,7 @@
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skill.h" />
     <ClInclude Include="Code\Title.h" />
+    <ClInclude Include="Code\Wall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

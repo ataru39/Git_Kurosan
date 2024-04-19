@@ -1,12 +1,14 @@
 #pragma once
 
 #include "SceneBase.h"
-#include"Player.h"
+#include "Player.h"
+#include "Wall.h"
 
 class GameMainScene : public SceneBase
 {
 private:
-
+	Player* player;
+	Wall* wall;
 public:
 	GameMainScene();
 	virtual ~GameMainScene();

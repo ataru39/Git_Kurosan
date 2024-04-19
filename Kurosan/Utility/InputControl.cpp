@@ -85,7 +85,6 @@ float InputControl::GetLeftTrigger()
 {
 	return trigger[0];
 }
-
 //‰EƒgƒŠƒK[æ“¾
 float InputControl::GetRightTrigger()
 {
