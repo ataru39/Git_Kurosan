@@ -19,7 +19,7 @@ private:
 		float y;
 		float width;
 		float height;
-	};struct Rect* rec_wall;
+	};struct Rect rec_wall;
 
 	struct Vec2 {
 		float x;

@@ -15,9 +15,9 @@ Enemy::~Enemy()
 void Enemy::Initialize()
 {
 	//出現させるX座標パターンを取得
-	float random_x = (float)(GetRand(4) * 105 + 40);
+	float random_y = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
-	location = Vector2D(random_x, -50.0f);
+	location = Vector2D(random_y, -50.0f);
 	//当たり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
 	//速さの設定
