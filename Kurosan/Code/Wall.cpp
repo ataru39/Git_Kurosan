@@ -3,10 +3,10 @@
 
 Wall::Wall()
 {
-	rec_wall->x = 0.0f;
-	rec_wall->y = 100.0f;
-	rec_wall->width = 200.0f;
-	rec_wall->height = 620.0f;
+	//rec_wall->x = 0.0f;
+	//rec_wall->y = 100.0f;
+	//rec_wall->width = 200.0f;
+	//rec_wall->height = 620.0f;
 }
 
 Wall::~Wall()

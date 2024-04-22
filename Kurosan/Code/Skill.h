@@ -9,6 +9,8 @@ private:
 	Vector2D location;	// 位置座標
 	Vector2D box_size;	// 当たり判定の大きさ
 	Vector2D spawn_location;  // スポーン位置
+	Vector2D vector;	// ベクトル
+	Vector2D plocation; // プレイヤーのロケーション
 
 public:
 	Skill();
