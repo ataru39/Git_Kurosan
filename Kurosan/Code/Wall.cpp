@@ -3,10 +3,7 @@
 
 Wall::Wall()
 {
-	rec_wall.x = 100.0f;
-	rec_wall.y = 100.0f;
-	rec_wall.width = 50.0f;
-	rec_wall.height = 50.0f;
+
 }
 
 Wall::~Wall()
@@ -16,29 +13,35 @@ Wall::~Wall()
 
 void Wall::Initialize()
 {
+	location = Vector2D(100.0f, 100.0f);
+	box_size = Vector2D(50.0f, 50.0f);
 	hp = 100;
-	Vec2 center_wall = {
-		rec_wall.x+(rec_wall.width/2.0f),
-		rec_wall.y+(rec_wall.height/2.0f)
-	};
 }
 
 void Wall::Update()
 {
-
-
 
 }
 
 void Wall::Draw()
 {
 	DrawBox(0, 100, 200, 720, 0x0000ff, TRUE);
-	DrawBox(rec_wall.x, rec_wall.y, rec_wall.x + rec_wall.height, rec_wall.y + rec_wall.width, 0x00ff00, TRUE);
+	DrawBox(location.x, location.y, location.x + box_size.x, location.y + box_size.y, 0x00ff00, TRUE);
 }
 
 void Wall::Finalize()
 {
 
+}
+
+Vector2D Wall::GetLocation() const
+{
+	return location;
+}
+
+Vector2D Wall::GetBoxSize() const
+{
+	return box_size;
 }
 
 
