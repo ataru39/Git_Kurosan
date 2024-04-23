@@ -3,7 +3,7 @@
 
 Enemy::Enemy(int type, int handle) :type(type), image(handle), speed(0.0f), location(0.0f), box_size(0.0f)
 {
-
+	image = LoadGraph("Resources/Images/teki.png");
 }
 
 Enemy::~Enemy()
@@ -17,7 +17,7 @@ void Enemy::Initialize()
 	//出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
-	location = Vector2D(random_y, -50.0f);
+	location = Vector2D(100.0f, random_y);
 	//当たり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
 	//速さの設定
@@ -27,7 +27,7 @@ void Enemy::Initialize()
 void Enemy::Update(float speed)
 {
 	//位置情報に移動量を加算する
-	location += Vector2D(0.0f, this->speed + speed - 6);
+	location += Vector2D(this->speed + speed - 6, 100.0f);
 }
 
 void Enemy::Draw()const

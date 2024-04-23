@@ -6,6 +6,7 @@ GameMainScene::GameMainScene()
 {
 	wall = new Wall;
 	player = new Player;
+	
 }
 
 GameMainScene::~GameMainScene()
