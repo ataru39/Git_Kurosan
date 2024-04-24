@@ -11,11 +11,8 @@ private:
 	Vector2D location;   //ˆÊ’uî•ñ
 	Vector2D box_size;   //“–‚½‚è”»’è‚Ì‘å‚«‚³
 
-	int Enemy1;
-
-	
 public:
-	Enemy(int type, int handle);
+	Enemy();
 	~Enemy();
 
 	void Initialize();          //‰Šú‰»ˆ—
