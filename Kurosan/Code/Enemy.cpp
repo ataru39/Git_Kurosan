@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "DxLib.h"
 
-Enemy::Enemy(int type, int handle) :type(type), image(handle), speed(0.0f), location(0.0f), box_size(0.0f)
+Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	image = LoadGraph("Resources/Images/ƒXƒ‰ƒCƒ€.png");
 }
@@ -28,7 +28,7 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
-	//location += Vector2D(this->speed + speed , 0.0f);
+	location += Vector2D(-speed , 0.0f);
 }
 
 void Enemy::Draw()const
@@ -36,7 +36,7 @@ void Enemy::Draw()const
 	//“G‰æ‘œ‚ð•`‰æ
 	//DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
 
-	//DrawGraph(location.x, location.y,image,TRUE);
+	DrawGraph(location.x, 1200,image,TRUE);
 }
 
 void Enemy::Finalize()
