@@ -10,12 +10,16 @@ private:
 	float speed;         //速さ
 	Vector2D location;   //位置情報
 	Vector2D box_size;   //当たり判定の大きさ
+
+	int Enemy1;
+
+	
 public:
 	Enemy(int type, int handle);
 	~Enemy();
 
 	void Initialize();          //初期化処理
-	void Update(float speed);   //更新処理
+	void Update();   //更新処理
 	void Draw()const;           //描画処理
 	void Finalize();            //終了時処理
 	void Movement();			//移動処理
