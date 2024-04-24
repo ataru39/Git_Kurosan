@@ -12,6 +12,7 @@ GameMainScene::~GameMainScene()
 {
 	delete wall;
 	delete player;
+	delete enemy;
 }
 
 //‰Šú‰»ˆ—
@@ -24,7 +25,7 @@ void GameMainScene::Initialize()
 eSceneType GameMainScene::Update()
 {
 	player->Update();
-
+	enemy->Update();
 	return GetNowScene();
 }
 
@@ -33,6 +34,7 @@ void GameMainScene::Draw()const
 {
 	wall->Draw();
 	player->Draw();
+	enemy->Draw();
 	DrawBox(0, 0, 1280, 100, 0xff0000, TRUE);
 }
 
