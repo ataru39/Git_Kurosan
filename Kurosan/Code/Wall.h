@@ -1,5 +1,7 @@
 #pragma once
 
+#include"../Utility/Vector2D.h"
+
 class Wall
 {
 public:
@@ -11,19 +13,13 @@ public:
 	void Draw();          //•`‰æˆ—
 	void Finalize();      //I—¹ˆ—
 
+	Vector2D GetLocation()const;
+	Vector2D GetBoxSize()const;
+
 private:
 	float hp;
+	Vector2D location;
+	Vector2D box_size;
 
-	struct Rect{
-		float x;
-		float y;
-		float width;
-		float height;
-	};struct Rect* rec_wall;
-
-	struct Vec2 {
-		float x;
-		float y;
-	};struct Vec2 center_wall;
 };
 
