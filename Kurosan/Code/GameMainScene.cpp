@@ -6,13 +6,14 @@ GameMainScene::GameMainScene()
 {
 	wall = new Wall;
 	player = new Player;
-	
+	enemy = new Enemy;
 }
 
 GameMainScene::~GameMainScene()
 {
 	delete wall;
 	delete player;
+	delete enemy;
 }
 
 //‰Šú‰»ˆ—
@@ -20,6 +21,7 @@ void GameMainScene::Initialize()
 {
 	player->Initialize();
 	wall->Initialize();
+	enemy->Initialize();
 }
 
 //XVˆ—
@@ -27,6 +29,7 @@ eSceneType GameMainScene::Update()
 {	
 	player->Update();
 	wall->Update();
+	enemy->Update();
 
 	if (HitCheck(player, wall)) {
 		DrawString(300, 500, "ataridesuyogohandesuyo", 0x000000);
@@ -40,6 +43,8 @@ void GameMainScene::Draw()const
 {
 	wall->Draw();
 	player->Draw();
+	enemy->Draw();
+
 	DrawBox(0, 0, 1280, 100, 0xff0000, TRUE);
 }
 
