@@ -9,6 +9,8 @@ Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 Enemy::~Enemy()
 {
 
+
+
 }
 
 //‰Šú‰»ˆ—
