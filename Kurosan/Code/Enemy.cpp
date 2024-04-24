@@ -28,7 +28,7 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
-	location += Vector2D(this->speed + speed , 0.0f);
+	//location += Vector2D(this->speed + speed , 0.0f);
 }
 
 void Enemy::Draw()const
@@ -36,7 +36,7 @@ void Enemy::Draw()const
 	//“G‰æ‘œ‚ð•`‰æ
 	//DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
 
-	DrawGraph(location.x, location.y,image,TRUE);
+	//DrawGraph(location.x, location.y,image,TRUE);
 }
 
 void Enemy::Finalize()
