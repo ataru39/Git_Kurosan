@@ -36,6 +36,7 @@
     <ClInclude Include="Code\GameMainScene.h" />
     <ClInclude Include="Code\Player.h" />
     <ClInclude Include="Code\ResultScene.h" />
+    <ClInclude Include="Code\SceneBase.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skill.h" />
     <ClInclude Include="Code\S_Bullet.h" />
