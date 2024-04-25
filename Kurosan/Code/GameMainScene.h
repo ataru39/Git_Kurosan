@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Enemy.h"
+#include "UI.h"
 
 class GameMainScene : public SceneBase
 {
@@ -11,6 +12,7 @@ private:
 	Player* player;
 	Wall* wall;
 	Enemy* enemy;
+	UI* ui;
 
 public:
 	GameMainScene();
