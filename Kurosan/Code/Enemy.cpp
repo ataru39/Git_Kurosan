@@ -3,7 +3,7 @@
 
 Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
-	image = LoadGraph("Resources/Images/スライム.png");
+	image = LoadGraph("Resources/Images/Slim.png");
 }
 
 Enemy::~Enemy()
@@ -17,9 +17,9 @@ Enemy::~Enemy()
 void Enemy::Initialize()
 {
 	//出現させるX座標パターンを取得
-	float random_x = (float)(GetRand(4) * 105 + 40);
+	float random_y = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
-	location = Vector2D(random_x, 1290.0f);
+	location = Vector2D(1300.0f, random_y);
 	//当たり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
 	//速さの設定
@@ -31,14 +31,18 @@ void Enemy::Update()
 {
 	//位置情報に移動量を加算する
 	location += Vector2D(-speed , 0.0f);
+
+	if (location.x <= 200) {
+		location.x = 200;
+	}
 }
 
 void Enemy::Draw()const
 {
 	//敵画像を描画
 	//DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
-
-	DrawGraph(location.x, 1200,image,TRUE);
+	
+	DrawGraph(location.x, location.y, image, TRUE);
 }
 
 void Enemy::Finalize()

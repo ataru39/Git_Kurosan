@@ -25,8 +25,9 @@
     <ClCompile Include="Code\Player.cpp" />
     <ClCompile Include="Code\ResultScene.cpp" />
     <ClCompile Include="Code\SceneManager.cpp" />
-    <ClCompile Include="Code\Skill.cpp" />
+    <ClCompile Include="Code\S_Bullet.cpp" />
     <ClCompile Include="Code\Title.cpp" />
+    <ClCompile Include="Code\UI.cpp" />
     <ClCompile Include="Code\Wall.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
@@ -39,7 +40,9 @@
     <ClInclude Include="Code\SceneBase.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skill.h" />
+    <ClInclude Include="Code\S_Bullet.h" />
     <ClInclude Include="Code\Title.h" />
+    <ClInclude Include="Code\UI.h" />
     <ClInclude Include="Code\Wall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

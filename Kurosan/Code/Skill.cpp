@@ -7,7 +7,6 @@ Skill::Skill()
 	location = Vector2D(0.0f, 0.0f);
 	box_size = Vector2D(50.0f, 50.0f);
 	spawn_location = Vector2D(0.0f, 0.0f);
-	vector = Vector2D(0.0f, 0.0f);
 }
 
 Skill::~Skill()
@@ -36,6 +35,11 @@ Vector2D Skill::GetLocation() const
 }
 
 Vector2D Skill::GetBoxSize() const
+{
+	return Vector2D();
+}
+
+Vector2D Skill::GetCoolTime() const
 {
 	return Vector2D();
 }
