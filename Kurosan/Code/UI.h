@@ -7,11 +7,10 @@ public:
 
 	void Draw();
 	void Update();
-
+	int Time();
 	void Initialize();
 
 private:
-
 	int time;
 	int frame;
 };

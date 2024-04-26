@@ -15,18 +15,23 @@ void UI::Update()
 	frame++;
 
 	if (frame % 60 == 0) {
-		time--;
+		time++;
 	}
+}
+
+int UI::Time()
+{
+	return time;
 }
 
 void UI::Initialize()
 {
-	time = 60;
+	time = 0;
 	frame = 0;
 }
 
 void UI::Draw()
 {
-	DrawFormatString(400, 400, 0x00fff0, "　時間　%d", time);
+	DrawFormatString(50, 150, 0x00fff0, "　時間　%d", time);
 }
 

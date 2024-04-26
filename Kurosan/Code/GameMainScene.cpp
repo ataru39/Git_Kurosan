@@ -8,6 +8,7 @@ GameMainScene::GameMainScene()
 	player = new Player;
 	enemy = new Enemy;
 	ui = new UI;
+	spawn = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -37,6 +38,16 @@ eSceneType GameMainScene::Update()
 
 	if (HitCheck(player, wall)) {
 		DrawString(300, 500, "ataridesuyogohandesuyo", 0x000000);
+	}
+	if (ui->Time() % 3 == 0) {
+		for (int i = 0; i < 10; i++) {
+			spawn = i;
+			if (Espawn[i] == NULL) {
+				enemy->Initialize();
+			}
+
+		}
+
 	}
 
 	return GetNowScene();

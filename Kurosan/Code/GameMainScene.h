@@ -13,6 +13,9 @@ private:
 	Wall* wall;
 	Enemy* enemy;
 	UI* ui;
+	int Espawn[10];
+	int spawn;
+
 
 public:
 	GameMainScene();
