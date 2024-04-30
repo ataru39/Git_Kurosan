@@ -22,10 +22,12 @@ void S_Bullet::Update()
 
 void S_Bullet::Draw() const
 {
+
 }
 
 void S_Bullet::Finalize()
 {
+
 }
 
 Vector2D S_Bullet::GetLocation() const

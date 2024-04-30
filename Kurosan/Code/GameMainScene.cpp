@@ -8,6 +8,11 @@ GameMainScene::GameMainScene()
 	player = new Player;
 	enemy = new Enemy;
 	ui = new UI;
+	bullet = new S_Bullet * [50];
+	for (int i = 0; i < 50; i++)
+	{
+		bullet[i] = nullptr;
+	}
 }
 
 GameMainScene::~GameMainScene()
@@ -16,6 +21,7 @@ GameMainScene::~GameMainScene()
 	delete player;
 	delete enemy;
 	delete ui;
+	delete bullet;
 }
 
 //‰Šú‰»ˆ—
