@@ -61,7 +61,6 @@ void GameMainScene::Draw()const
 	enemy->Draw();
 	ui->Draw();
 
-	DrawBox(0, 0, 1280, 100, 0xff0000, TRUE);
 }
 
 //I—¹Žžˆ—

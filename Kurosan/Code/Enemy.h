@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../Utility/Vector2D.h"
+#define ENEMY_MAX 100
 
 class Enemy
 {

@@ -13,4 +13,5 @@ public:
 private:
 	int time;
 	int frame;
+	int image[100];
 };

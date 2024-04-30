@@ -31,7 +31,7 @@ void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
 	location += Vector2D(-speed , 0.0f);
-
+	
 	if (location.x <= 200) {
 		location.x = 200;
 	}

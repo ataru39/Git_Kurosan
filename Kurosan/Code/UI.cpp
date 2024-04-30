@@ -31,7 +31,9 @@ void UI::Initialize()
 }
 
 void UI::Draw()
-{
-	DrawFormatString(50, 150, 0x00fff0, "　時間　%d", time);
+{	
+	DrawBox(0, 0, 1280, 100, 0xff0000, TRUE);
+
+	DrawFormatString(50, 50, 0xffffff, "　時間　%d", time);
 }
 
