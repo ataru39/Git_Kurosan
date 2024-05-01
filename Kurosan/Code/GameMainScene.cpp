@@ -66,7 +66,7 @@ void GameMainScene::Draw()const
 //I—¹Žžˆ—
 void GameMainScene::Finalize()
 {
-
+	ui->Finalize();
 }
 
 bool GameMainScene::HitCheck(Player* p,Wall* w)

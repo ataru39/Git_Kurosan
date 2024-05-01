@@ -9,9 +9,11 @@ public:
 	void Update();
 	int Time();
 	void Initialize();
+	void Finalize();
 
 private:
 	int time;
 	int frame;
-	int image[100];
+	int whight;
+	int image;
 };
