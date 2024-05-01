@@ -15,6 +15,8 @@ private:
 	Enemy* enemy;
 	UI* ui;
 	S_Bullet** bullet;
+	int b_cooltime;
+	Vector2D b_location;
 
 public:
 	GameMainScene();
