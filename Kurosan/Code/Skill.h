@@ -14,16 +14,28 @@ protected:
 	float damage;		// ダメージ
 
 public:
-	Skill();
-	~Skill();
+	Skill() { };
+	virtual ~Skill() { };
 
-	void Initialize();	// 初期化処理
-	void Update();		// 更新処理
-	void Draw();		// 描画処理
-	void Finalize();	// 終了時処理
+	virtual void Initialize() { };	// 初期化処理
+	virtual void Update() { };		// 更新処理
+	virtual void Draw() const { };	// 描画処理
+	virtual void Finalize() { };	// 終了時処理
 
-	Vector2D GetLocation() const;   //位置座標取得
-	Vector2D GetBoxSize() const;    //当たり判定の大きさ取得
-	Vector2D GetCoolTime() const;   //当たり判定の大きさ取得
-	Vector2D GetDamage() const;		//当たり判定の大きさ取得
+	virtual Vector2D GetLocation() const	    //位置座標取得
+	{
+		return Vector2D();
+	}
+	virtual Vector2D GetBoxSize() const     //当たり判定の大きさ取得
+	{
+		return Vector2D();
+	}
+	virtual Vector2D GetCoolTime() const  //当たり判定の大きさ取得
+	{
+		return Vector2D();
+	}
+	virtual Vector2D GetDamage() const		//当たり判定の大きさ取得
+	{
+		return Vector2D();
+	}
 };
