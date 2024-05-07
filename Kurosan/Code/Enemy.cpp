@@ -3,7 +3,9 @@
 
 Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
-	image = LoadGraph("Resources/Images/Slim.png");
+	image = LoadGraph("Resources/Images/Slime.png");
+
+	enemymax = 10;
 }
 
 Enemy::~Enemy()
@@ -29,6 +31,8 @@ void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
 	location += Vector2D(-speed , 0.0f);
+	for (int i = 0; i < enemymax; i++) {
+	}
 
 	if (location.x <= 200) {
 		location.x = 200;
@@ -49,6 +53,11 @@ void Enemy::Finalize()
 }
 
 void Enemy::Movement()
+{
+
+}
+
+void Enemy::Spawn()
 {
 
 }

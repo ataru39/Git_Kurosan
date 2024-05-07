@@ -6,7 +6,7 @@ Skill::Skill()
 	image = 0;
 	location = Vector2D(0.0f, 0.0f);
 	box_size = Vector2D(50.0f, 50.0f);
-	spawn_location = Vector2D(0.0f, 0.0f);
+	//spawn_location = Vector2D(0.0f, 0.0f);
 }
 
 Skill::~Skill()
