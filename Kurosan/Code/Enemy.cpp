@@ -4,7 +4,6 @@
 Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	image = LoadGraph("Resources/Images/Slime.png");
-
 	enemymax = 10;
 }
 
@@ -24,7 +23,6 @@ void Enemy::Initialize()
 	box_size = Vector2D(31.0f, 60.0f);
 	//ë¨Ç≥ÇÃê›íË
 	speed = 2.0f;
-
 }
 
 void Enemy::Update()
