@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Code\AppMain.cpp" />
     <ClCompile Include="Code\Enemy.cpp" />
-    <ClCompile Include="Code\EnemyManager.cpp" />
     <ClCompile Include="Code\GameMainScene.cpp" />
     <ClCompile Include="Code\Player.cpp" />
     <ClCompile Include="Code\ResultScene.cpp" />
