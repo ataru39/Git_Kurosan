@@ -12,6 +12,7 @@ protected:
 	float speed;		// スキルの速度
 	float cool_time;	// スキルクールタイム
 	float damage;		// ダメージ
+	int pen_pow;		// 貫通力(penetration_power)
 
 public:
 	Skill() { };
