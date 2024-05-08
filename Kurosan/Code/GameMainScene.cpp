@@ -4,16 +4,22 @@
 
 GameMainScene::GameMainScene()
 {
+	enemymax = 100;
+
 	wall = new Wall;
 	player = new Player;
-	enemy = new Enemy;
 	ui = new UI;
+	enemy = new Enemy * [enemymax];
+	for (int i = 0; i < enemymax; i++) {
+		enemy[i] = nullptr;
+	}
+
 	bullet = new S_Bullet * [10];
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = nullptr;
 	}
-
+	e_delay = 0;
 	b_cooltime = 0;
 }
 
@@ -31,7 +37,6 @@ void GameMainScene::Initialize()
 {
 	player->Initialize();
 	wall->Initialize();
-	enemy->Initialize();
 	ui->Initialize();
 }
 
@@ -40,8 +45,33 @@ eSceneType GameMainScene::Update()
 {
 	player->Update();
 	wall->Update();
-	enemy->Update();
 	ui->Update();
+
+	//“G¶¬
+	if (e_delay <= 0) {
+		for (int i = 0; i < enemymax; i++) {
+			if (enemy[i] == nullptr)
+			{
+				enemy[i] = new Enemy();
+				enemy[i]->Initialize();
+				e_delay = 10;
+				break;
+			}
+		}
+	}
+
+	// ƒN[ƒ‹ƒ^ƒCƒ€Œ¸­ˆ—
+	if (e_delay > 0)
+	{
+		e_delay--;
+	}
+
+	//“G‚ÌXV
+	for (int i = 0; i < enemymax; i++) {
+		if (enemy[i] != nullptr) {
+			enemy[i]->Update();
+		}
+	}
 
 	// ’e¶¬ˆ—
 	if (b_cooltime <= 0)
@@ -57,6 +87,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
 
 	// ƒN[ƒ‹ƒ^ƒCƒ€Œ¸­ˆ—
 	if (b_cooltime > 0)
@@ -98,9 +129,18 @@ void GameMainScene::Draw()const
 {
 	wall->Draw();
 	player->Draw();
-	enemy->Draw();
 	ui->Draw();
 
+	//“G‚Ì•`‰æ
+	for (int i = 0; i < enemymax; i++)
+	{
+		if (enemy[i] != nullptr)
+		{
+			enemy[i]->Draw();
+		}
+	}
+
+	//’e‚Ì•`‰æ
 	for (int i = 0; i < 10; i++)
 	{
 		if (bullet[i] != nullptr)
