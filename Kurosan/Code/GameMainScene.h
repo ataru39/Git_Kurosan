@@ -12,11 +12,16 @@ class GameMainScene : public SceneBase
 private:
 	Player* player;
 	Wall* wall;
-	Enemy* enemy;
+	Enemy** enemy;
+
+	int enemymax;
+	int e_delay;
+
 	UI* ui;
 	S_Bullet** bullet;
 	int b_cooltime;
 	Vector2D b_location;
+	
 
 public:
 	GameMainScene();

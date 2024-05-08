@@ -15,13 +15,17 @@ void UI::Update()
 	frame++;
 
 	if (frame % 60 == 0) {
-		time--;
+		time++;
+	}
+
+	if (time == 61) {
+		time = 0;
 	}
 }
 
 void UI::Initialize()
 {
-	time = 60;
+	time = 50;
 	frame = 0;
 }
 
