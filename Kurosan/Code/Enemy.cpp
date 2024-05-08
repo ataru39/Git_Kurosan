@@ -4,8 +4,6 @@
 Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	image = LoadGraph("Resources/Images/Slime.png");
-
-	enemymax = 10;
 }
 
 Enemy::~Enemy()
@@ -17,13 +15,13 @@ Enemy::~Enemy()
 void Enemy::Initialize()
 {
 	//出現させるX座標パターンを取得
-	float random_y = (float)(GetRand(4) * 105 + 40);
+	float random_y = (float)(GetRand(50) * 11 + 100);
 	//生成位置の設定
 	location = Vector2D(1300.0f, random_y);
 	//当たり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
 	//速さの設定
-	speed = 2.0f;
+	speed = 4.0f;
 
 }
 
@@ -31,8 +29,7 @@ void Enemy::Update()
 {
 	//位置情報に移動量を加算する
 	location += Vector2D(-speed , 0.0f);
-	for (int i = 0; i < enemymax; i++) {
-	}
+	
 
 	if (location.x <= 200) {
 		location.x = 200;

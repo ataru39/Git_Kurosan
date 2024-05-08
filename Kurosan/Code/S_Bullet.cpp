@@ -3,7 +3,7 @@
 
 S_Bullet::S_Bullet()
 {
-	image = LoadGraph("../Resources/Images/Bullet.png");
+	image = LoadGraph("Resources/Images/Bullet.png");
 }
 
 S_Bullet::~S_Bullet()
@@ -30,8 +30,8 @@ void S_Bullet::Update()
 
 void S_Bullet::Draw() const
 {
-	//DrawGraph(location.x, location.y, image, TRUE);
-	DrawBox(location.x, location.y, location.x +50, location.y + 50, image, TRUE);
+	DrawGraph(location.x, location.y, image, TRUE);
+	//DrawBox(location.x, location.y, location.x +50, location.y + 50, image, TRUE);
 }
 
 void S_Bullet::Finalize()
