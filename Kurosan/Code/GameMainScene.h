@@ -22,6 +22,7 @@ private:
 	int b_cooltime;
 	Vector2D b_location;
 	
+	int grace;
 
 public:
 	GameMainScene();
