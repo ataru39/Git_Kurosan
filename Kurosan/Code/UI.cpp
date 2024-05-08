@@ -14,6 +14,7 @@ void UI::Update()
 {
 	frame++;
 
+	//ŠÔ‚ğ‘‚â‚·ˆ—
 	if (frame % 60 == 0) {
 		time++;
 	}
