@@ -128,6 +128,7 @@ eSceneType GameMainScene::Update()
 						bullet[j] = nullptr;
 						delete enemy[i];
 						delete bullet[j];
+						break;
 					}
 				}
 			}
