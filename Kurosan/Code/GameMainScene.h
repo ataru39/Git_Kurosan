@@ -19,6 +19,7 @@ private:
 
 	UI* ui;
 	S_Bullet** bullet;
+	
 	int b_cooltime;
 	Vector2D b_location;
 	
@@ -32,7 +33,8 @@ public:
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
-	bool HitCheck(Player* p ,Wall* w);
+	bool WhitCheck(Enemy* e ,Wall* w);
+	bool BhitCheck(Enemy* e ,S_Bullet* b);
 	virtual eSceneType GetNowScene() const override;
 };
 
