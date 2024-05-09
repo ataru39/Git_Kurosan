@@ -1,7 +1,7 @@
 #include "S_Bullet.h"
 #include "DxLib.h"
 
-S_Bullet::S_Bullet() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
+S_Bullet::S_Bullet()
 {
 	image = LoadGraph("Resources/Images/Bullet.png");
 }
@@ -44,7 +44,7 @@ Vector2D S_Bullet::GetBoxSize() const
 	return Vector2D();
 }
 
-Vector2D S_Bullet::GetDamage() const
+float S_Bullet::GetDamage() const
 {
-	return Vector2D();
+	return float(damage);
 }
