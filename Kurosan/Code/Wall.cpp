@@ -4,9 +4,7 @@
 Wall::Wall()
 {
 	hp = 100;
-	image = LoadGraph("Resources/Images/kabe2.png");
-	image2 = LoadGraph("Resources/Images/kabe3.png");
-	imageblock = LoadGraph("Resources/Images/kabeblock.png");
+	image = LoadGraph("Resources/Images/kabe4.png");
 }
 
 Wall::~Wall()
@@ -26,7 +24,7 @@ void Wall::Update()
 
 }
 
-void Wall::Draw()
+void Wall::Draw()const
 {
 	DrawGraph(0, 100, image, TRUE);
 	DrawGraph(0, 300, image, TRUE);
