@@ -19,7 +19,7 @@ void Enemy::Initialize()
 	//¶¬ˆÊ’u‚Ìİ’è
 	location = Vector2D(1300.0f, random_y);
 	//“–‚½‚è”»’è‚Ìİ’è
-	box_size = Vector2D(31.0f, 60.0f);
+	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚Ìİ’è
 	speed = 4.0f;
 
@@ -29,7 +29,6 @@ void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
 	location += Vector2D(-speed , 0.0f);
-	
 
 	if (location.x <= 200) {
 		location.x = 200;
@@ -66,7 +65,7 @@ int Enemy::GetType()const
 }
 
 //ˆÊ’uî•ñ‚ğæ“¾
-Vector2D Enemy::GetLocation()const
+Vector2D Enemy::GetLocation()
 {
 	return location;
 }
@@ -75,4 +74,9 @@ Vector2D Enemy::GetLocation()const
 Vector2D Enemy::GetBoxSize()const
 {
 	return box_size;
+}
+
+float Enemy::GetHP()
+{
+	return this->hp;
 }

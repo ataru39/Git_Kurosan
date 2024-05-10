@@ -12,6 +12,7 @@ protected:
 	float speed;		// スキルの速度
 	float cool_time;	// スキルクールタイム
 	float damage;		// ダメージ
+	int pen_pow;		// 貫通力(penetration_power)
 
 public:
 	Skill() { };
@@ -34,8 +35,8 @@ public:
 	{
 		return Vector2D();
 	}
-	virtual Vector2D GetDamage() const		//当たり判定の大きさ取得
+	virtual float GetDamage() const		//当たり判定の大きさ取得
 	{
-		return Vector2D();
+		return float();
 	}
 };

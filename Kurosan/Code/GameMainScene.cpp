@@ -121,9 +121,29 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	if (HitCheck(player, wall)) {
-		DrawString(300, 500, "ataridesuyogohandesuyo", 0x000000);
+	//“G‚Æ’e‚Ì“–‚½‚è”»’è
+	for (int i = 0; i < enemymax; i++) {
+		if (enemy[i] != nullptr) {
+			for (int j = 0; j < 10; j++)
+			{
+				if (bullet[j] != nullptr) {
+					if (BhitCheck(enemy[i], bullet[j])) {
+						enemy[i] = nullptr;
+						bullet[j] = nullptr;
+						delete enemy[i];
+						delete bullet[j];
+						break;
+					}
+				}
+			}
+		}
 	}
+
+	//“G‚Æ•Ç‚Ì“–‚½‚è”»’è
+	//for (int i = 0; i < enemymax; i++) {
+	//	if (WhitCheck(enemy[i], wall)) {
+	//	}
+	//}
 
 	return GetNowScene();
 }
@@ -169,10 +189,17 @@ void GameMainScene::Finalize()
 
 }
 
-bool GameMainScene::HitCheck(Player* p,Wall* w)
+bool GameMainScene::WhitCheck(Enemy* e,Wall* w)
 {
-	Vector2D diff_location = p->GetLocation() - w->GetLocation();
-	Vector2D box_ex = p->GetBoxSize() + w->GetBoxSize();
+	Vector2D diff_location = e->GetLocation() - w->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + w->GetBoxSize();
+	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+bool GameMainScene::BhitCheck(Enemy* e, S_Bullet* b)
+{
+	Vector2D diff_location = e->GetLocation() - b->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + b->GetBoxSize();
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
