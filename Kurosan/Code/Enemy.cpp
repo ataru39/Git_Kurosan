@@ -75,3 +75,8 @@ Vector2D Enemy::GetBoxSize()const
 {
 	return box_size;
 }
+
+float Enemy::GetHP()
+{
+	return this->hp;
+}

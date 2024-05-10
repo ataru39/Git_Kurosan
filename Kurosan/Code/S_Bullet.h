@@ -15,5 +15,5 @@ public:
 
 	virtual Vector2D GetLocation() const override;
 	virtual Vector2D GetBoxSize() const override;
-	virtual Vector2D GetDamage() const override;
+	virtual float GetDamage() const override;
 };

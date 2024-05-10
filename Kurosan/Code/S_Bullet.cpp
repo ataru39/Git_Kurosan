@@ -44,7 +44,7 @@ Vector2D S_Bullet::GetBoxSize() const
 	return Vector2D();
 }
 
-Vector2D S_Bullet::GetDamage() const
+float S_Bullet::GetDamage() const
 {
-	return Vector2D();
+	return float(damage);
 }

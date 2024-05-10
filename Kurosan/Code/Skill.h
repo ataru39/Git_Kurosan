@@ -35,8 +35,8 @@ public:
 	{
 		return Vector2D();
 	}
-	virtual Vector2D GetDamage() const		//“–‚½‚è”»’è‚Ì‘å‚«‚³Žæ“¾
+	virtual float GetDamage() const		//“–‚½‚è”»’è‚Ì‘å‚«‚³Žæ“¾
 	{
-		return Vector2D();
+		return float();
 	}
 };
