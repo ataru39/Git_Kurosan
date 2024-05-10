@@ -128,10 +128,14 @@ eSceneType GameMainScene::Update()
 			{
 				if (bullet[j] != nullptr) {
 					if (BhitCheck(enemy[i], bullet[j])) {
-						enemy[i] = nullptr;
+						enemy[i]->Damage(bullet[j]->GetDamage());
 						bullet[j] = nullptr;
-						delete enemy[i];
 						delete bullet[j];
+						if(enemy[i]->GetHP() <= 0)
+						{
+							enemy[i] = nullptr;
+							delete enemy[i];
+						}
 						break;
 					}
 				}
