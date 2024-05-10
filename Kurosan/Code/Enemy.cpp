@@ -21,9 +21,8 @@ void Enemy::Initialize()
 	//“–‚½‚è”»’è‚ÌÝ’è
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚ÌÝ’è
-	speed = 4.0f;
-	// HP‚ÌÝ’è
-	hp = 30;
+	speed = 6.0f;
+
 }
 
 void Enemy::Update()
@@ -77,12 +76,7 @@ Vector2D Enemy::GetBoxSize()const
 	return box_size;
 }
 
-int Enemy::GetHP()
+float Enemy::GetHP()
 {
 	return this->hp;
-}
-
-void Enemy::Damage(int damage)
-{
-	hp -= damage;
 }

@@ -5,7 +5,7 @@ public:
 	UI();
 	~UI();
 
-	void Draw();
+	void Draw()const;
 	void Update();
 	int Time();
 	void Initialize();
@@ -14,6 +14,7 @@ public:
 private:
 	int time;
 	int frame;
-	int whight;
+	int barimage[13];
+	int y_i;
 	int image;
 };
