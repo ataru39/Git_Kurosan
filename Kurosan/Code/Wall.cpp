@@ -15,7 +15,7 @@ Wall::~Wall()
 void Wall::Initialize()
 {
 	location = Vector2D(0.0f, 100.0f);
-	box_size = Vector2D(200.0f, 720.0f);
+	box_size = Vector2D(180.0f, 720.0f);
 
 }
 

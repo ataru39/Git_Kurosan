@@ -3,7 +3,7 @@
 
 UI::UI()
 {
-	image = LoadGraph("Resources/Images/kabeblock.png");
+	image = LoadGraph("Resources/Images/tile_0.png");
 }
 
 UI::~UI()
@@ -28,16 +28,17 @@ void UI::Update()
 
 void UI::Initialize()
 {
-	time = 50;
+	time = 0;
 	frame = 0;
 	y_i = 0;
 }
 
 void UI::Draw()const
 {
-	DrawFormatString(200, 60, 0x00fff0, "　時間　%d", time);
 	for (int x = 0; x < 1280; x+=100) {
 		DrawGraph(x, 0, image, TRUE);
 	}
+	DrawFormatString(200, 60, 0x00fff0, "　時間　%d", time);
+
 }
 
