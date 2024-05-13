@@ -4,6 +4,7 @@
 Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	image = LoadGraph("Resources/Images/Slime.png");
+	
 }
 
 Enemy::~Enemy()
@@ -21,7 +22,8 @@ void Enemy::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = 6.0f;
+	speed = 5.5f;
+	dmg = 1;
 	hp = 30;
 }
 
@@ -84,4 +86,14 @@ int Enemy::GetHP()
 void Enemy::Damage(int damage)
 {
 	hp -= damage;
+}
+
+int Enemy::GetDamage()const
+{
+	return int(dmg);
+}
+
+bool Enemy::AttackFlg(bool attackflg)
+{
+	return attackflg;
 }

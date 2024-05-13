@@ -4,8 +4,6 @@
 
 GameMainScene::GameMainScene()
 {
-	
-	wall_hp = 1000;
 	enemymax = 100;
 
 	wall = new Wall;
@@ -22,6 +20,7 @@ GameMainScene::GameMainScene()
 		bullet[i] = nullptr;
 	}
 	e_delay = 0;
+	w_delay = 0;
 	b_cooltime = 0;
 }
 
@@ -144,13 +143,23 @@ eSceneType GameMainScene::Update()
 	}
 
 	//“G‚Æ•Ç‚Ì“–‚½‚è”»’è
+	if (w_delay <= 0) {
+
+	}
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
 			if (WhitCheck(enemy[i], wall)) {
 				wall_hp -= 1;
+				w_delay = 300;
 			}
 		}
 	}
+
+	if (w_delay > 0)
+	{
+		w_delay--;
+	}
+
 
 	return GetNowScene();
 }
