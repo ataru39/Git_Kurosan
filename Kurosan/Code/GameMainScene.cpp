@@ -151,6 +151,7 @@ eSceneType GameMainScene::Update()
 //•`‰æˆ—
 void GameMainScene::Draw()const
 {
+	//”wŒi•`‰æ
 	for (int g = 0; g < 1281; g = g + 128) {
 		for (int z = 0; z < 751; z = z + 71) {
 			DrawRotaGraph(g, z, 2.0, 0, grace, FALSE);
