@@ -5,6 +5,7 @@
 #include "GameMainScene.h"
 #include "ResultScene.h"
 #include "Common.h"
+#include "GameEnd.h"
 
 SceneManager::SceneManager()
 {
@@ -158,6 +159,8 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new GameMainScene;
 	case eSceneType::E_RESULT:
 		return new ResultScene;
+	//case eSceneType::E_END:
+		//return new GameEnd;
 	default:
 		return nullptr;
 	}
