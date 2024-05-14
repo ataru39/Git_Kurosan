@@ -12,6 +12,7 @@ private:
 	Vector2D location;   //位置情報
 	Vector2D box_size;   //当たり判定の大きさ
 	int hp;			 // HP
+	int exp;			 //経験値
 
 public:
 	Enemy();
@@ -29,4 +30,5 @@ public:
 	Vector2D GetBoxSize()const;     //当たり判定の大きさを取得
 	int GetHP();					// HPの取得
 	void Damage(int damage);		// ダメージ処理
+	int GetExp();				// 経験値の取得
 };

@@ -22,7 +22,10 @@ void Enemy::Initialize()
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚Ìİ’è
 	speed = 6.0f;
+	// HP‚Ìİ’è
 	hp = 30;
+	// EXP‚Ìİ’è
+	exp = 1;
 }
 
 void Enemy::Update()
@@ -84,4 +87,9 @@ int Enemy::GetHP()
 void Enemy::Damage(int damage)
 {
 	hp -= damage;
+}
+
+int Enemy::GetExp()
+{
+	return exp;
 }

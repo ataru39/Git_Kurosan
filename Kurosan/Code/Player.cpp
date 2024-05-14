@@ -17,6 +17,8 @@ void Player::Initialize()
 {
 	location = Vector2D(140.0f, 260.0f);
 	box_size = Vector2D(50.0f, 50.0f);
+	exp = 0;
+	exp_max = 5;
 	level = 1;
 }
 
@@ -73,13 +75,4 @@ void Player::Movement()
 	//}
 
 		location += move;
-}
-
-void Player::LevelUP()
-{
-	if (InputControl::GetButton(XINPUT_BUTTON_B)==TRUE)
-	{
-		level++;
-
-	}
 }
