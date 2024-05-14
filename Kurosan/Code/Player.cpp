@@ -1,10 +1,11 @@
 #include "Player.h"
 #include "../Utility/InputControl.h"
 #include "Dxlib.h"
+#include"stdio.h"
 
 Player::Player()
 {
-	image = LoadGraph("Resources/Images/PTamesi.png");
+	image = LoadGraph("Resources/Images/wizard.png");
 }
 
 Player::~Player()
@@ -15,6 +16,7 @@ Player::~Player()
 //‰Šú‰»ˆ—
 void Player::Initialize()
 {
+	#define PI    3.1415926535897932384626433832795f
 	location = Vector2D(140.0f, 260.0f);
 	box_size = Vector2D(50.0f, 50.0f);
 	exp = 0;
@@ -31,7 +33,7 @@ void Player::Update()
 //•`‰æˆ—
 void Player::Draw()
 {
-	DrawGraph(location.x, location.y, image, TRUE);
+	DrawRotaGraph(location.x, location.y, 2, PI / 2, image, TRUE);
 }
 
 //I—¹ˆ—
