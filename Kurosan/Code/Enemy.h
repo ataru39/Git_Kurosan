@@ -7,11 +7,14 @@ class Enemy
 {
 private:
 	int type;            //タイプ
-	int image;           //画像
+	int image,image2;           //画像
 	float speed;         //速さ
 	Vector2D location;   //位置情報
 	Vector2D box_size;   //当たり判定の大きさ
-	int hp;			 // HP
+	int hp;				 // HP
+	bool dmgflg;		 //ダメージを受けた時
+	int dmgcnt;			 //ダメージカウンター	
+	int reverse;
 
 public:
 	Enemy();
