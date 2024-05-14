@@ -13,8 +13,9 @@ private:
 	Vector2D box_size;   //当たり判定の大きさ
 	int hp;				 // HP
 	int dmg;
+	int delay;
 
-	bool attackflg;		//攻撃フラグ
+	bool atk_flg;		 //攻撃フラグ
 
 public:
 	Enemy();
@@ -28,11 +29,11 @@ public:
 	void Spawn();
 
 	int GetType()const;             //タイプ取得
-	Vector2D GetLocation();    //位置情報の取得
+	Vector2D GetLocation();		//位置情報の取得
 	Vector2D GetBoxSize()const;     //当たり判定の大きさを取得
 	int GetHP();					//HPの取得
 	void Damage(int damage);		//ダメージ処理
-	int GetDamage()const;	//攻撃処理
-
-	bool AttackFlg(bool attackflg);
+	int GetDamage()const;		//攻撃処理
+	void ChengeAtkFlg(bool flg);			//攻撃フラグ
+	bool GetAtkFlg();
 };

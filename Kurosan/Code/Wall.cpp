@@ -26,6 +26,8 @@ void Wall::Update()
 
 void Wall::Draw()const
 {
+	DrawFormatString(600, 60, 0x00fff0, "Å@ï«ÇÃëœãvílÅ@%d", hp);
+
 	DrawGraph(0, 100, image, TRUE);
 	DrawGraph(0, 300, image, TRUE);
 	DrawGraph(0, 500, image, TRUE);

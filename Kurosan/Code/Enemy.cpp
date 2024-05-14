@@ -25,15 +25,27 @@ void Enemy::Initialize()
 	speed = 5.5f;
 	dmg = 1;
 	hp = 30;
+	delay = 300;
+	atk_flg = false;
 }
 
 void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
-	location += Vector2D(-speed , 0.0f);
+	location += Vector2D(-speed, 0.0f);
 
 	if (location.x <= 200) {
 		location.x = 200;
+	}
+
+	if (atk_flg) {
+		if (delay > 0) {
+			delay--;
+			if (delay <= 0) {
+				atk_flg = false;
+				delay = 300;
+			}
+		}
 	}
 }
 
@@ -93,7 +105,12 @@ int Enemy::GetDamage()const
 	return int(dmg);
 }
 
-bool Enemy::AttackFlg(bool attackflg)
+bool Enemy::GetAtkFlg()
 {
-	return attackflg;
+	return atk_flg;
+}
+
+void Enemy::ChengeAtkFlg(bool flg)
+{
+	atk_flg = flg;
 }

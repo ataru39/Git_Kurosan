@@ -14,10 +14,8 @@ private:
 	Wall* wall;
 	Enemy** enemy;
 
-	int wall_hp;
 	int enemymax;
 	int e_delay;
-	int w_delay;
 
 	UI* ui;
 	S_Bullet** bullet;
