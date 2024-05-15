@@ -15,6 +15,9 @@ private:
 	bool dmgflg;		 //ダメージを受けた時
 	int dmgcnt;			 //ダメージカウンター	
 	int reverse;
+	int dmg;
+	bool atk_flg;
+	int delay;
 
 public:
 	Enemy();
@@ -32,4 +35,7 @@ public:
 	Vector2D GetBoxSize()const;     //当たり判定の大きさを取得
 	int GetHP();					// HPの取得
 	void Damage(int damage);		// ダメージ処理
+	int GetDamage()const;
+	bool GetAtkFlg();
+	void ChengeAtkFlg(bool flg);
 };
