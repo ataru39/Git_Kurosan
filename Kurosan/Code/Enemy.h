@@ -14,7 +14,8 @@ private:
 	int hp;				 // HP
 	bool dmgflg;		 //ダメージを受けた時
 	int dmgcnt;			 //ダメージカウンター	
-	int reverse;
+	bool angflg;
+	int angcnt;
 
 public:
 	Enemy();
