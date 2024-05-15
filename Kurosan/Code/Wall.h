@@ -12,12 +12,14 @@ public:
 	void Update();        //XVˆ—
 	void Draw()const;          //•`‰æˆ—
 	void Finalize();      //I—¹ˆ—
+	void Damage(int damage);
+	int WallHp();
 
 	Vector2D GetLocation()const;
 	Vector2D GetBoxSize()const;
 
 private:
-	float hp;
+	int hp;
 	int image;
 	Vector2D location;
 	Vector2D box_size;

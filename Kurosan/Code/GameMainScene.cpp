@@ -4,8 +4,6 @@
 
 GameMainScene::GameMainScene()
 {
-	
-	wall_hp = 1000;
 	enemymax = 100;
 
 	wall = new Wall;
@@ -145,9 +143,10 @@ eSceneType GameMainScene::Update()
 
 	//“G‚Æ•Ç‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr) {
+		if (enemy[i] != nullptr && enemy[i]->GetAtkFlg()!=true) {
 			if (WhitCheck(enemy[i], wall)) {
-				wall_hp -= 1;
+				enemy[i]->ChengeAtkFlg(true);
+				wall->Damage(enemy[i]->GetDamage());
 			}
 		}
 	}
@@ -165,10 +164,9 @@ void GameMainScene::Draw()const
 		}
 	}
 	
-
+	ui->Draw();
 	wall->Draw();
 	player->Draw();
-	ui->Draw();
 
 	//“G‚Ì•`‰æ
 	for (int i = 0; i < enemymax; i++)
@@ -188,7 +186,6 @@ void GameMainScene::Draw()const
 		}
 	}
 
-	DrawFormatString(600, 60, 0x00fff0, "@•Ç‚Ì‘Ï‹v’l@%d", wall_hp);
 }
 
 //I—¹Žžˆ—

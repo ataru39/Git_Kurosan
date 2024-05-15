@@ -3,7 +3,6 @@
 
 Wall::Wall()
 {
-	hp = 100;
 	image = LoadGraph("Resources/Images/kabe4.png");
 }
 
@@ -14,6 +13,7 @@ Wall::~Wall()
 
 void Wall::Initialize()
 {
+	hp = 1000;
 	location = Vector2D(0.0f, 100.0f);
 	box_size = Vector2D(180.0f, 720.0f);
 
@@ -26,6 +26,8 @@ void Wall::Update()
 
 void Wall::Draw()const
 {
+	DrawFormatString(600, 60, 0x00fff0, "@•Ç‚Ì‘Ï‹v’l@%d", hp);
+
 	DrawGraph(0, 100, image, TRUE);
 	DrawGraph(0, 300, image, TRUE);
 	DrawGraph(0, 500, image, TRUE);
@@ -49,6 +51,17 @@ Vector2D Wall::GetBoxSize() const
 {
 	return box_size;
 }
+
+int Wall::WallHp()
+{
+	return this->hp;
+}
+
+void Wall::Damage(int damage)
+{
+	hp -= damage;
+}
+
 
 
 
