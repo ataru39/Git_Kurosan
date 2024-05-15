@@ -1,10 +1,10 @@
 #include "Enemy.h"
 #include "DxLib.h"
 
-Enemy::Enemy() :type(0), image(0), speed(0.0f), location(0.0f), box_size(0.0f)
+Enemy::Enemy() :type(0), image(0),image2(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
-	image = LoadGraph("Resources/Images/Slime.png");
-	
+	image = LoadGraph("Resources/Images/slime.png");
+	image2 = LoadGraph("Resources/Images/slime_red.png");
 }
 
 Enemy::~Enemy()
@@ -22,44 +22,43 @@ void Enemy::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = 5.5f;
-	dmg = 1;
+	speed = 6.0f;
 	hp = 30;
-	delay = 300;
-	atk_flg = false;
+	dmgflg = false;
+	dmgcnt = 10;
 }
 
 void Enemy::Update()
 {
 	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
-	location += Vector2D(-speed, 0.0f);
+	location += Vector2D(-speed , 0.0f);
 
 	if (location.x <= 200) {
 		location.x = 200;
 	}
 
-	if (atk_flg) {
-		if (delay > 0) {
-			delay--;
-			if (delay <= 0) {
-				atk_flg = false;
-				delay = 300;
-			}
-		}
+	if (dmgflg) {
+		dmgcnt--;
+	}
+	if (dmgcnt <= 0) {
+		dmgflg=false;
 	}
 }
 
 void Enemy::Draw()const
 {
-	//“G‰æ‘œ‚ğ•`‰æ
-	//DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
-	
+	if(!dmgflg)		
+	//DrawGraph(location.x, location.y, image, TRUE);
 	DrawGraph(location.x, location.y, image, TRUE);
+	else{
+		DrawGraph(location.x, location.y, image2, TRUE);
+	}
 }
 
 void Enemy::Finalize()
 {
 	DeleteGraph(image);
+	DeleteGraph(image2);
 }
 
 void Enemy::Movement()
@@ -98,19 +97,6 @@ int Enemy::GetHP()
 void Enemy::Damage(int damage)
 {
 	hp -= damage;
-}
-
-int Enemy::GetDamage()const
-{
-	return int(dmg);
-}
-
-bool Enemy::GetAtkFlg()
-{
-	return atk_flg;
-}
-
-void Enemy::ChengeAtkFlg(bool flg)
-{
-	atk_flg = flg;
+	dmgflg = true;
+	dmgcnt = 10;
 }
