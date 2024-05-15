@@ -26,6 +26,9 @@ void Enemy::Initialize()
 	hp = 30;
 	dmgflg = false;
 	dmgcnt = 10;
+	dmg = 1;
+	atk_flg = false;
+	delay = 300;
 }
 
 void Enemy::Update()
@@ -42,6 +45,16 @@ void Enemy::Update()
 	}
 	if (dmgcnt <= 0) {
 		dmgflg=false;
+	}
+
+	if (atk_flg) {
+		if (delay > 0) {
+			delay--;
+			if (delay <= 0) {
+				atk_flg = false;
+				delay = 300;
+			}
+		}
 	}
 }
 
@@ -99,4 +112,19 @@ void Enemy::Damage(int damage)
 	hp -= damage;
 	dmgflg = true;
 	dmgcnt = 10;
+}
+
+int Enemy::GetDamage()const
+{
+	return int(dmg);
+}
+
+bool Enemy::GetAtkFlg()
+{
+	return atk_flg;
+}
+
+void Enemy::ChengeAtkFlg(bool flg)
+{
+	atk_flg = flg;
 }
