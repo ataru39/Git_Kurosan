@@ -18,6 +18,8 @@ private:
 	int dmg;
 	bool atk_flg;
 	int delay;
+	bool angflg;
+	int angcnt;
 
 public:
 	Enemy();

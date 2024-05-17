@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "DxLib.h"
+#include "math.h"
 
 Enemy::Enemy() :type(0), image(0),image2(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
@@ -15,6 +16,8 @@ Enemy::~Enemy()
 //初期化処理
 void Enemy::Initialize()
 {
+#define PI    3.1415926535897932384626433832795f
+
 	//出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(50) * 11 + 100);
 	//生成位置の設定
@@ -29,6 +32,8 @@ void Enemy::Initialize()
 	dmg = 1;
 	atk_flg = false;
 	delay = 300;
+	angflg = false;
+	angcnt = 15;
 }
 
 void Enemy::Update()
@@ -56,15 +61,45 @@ void Enemy::Update()
 			}
 		}
 	}
+
+	//敵の画像反転
+	if (angflg) {
+		angcnt--;
+	}
+	else {
+		angcnt--;
+	}
+
+	if (angcnt <= 0 && angflg) {
+		angflg = false;
+		angcnt = 15;
+	}
+
+	if (angcnt <= 0 && !angflg) {
+		angflg = true;
+		angcnt = 15;
+	}
 }
 
 void Enemy::Draw()const
 {
-	if(!dmgflg)		
-	//DrawGraph(location.x, location.y, image, TRUE);
-	DrawGraph(location.x, location.y, image, TRUE);
-	else{
-		DrawGraph(location.x, location.y, image2, TRUE);
+	if (!dmgflg) {
+		if (angflg) {
+			//DrawGraph(location.x, location.y, image, TRUE);
+			DrawRotaGraph2(location.x, location.y, 50, 50, 1.0, PI / 1, image, TRUE, TRUE);
+		}
+		else {
+			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, image, TRUE, FALSE);
+		}
+
+	}
+	else {
+		if (angflg) {
+			DrawRotaGraph2(location.x, location.y, 50, 50, 1, PI / 1, image2, TRUE, TRUE);
+		}
+		else {
+			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, image2, TRUE, FALSE);
+		}
 	}
 }
 
