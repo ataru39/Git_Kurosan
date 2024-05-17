@@ -95,5 +95,8 @@
     <ClInclude Include="Code\GameEnd.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Code\S_21Fist.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

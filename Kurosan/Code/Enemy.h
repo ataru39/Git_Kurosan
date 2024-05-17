@@ -18,7 +18,8 @@ private:
 	int dmg;
 	bool atk_flg;
 	int delay;
-	int exp;
+	bool angflg;
+	int angcnt;
 
 public:
 	Enemy();
@@ -39,5 +40,4 @@ public:
 	int GetDamage()const;
 	bool GetAtkFlg();
 	void ChengeAtkFlg(bool flg);
-	int GetExp();					// Exp�̎擾
 };
