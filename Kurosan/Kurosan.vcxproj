@@ -43,6 +43,7 @@
     <ClInclude Include="Code\SceneBase.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skill.h" />
+    <ClInclude Include="Code\S_21Fist.h" />
     <ClInclude Include="Code\S_Bullet.h" />
     <ClInclude Include="Code\Title.h" />
     <ClInclude Include="Code\UI.h" />
