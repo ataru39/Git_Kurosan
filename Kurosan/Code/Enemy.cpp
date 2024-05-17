@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include "DxLib.h"
-#include "math.h"
 
 Enemy::Enemy() :type(0), image(0),image2(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
@@ -16,9 +15,6 @@ Enemy::~Enemy()
 //初期化処理
 void Enemy::Initialize()
 {
-
-	#define PI    3.1415926535897932384626433832795f
-
 	//出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(50) * 11 + 100);
 	//生成位置の設定
@@ -30,8 +26,9 @@ void Enemy::Initialize()
 	hp = 30;
 	dmgflg = false;
 	dmgcnt = 10;
-	angflg = false;
-	angcnt = 15;
+	dmg = 1;
+	atk_flg = false;
+	delay = 300;
 }
 
 void Enemy::Update()
@@ -43,7 +40,6 @@ void Enemy::Update()
 		location.x = 200;
 	}
 
-	//敵を赤くするカウント
 	if (dmgflg) {
 		dmgcnt--;
 	}
@@ -51,44 +47,24 @@ void Enemy::Update()
 		dmgflg=false;
 	}
 
-	//敵の画像反転
-	if (angflg) {
-		angcnt--;
-	}
-	else {
-		angcnt--;
-	}
-	
-	if (angcnt <= 0 && angflg) {
-		angflg = false;
-		angcnt = 15;
-	}
-
-	if (angcnt <= 0 && !angflg) {
-		angflg = true;
-		angcnt = 15;
+	if (atk_flg) {
+		if (delay > 0) {
+			delay--;
+			if (delay <= 0) {
+				atk_flg = false;
+				delay = 300;
+			}
+		}
 	}
 }
 
 void Enemy::Draw()const
 {
-	if (!dmgflg) {
-		if (angflg) {
-			//DrawGraph(location.x, location.y, image, TRUE);
-			DrawRotaGraph2(location.x, location.y, 50, 50, 1.0, PI / 1, image, TRUE, TRUE);
-		}
-		else {
-			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, image, TRUE, FALSE);
-		}
-
-	}
+	if(!dmgflg)		
+	//DrawGraph(location.x, location.y, image, TRUE);
+	DrawGraph(location.x, location.y, image, TRUE);
 	else{
-		if (angflg) {
-			DrawRotaGraph2(location.x, location.y, 50, 50, 1, PI / 1, image2, TRUE, TRUE);
-		}
-		else {
-			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, image2, TRUE, FALSE);
-		}
+		DrawGraph(location.x, location.y, image2, TRUE);
 	}
 }
 
@@ -136,4 +112,19 @@ void Enemy::Damage(int damage)
 	hp -= damage;
 	dmgflg = true;
 	dmgcnt = 10;
+}
+
+int Enemy::GetDamage()const
+{
+	return int(dmg);
+}
+
+bool Enemy::GetAtkFlg()
+{
+	return atk_flg;
+}
+
+void Enemy::ChengeAtkFlg(bool flg)
+{
+	atk_flg = flg;
 }

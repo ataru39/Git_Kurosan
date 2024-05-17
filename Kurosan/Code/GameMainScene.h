@@ -14,7 +14,6 @@ private:
 	Wall* wall;
 	Enemy** enemy;
 
-	int wall_hp;
 	int enemymax;
 	int e_delay;
 
