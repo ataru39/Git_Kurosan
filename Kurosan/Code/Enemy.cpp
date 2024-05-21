@@ -26,7 +26,10 @@ void Enemy::Initialize()
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚ÌÝ’è
 	speed = 1.0f;
+	// HP‚ÌÝ’è
 	hp = 30;
+	// EXP‚ÌÝ’è
+	exp = 1;
 	dmgflg = false;
 	dmgcnt = 10;
 	dmg = 1;
@@ -34,6 +37,7 @@ void Enemy::Initialize()
 	delay = 300;
 	angflg = false;
 	angcnt = 15;
+
 }
 
 void Enemy::Update()
@@ -162,4 +166,9 @@ bool Enemy::GetAtkFlg()
 void Enemy::ChengeAtkFlg(bool flg)
 {
 	atk_flg = flg;
+}
+
+int Enemy::GetExp()
+{
+	return this->exp;
 }

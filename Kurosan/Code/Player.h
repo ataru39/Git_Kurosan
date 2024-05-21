@@ -7,10 +7,11 @@ class Player
 private:
 	int image;				//描画する画像データ
 	int exp;				// 経験値
-	int exp_max;			// 経験値上限
+	int exp_max;			// レベルアップ必要EXP
 	int level;				// レベル
 	Vector2D location;		//位置座標
 	Vector2D box_size;		//当たり判定の大きさ
+	float speed;			// スピード
 
 public:
 	Player();
@@ -25,4 +26,5 @@ public:
 	Vector2D GetLocation() const;  //位置座標取得
 	Vector2D GetBoxSize()const;    //当たり判定の大きさ取得
 	void Movement();
+	int GetLevel();				   // プレイヤーレベルの取得
 };

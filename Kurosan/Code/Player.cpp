@@ -17,11 +17,16 @@ Player::~Player()
 void Player::Initialize()
 {
 	#define PI    3.1415926535897932384626433832795f
-	location = Vector2D(140.0f, 260.0f);
+	location = Vector2D(100.0f, 260.0f);
 	box_size = Vector2D(50.0f, 50.0f);
+	// EXPの初期化
 	exp = 0;
+	// レベルアップ必要EXPの初期化
 	exp_max = 5;
+	// レベル初期化
 	level = 1;
+	// スピード初期化
+	speed = 3.0f;
 }
 
 //更新処理
@@ -60,21 +65,18 @@ void Player::Movement()
 
 	if (InputControl::GetLeftStick().y > 0.2 && location.y < 670)
 	{
-		move += Vector2D(0.0f, +3.0f);
+		move += Vector2D(0.0f, +speed);
 	}
 
 	if (InputControl::GetLeftStick().y < -0.2 && location.y > 100)
 	{
-		move += Vector2D(0.0f, -3.0f);
+		move += Vector2D(0.0f, -speed);
 	}
-	//if (location.y < 100)
-	//{
-	//	location.y = 100;
-	//}
-	//if (location.y > 1230)
-	//{
-	//	location.y = 1230;
-	//}
 
-		location += move;
+	location += move;
+}
+
+int Player::GetLevel()
+{
+	return this->level;
 }

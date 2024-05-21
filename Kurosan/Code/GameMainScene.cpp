@@ -20,7 +20,7 @@ GameMainScene::GameMainScene()
 		bullet[i] = nullptr;
 	}
 	e_delay = 0;
-	b_cooltime = 0;
+	b_cooltime = 60;
 }
 
 GameMainScene::~GameMainScene()
@@ -84,14 +84,13 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 90;
+				b_cooltime = 120;
 				break;
 			}
 		}
 	}
 
-
-	// クールタイム減少処理
+	// 弾クールタイム減少処理
 	if (b_cooltime > 0)
 	{
 		b_cooltime--;
