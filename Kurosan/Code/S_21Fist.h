@@ -19,6 +19,6 @@ public:
 	virtual int GetDamage() const override;
 
 private:
-	
+	int bright_fadeout;
 
 };

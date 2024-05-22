@@ -19,8 +19,17 @@ GameMainScene::GameMainScene()
 	{
 		bullet[i] = nullptr;
 	}
+	
+	fist = new S_21Fist * [10];
+	for (int i = 0; i < 10; i++)
+	{
+		fist[i] = nullptr;
+	}
+
+
 	e_delay = 0;
 	b_cooltime = 0;
+	f_cooltime=0;
 }
 
 GameMainScene::~GameMainScene()
@@ -30,6 +39,7 @@ GameMainScene::~GameMainScene()
 	delete enemy;
 	delete ui;
 	delete bullet;
+	delete fist;
 }
 
 //初期化処理
@@ -90,12 +100,33 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-
 	// クールタイム減少処理
 	if (b_cooltime > 0)
 	{
 		b_cooltime--;
 	}
+
+	// 拳生成処理
+	if (f_cooltime <= 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (fist[i] == nullptr)
+			{
+				fist[i] = new S_21Fist();
+				fist[i]->Initialize(player->GetLocation());
+				f_cooltime = 90;
+				break;
+			}
+		}
+	}
+
+	// クールタイム減少処理
+	if (f_cooltime > 0)
+	{
+		f_cooltime--;
+	}
+
 
 	// 弾の更新処理
 	for (int i = 0; i < 10; i++)
@@ -105,6 +136,16 @@ eSceneType GameMainScene::Update()
 			bullet[i]->Update();
 		}
 	}
+
+	// 拳の更新処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fist[i] != nullptr)
+		{
+			fist[i]->Update();
+		}
+	}
+
 
 	// 弾の消去処理（仮）
 	for (int i = 0; i < 10; i++)
@@ -118,6 +159,19 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	//拳の削除処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fist[i] != nullptr)
+		{
+			f_location = fist[i]->GetLocation();
+			if (f_location.x >= 250) {
+				fist[i] = nullptr;
+			}
+		}
+	}
+
 
 	//敵と弾の当たり判定
 	for (int i = 0; i < enemymax; i++) {
@@ -183,6 +237,15 @@ void GameMainScene::Draw()const
 		if (bullet[i] != nullptr)
 		{
 			bullet[i]->Draw();
+		}
+	}
+
+	//拳の描画
+	for (int i = 0; i < 10; i++)
+	{
+		if (fist[i] != nullptr)
+		{
+			fist[i]->Draw();
 		}
 	}
 
