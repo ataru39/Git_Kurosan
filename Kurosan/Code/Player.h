@@ -27,4 +27,6 @@ public:
 	Vector2D GetBoxSize()const;    //当たり判定の大きさ取得
 	void Movement();
 	int GetLevel();				   // プレイヤーレベルの取得
+	int GetExp();				   // 経験値の取得
+	int RcvExp(int exp);		   // 経験値の受取
 };

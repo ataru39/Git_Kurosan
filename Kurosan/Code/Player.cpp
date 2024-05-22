@@ -80,3 +80,13 @@ int Player::GetLevel()
 {
 	return this->level;
 }
+
+int Player::GetExp()
+{
+	return this->exp;
+}
+
+int Player::RcvExp(int exp)
+{
+	return this->exp += exp;
+}

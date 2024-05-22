@@ -124,12 +124,13 @@ eSceneType GameMainScene::Update()
 			for (int j = 0; j < 10; j++)
 			{
 				if (bullet[j] != nullptr) {
-					if (BhitCheck(enemy[i], bullet[j])) {
-						enemy[i]->Damage(bullet[j]->GetDamage());
+					if (BhitCheck(enemy[i], bullet[j])) {			// “G‚Æ’e‚ªÕ“Ë‚µ‚½
+						enemy[i]->Damage(bullet[j]->GetDamage());	// “G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
 						bullet[j] = nullptr;
 						delete bullet[j];
-						if(enemy[i]->GetHP() <= 0)
+						if(enemy[i]->GetHP() <= 0)					// “G‚ª€‚ñ‚¾‚Æ‚«
 						{
+							player->RcvExp(enemy[i]->GetExp());		// ƒvƒŒƒCƒ„[‚É“G‚ÌEXP‚ğ“n‚·
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
