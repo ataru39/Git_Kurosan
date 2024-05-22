@@ -2,6 +2,8 @@
 #include "../Utility/InputControl.h"
 #include "Dxlib.h"
 #include"stdio.h"
+#define PI    3.1415926535897932384626433832795f
+
 
 Player::Player()
 {
@@ -16,9 +18,8 @@ Player::~Player()
 //èâä˙âªèàóù
 void Player::Initialize()
 {
-	#define PI    3.1415926535897932384626433832795f
-	location = Vector2D(140.0f, 260.0f);
-	box_size = Vector2D(50.0f, 50.0f);
+	location = Vector2D(140.0f, 410.0f);
+	box_size = Vector2D(50.0f, 100.0f);
 	exp = 0;
 	exp_max = 5;
 	level = 1;
@@ -63,18 +64,10 @@ void Player::Movement()
 		move += Vector2D(0.0f, +3.0f);
 	}
 
-	if (InputControl::GetLeftStick().y < -0.2 && location.y > 100)
+	if (InputControl::GetLeftStick().y < -0.2 && location.y > 150)
 	{
 		move += Vector2D(0.0f, -3.0f);
 	}
-	//if (location.y < 100)
-	//{
-	//	location.y = 100;
-	//}
-	//if (location.y > 1230)
-	//{
-	//	location.y = 1230;
-	//}
 
 		location += move;
 }

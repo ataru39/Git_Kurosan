@@ -115,7 +115,7 @@ eSceneType GameMainScene::Update()
 			{
 				fist[i] = new S_21Fist();
 				fist[i]->Initialize(player->GetLocation());
-				f_cooltime = 90;
+				f_cooltime = 300;
 				break;
 			}
 		}
@@ -161,16 +161,16 @@ eSceneType GameMainScene::Update()
 	}
 
 	//Œ‚Ìíœˆ—
-	for (int i = 0; i < 10; i++)
-	{
-		if (fist[i] != nullptr)
-		{
-			f_location = fist[i]->GetLocation();
-			if (f_location.x >= 250) {
-				fist[i] = nullptr;
-			}
-		}
-	}
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	if (fist[i] != nullptr)
+	//	{
+	//		f_location = fist[i]->GetLocation();
+	//		if (f_location.x >= 230) {
+	//			fist[i] = nullptr;
+	//		}
+	//	}
+	//}
 
 
 	//“G‚Æ’e‚Ì“–‚½‚è”»’è

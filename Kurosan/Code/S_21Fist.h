@@ -20,5 +20,6 @@ public:
 
 private:
 	int bright_fadeout;
+	float kaiten;
 
 };
