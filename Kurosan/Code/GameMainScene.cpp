@@ -4,7 +4,7 @@
 
 GameMainScene::GameMainScene()
 {
-	enemymax = 100;
+	enemymax = 5;
 
 	wall = new Wall;
 	player = new Player;

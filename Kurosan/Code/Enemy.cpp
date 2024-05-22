@@ -25,7 +25,7 @@ void Enemy::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(50.0f, 50.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = 6.0f;
+	speed = 1.0f;
 	hp = 30;
 	dmgflg = false;
 	dmgcnt = 10;
