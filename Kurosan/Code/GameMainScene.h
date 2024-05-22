@@ -42,6 +42,7 @@ public:
 	virtual void Finalize() override;
 	bool WhitCheck(Enemy* e ,Wall* w);
 	bool BhitCheck(Enemy* e ,S_Bullet* b);
+	bool FhitCheck(Enemy* e ,S_21Fist* f);
 	virtual eSceneType GetNowScene() const override;
 };
 

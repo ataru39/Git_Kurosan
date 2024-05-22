@@ -17,6 +17,8 @@ public:
 	virtual Vector2D GetLocation() const override;
 	virtual Vector2D GetBoxSize() const override;
 	virtual int GetDamage() const override;
+	
+	int FadeOut();
 
 private:
 	int bright_fadeout;

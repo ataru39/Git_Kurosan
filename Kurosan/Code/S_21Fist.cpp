@@ -2,7 +2,7 @@
 
 S_21Fist::S_21Fist()
 {
-	image = LoadGraph("Resources/Images/kobushide.png");
+	image = LoadGraph("Resources/Images/kobushide2.png");
 }
 
 S_21Fist::~S_21Fist()
@@ -13,7 +13,7 @@ S_21Fist::~S_21Fist()
 void S_21Fist::Initialize(Vector2D p_location)
 {
 	location = p_location;
-	box_size = Vector2D(50.0f, 50.0f);
+	box_size = Vector2D(100.0f, 100.0f);
 	speed = 3.6f;
 	damage = 10.0f;
 	bright_fadeout = 255;
@@ -28,13 +28,13 @@ void S_21Fist::Update()
 
 	location.x += speed;
 
-	if (location.x >= 200) {
+	if (bright_fadeout>0) {
 		location.y++;
 	}
 
 	if (location.x >= 250) {
 		location.x = 250;
-		bright_fadeout--;
+		bright_fadeout-=10;
 	}
 	
 	
@@ -44,7 +44,7 @@ void S_21Fist::Draw() const
 {
 	if (location.x>=250) {
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-		DrawRotaGraph2(640,360,location.x, location.y, 1.0f, kaiten, image, TRUE);
+		DrawRotaGraph(location.x, location.y, 1.0f, kaiten, image, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 	else {
@@ -69,4 +69,9 @@ Vector2D S_21Fist::GetBoxSize() const
 int S_21Fist::GetDamage() const
 {
 	return int(damage);
+}
+
+int S_21Fist::FadeOut()
+{
+	return bright_fadeout;
 }
