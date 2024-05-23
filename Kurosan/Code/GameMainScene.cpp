@@ -94,7 +94,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 90;
+				b_cooltime = 3000;
 				break;
 			}
 		}
@@ -172,13 +172,12 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-
 	//“G‚Æ’e‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
 			for (int j = 0; j < 10; j++)
 			{
-				if (bullet[j] != nullptr) {
+				if (bullet[j] != nullptr || fist[j] != nullptr) {
 					if (BhitCheck(enemy[i], bullet[j])) {
 						enemy[i]->Damage(bullet[j]->GetDamage());
 						bullet[j] = nullptr;
@@ -190,6 +189,15 @@ eSceneType GameMainScene::Update()
 						}
 						break;
 					}
+				}
+				if (FhitCheck(enemy[i], fist[j])) {
+					enemy[i]->Damage(fist[j]->GetDamage());
+					if (enemy[i]->GetHP() <= 0)
+					{
+						enemy[i] = nullptr;
+						delete enemy[i];
+					}
+					break;
 				}
 			}
 		}
@@ -268,6 +276,13 @@ bool GameMainScene::BhitCheck(Enemy* e, S_Bullet* b)
 {
 	Vector2D diff_location = e->GetLocation() - b->GetLocation();
 	Vector2D box_ex = e->GetBoxSize() + b->GetBoxSize();
+	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f) 
+{
+	Vector2D diff_location = e->GetLocation() - f->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + f->GetBoxSize();
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
