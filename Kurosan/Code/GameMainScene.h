@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "UI.h"
 #include "S_Bullet.h"
+#include "S_21Fist.h"
 
 class GameMainScene : public SceneBase
 {
@@ -19,10 +20,16 @@ private:
 
 	UI* ui;
 	S_Bullet** bullet;
-	
+	S_21Fist** fist;
+
 	int b_cooltime;
 	Vector2D b_location;
 	
+	int f_cooltime;
+	int f_drey;
+	Vector2D f_location;
+
+
 	int grace;
 
 public:
@@ -35,6 +42,7 @@ public:
 	virtual void Finalize() override;
 	bool WhitCheck(Enemy* e ,Wall* w);
 	bool BhitCheck(Enemy* e ,S_Bullet* b);
+	bool FhitCheck(Enemy* e ,S_21Fist* f);
 	virtual eSceneType GetNowScene() const override;
 };
 

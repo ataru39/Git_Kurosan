@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../Utility/Vector2D.h"
+#define PI    3.1415926535897932384626433832795f
 
 class Skill
 {
