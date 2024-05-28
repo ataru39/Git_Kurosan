@@ -2,6 +2,8 @@
 #include "../Utility/InputControl.h"
 #include "Dxlib.h"
 #include"stdio.h"
+#define PI    3.1415926535897932384626433832795f
+
 
 Player::Player()
 {
@@ -16,20 +18,11 @@ Player::~Player()
 //初期化処理
 void Player::Initialize()
 {
-	#define PI    3.1415926535897932384626433832795f
-
-	location = Vector2D(100.0f, 260.0f);
-
-	box_size = Vector2D(50.0f, 50.0f);
-
-	// EXPの初期化
+	location = Vector2D(140.0f, 410.0f);
+	box_size = Vector2D(50.0f, 100.0f);
 	exp = 0;
-	// レベルアップ必要EXPの初期化
-	need_exp = 5;
-	// レベル初期化
+	exp_max = 5;
 	level = 1;
-	// スピード初期化
-	speed = 3.0f;
 }
 
 //更新処理
@@ -68,39 +61,13 @@ void Player::Movement()
 
 	if (InputControl::GetLeftStick().y > 0.2 && location.y < 670)
 	{
-		move += Vector2D(0.0f, +speed);
+		move += Vector2D(0.0f, +3.0f);
 	}
 
-	if (InputControl::GetLeftStick().y < -0.2 && location.y > 100)
+	if (InputControl::GetLeftStick().y < -0.2 && location.y > 150)
 	{
-		move += Vector2D(0.0f, -speed);
+		move += Vector2D(0.0f, -3.0f);
 	}
 
-	location += move;
-}
-
-int Player::GetLevel()
-{
-	return this->level;
-}
-
-int Player::GetExp()
-{
-	return this->exp;
-}
-
-int Player::RcvExp(int exp)
-{
-	return this->exp += exp;
-}
-
-bool Player::Levelup()
-{
-	if (exp >= need_exp) 
-	{
-		level += 1;
-		need_exp *= 2;
-		exp = 0;
-		return true;
-	}
+		location += move;
 }

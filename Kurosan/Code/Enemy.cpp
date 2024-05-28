@@ -16,7 +16,7 @@ Enemy::~Enemy()
 //初期化処理
 void Enemy::Initialize()
 {
-#define PI    3.1415926535897932384626433832795f
+	#define PI    3.1415926535897932384626433832795f
 
 	//出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(50) * 11 + 100);
