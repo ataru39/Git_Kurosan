@@ -7,7 +7,7 @@ class Player
 private:
 	int image;				//描画する画像データ
 	int exp;				// 経験値
-	int exp_max;			// レベルアップ必要EXP
+	int need_exp;			// レベルアップ必要EXP
 	int level;				// レベル
 	Vector2D location;		//位置座標
 	Vector2D box_size;		//当たり判定の大きさ
@@ -29,4 +29,5 @@ public:
 	int GetLevel();				   // プレイヤーレベルの取得
 	int GetExp();				   // 経験値の取得
 	int RcvExp(int exp);		   // 経験値の受取
+	bool Levelup();				   // レベルアップ
 };

@@ -84,7 +84,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 120;
+				b_cooltime = 60;
 				break;
 			}
 		}
@@ -131,6 +131,7 @@ eSceneType GameMainScene::Update()
 						if(enemy[i]->GetHP() <= 0)					// “G‚ªŽ€‚ñ‚¾‚Æ‚«
 						{
 							player->RcvExp(enemy[i]->GetExp());		// ƒvƒŒƒCƒ„[‚É“G‚ÌEXP‚ð“n‚·
+							player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -185,6 +186,10 @@ void GameMainScene::Draw()const
 			bullet[i]->Draw();
 		}
 	}
+
+	// ƒŒƒxƒ‹‚ÆEXP
+	DrawFormatString(0, 0, 0x000000, "%d", player->GetExp());
+	DrawFormatString(0, 15, 0x000000, "%d", player->GetLevel());
 
 }
 

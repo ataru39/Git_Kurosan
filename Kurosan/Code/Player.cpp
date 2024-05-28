@@ -17,12 +17,15 @@ Player::~Player()
 void Player::Initialize()
 {
 	#define PI    3.1415926535897932384626433832795f
+
 	location = Vector2D(100.0f, 260.0f);
+
 	box_size = Vector2D(50.0f, 50.0f);
+
 	// EXPの初期化
 	exp = 0;
 	// レベルアップ必要EXPの初期化
-	exp_max = 5;
+	need_exp = 5;
 	// レベル初期化
 	level = 1;
 	// スピード初期化
@@ -89,4 +92,15 @@ int Player::GetExp()
 int Player::RcvExp(int exp)
 {
 	return this->exp += exp;
+}
+
+bool Player::Levelup()
+{
+	if (exp >= need_exp) 
+	{
+		level += 1;
+		need_exp *= 2;
+		exp = 0;
+		return true;
+	}
 }
