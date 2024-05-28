@@ -94,7 +94,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 3000;
+				b_cooltime = 60;
 				break;
 			}
 		}
