@@ -174,10 +174,10 @@ eSceneType GameMainScene::Update()
 
 	//“G‚Æ’e‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr) {
+		if (enemy[i] != nullptr || fist[i] != nullptr) {
 			for (int j = 0; j < 10; j++)
 			{
-				if (bullet[j] != nullptr || fist[j] != nullptr) {
+				if (bullet[j] != nullptr) {
 					if (BhitCheck(enemy[i], bullet[j])) {
 						enemy[i]->Damage(bullet[j]->GetDamage());
 						bullet[j] = nullptr;
@@ -190,14 +190,16 @@ eSceneType GameMainScene::Update()
 						break;
 					}
 				}
-				if (FhitCheck(enemy[i], fist[j])) {
-					enemy[i]->Damage(fist[j]->GetDamage());
-					if (enemy[i]->GetHP() <= 0)
-					{
-						enemy[i] = nullptr;
-						delete enemy[i];
+				if (fist[j] != nullptr) {
+					if (FhitCheck(enemy[i], fist[j])) {
+						enemy[i]->Damage(fist[j]->GetDamage());
+						if (enemy[i]->GetHP() <= 0)
+						{
+							enemy[i] = nullptr;
+							delete enemy[i];
+						}
+						break;
 					}
-					break;
 				}
 			}
 		}
