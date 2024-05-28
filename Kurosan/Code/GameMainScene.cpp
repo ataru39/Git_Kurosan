@@ -50,14 +50,14 @@ eSceneType GameMainScene::Update()
 	ui->Update();
 
 	//敵生成
-	if (e_delay <= 0) {
-		for (int i = 0; i < enemymax; i++) {
-			if (enemy[i] == nullptr)
+	if (e_delay <= 0) {								//間隔
+		for (int i = 0; i < enemymax; i++) {		//作る上限
+			if (enemy[i] == nullptr)				//配列enemyの中が空の時
 			{
-				enemy[i] = new Enemy();
-				enemy[i]->Initialize();
-				e_delay = 60;
-				break;
+				enemy[i] = new Enemy();				//空の配列にエネミーを作る
+				enemy[i]->Initialize();				//初期化処理
+				e_delay = 60;						//敵を作る間隔
+				break;								//forループから抜ける
 			}
 		}
 	}

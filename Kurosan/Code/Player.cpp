@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "../Utility/InputControl.h"
 #include "Dxlib.h"
-#include"stdio.h"
 
 Player::Player()
 {
