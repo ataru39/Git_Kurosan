@@ -25,7 +25,6 @@ void S_21Fist::Initialize(Vector2D p_location)
 
 void S_21Fist::Update()
 {
-	location.x += speed;
 
 	R_Fist();
 
@@ -82,6 +81,8 @@ int S_21Fist::GetDamage() const
 //‰EèUŒ‚
 void S_21Fist::R_Fist()
 {
+	location.x += speed;
+
 	if (kaiten2 > 1.0)
 	{
 		kaiten2 -= 0.01f;
@@ -100,6 +101,8 @@ void S_21Fist::R_Fist()
 //¶èUŒ‚
 void S_21Fist::L_Fist()
 {
+	location.x += speed;
+
 	if (kaiten < 2.6) {
 		kaiten += 0.01f;
 	}
