@@ -174,7 +174,7 @@ eSceneType GameMainScene::Update()
 
 	//“G‚Æ’e‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr || fist[i] != nullptr) {
+		if (enemy[i] != nullptr) {
 			for (int j = 0; j < 10; j++)
 			{
 				if (bullet[j] != nullptr) {
