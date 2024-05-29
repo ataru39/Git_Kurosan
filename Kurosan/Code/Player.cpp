@@ -20,9 +20,15 @@ void Player::Initialize()
 {
 	location = Vector2D(140.0f, 410.0f);
 	box_size = Vector2D(50.0f, 100.0f);
+
+	// EXPの初期化
 	exp = 0;
+	// レベルアップ必要EXPの初期化
 	need_exp = 5;
+	// レベル初期化
 	level = 1;
+	// スピード初期化
+	speed = 3.0f;
 }
 
 //更新処理
@@ -61,13 +67,39 @@ void Player::Movement()
 
 	if (InputControl::GetLeftStick().y > 0.2 && location.y < 670)
 	{
-		move += Vector2D(0.0f, +3.0f);
+		move += Vector2D(0.0f, +speed);
 	}
 
 	if (InputControl::GetLeftStick().y < -0.2 && location.y > 150)
 	{
-		move += Vector2D(0.0f, -3.0f);
+		move += Vector2D(0.0f, -speed);
 	}
 
 		location += move;
+}
+
+int Player::GetLevel()
+{
+	return this->level;
+}
+
+int Player::GetExp()
+{
+	return this->exp;
+}
+
+int Player::RcvExp(int exp)
+{
+	return this->exp += exp;
+}
+
+bool Player::Levelup()
+{
+	if (exp >= need_exp)
+	{
+		level += 1;
+		need_exp *= 2;
+		exp = 0;
+		return true;
+	}
 }
