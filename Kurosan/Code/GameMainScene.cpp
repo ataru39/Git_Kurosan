@@ -1,6 +1,7 @@
 #include "GameMainScene.h"
 #include "DxLib.h"
 #include <math.h>
+#include "../Utility/InputControl.h"
 
 GameMainScene::GameMainScene()
 {
@@ -152,8 +153,7 @@ eSceneType GameMainScene::Update()
 	{
 		if (bullet[i] != nullptr)
 		{
-			b_location = bullet[i]->GetLocation();
-			if (b_location.x > 1300)
+			if (bullet[i]->GetLocation().x > 1300)
 			{
 				bullet[i] = nullptr;
 			}
@@ -185,7 +185,7 @@ eSceneType GameMainScene::Update()
 						if(enemy[i]->GetHP() <= 0)				// “G‚ªŽ€‚ñ‚¾‚Æ‚«
 						{
 							player->RcvExp(enemy[i]->GetExp());	// ƒvƒŒƒCƒ„[‚ÉEXP‚ð“n‚·
-							player->Levelup();
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -216,6 +216,8 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	
 
 	return GetNowScene();
 }
@@ -297,4 +299,12 @@ bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
+}
+
+void GameMainScene::Levelup()
+{
+	if (is_levelup)
+	{
+
+	}
 }

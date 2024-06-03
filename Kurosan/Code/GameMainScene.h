@@ -31,6 +31,8 @@ private:
 
 
 	int grace;
+	// レベルアップしたか
+	bool is_levelup;
 
 public:
 	GameMainScene();
@@ -44,5 +46,6 @@ public:
 	bool BhitCheck(Enemy* e ,S_Bullet* b);
 	bool FhitCheck(Enemy* e ,S_21Fist* f);
 	virtual eSceneType GetNowScene() const override;
+	void Levelup();
 };
 
