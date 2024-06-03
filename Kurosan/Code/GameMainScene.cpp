@@ -94,13 +94,13 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 3000;
+				b_cooltime = 60;
 				break;
 			}
 		}
 	}
 
-	// クールタイム減少処理
+	// 弾クールタイム減少処理
 	if (b_cooltime > 0)
 	{
 		b_cooltime--;
@@ -174,7 +174,7 @@ eSceneType GameMainScene::Update()
 
 	//敵と弾の当たり判定
 	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr || fist[i] != nullptr) {
+		if (enemy[i] != nullptr) {
 			for (int j = 0; j < 10; j++)
 			{
 				if (bullet[j] != nullptr) {
@@ -182,8 +182,10 @@ eSceneType GameMainScene::Update()
 						enemy[i]->Damage(bullet[j]->GetDamage());
 						bullet[j] = nullptr;
 						delete bullet[j];
-						if(enemy[i]->GetHP() <= 0)
+						if(enemy[i]->GetHP() <= 0)				// 敵が死んだとき
 						{
+							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+							player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -259,6 +261,9 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	// レベルとEXP
+	DrawFormatString(0, 0, 0x000000, "%d", player->GetExp());
+	DrawFormatString(0, 15, 0x000000, "%d", player->GetLevel());
 }
 
 //終了時処理

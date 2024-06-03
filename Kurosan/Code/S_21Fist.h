@@ -18,10 +18,15 @@ public:
 	virtual Vector2D GetBoxSize() const override;
 	virtual int GetDamage() const override;
 	
+	void R_Fist();
+	void L_Fist();
 	int FadeOut();
 
 private:
 	int bright_fadeout;
 	float kaiten;
+	float kaiten2;
+	int image2;
+	bool fist;
 
 };

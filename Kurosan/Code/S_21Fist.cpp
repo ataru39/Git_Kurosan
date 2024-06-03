@@ -3,6 +3,7 @@
 S_21Fist::S_21Fist()
 {
 	image = LoadGraph("Resources/Images/kobushide2.png");
+	image2 = LoadGraph("Resources/Images/kobushide3.png");
 }
 
 S_21Fist::~S_21Fist()
@@ -18,37 +19,43 @@ void S_21Fist::Initialize(Vector2D p_location)
 	damage = 30.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
+	kaiten2 = PI / 2;
+	fist = false;
 }
 
 void S_21Fist::Update()
 {
-	if (kaiten < 2.6) {
-		kaiten += 0.01f;
-	}
 
-	location.x += speed;
+	R_Fist();
 
-	if (bright_fadeout>0) {
-		location.y++;
-	}
-
-	if (location.x >= 250) {
-		location.x = 250;
-		bright_fadeout-=10;
-	}
-	
+	L_Fist();
 	
 }
 
 void S_21Fist::Draw() const
 {
-	if (location.x>=250) {
+	//DrawFormatString(100, 100, 0xffffff,"%f", kaiten, TRUE);
+	
+	//âEéËï`âÊ
+	if (location.x >= 250)
+	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-		DrawRotaGraph(location.x, location.y, 1.0f, kaiten, image, TRUE);
+		DrawRotaGraph(location.x, location.y+50 , 1.0f, kaiten2, image2, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 	else {
-		DrawRotaGraph(location.x, location.y,1.0f, kaiten, image, TRUE);
+		DrawRotaGraph(location.x, location.y+50, 1.0f, kaiten2, image2, TRUE);
+	}
+
+	//ç∂éËï`âÊ
+	if (location.x >= 250)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
+		DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+	else {
+		DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
 	}
 }
 
@@ -69,6 +76,43 @@ Vector2D S_21Fist::GetBoxSize() const
 int S_21Fist::GetDamage() const
 {
 	return int(damage);
+}
+
+//âEéËçUåÇ
+void S_21Fist::R_Fist()
+{
+	location.x += speed;
+
+	if (kaiten2 > 1.0)
+	{
+		kaiten2 -= 0.01f;
+	}
+	if (bright_fadeout > 0)
+	{
+		location.y--;
+	}
+	if (location.x >= 250)
+	{
+		location.x = 250;
+		bright_fadeout -= 10;
+	}
+}
+
+//ç∂éËçUåÇ
+void S_21Fist::L_Fist()
+{
+	location.x += speed;
+
+	if (kaiten < 2.6) {
+		kaiten += 0.01f;
+	}
+	if (bright_fadeout > 0) {
+		location.y++;
+	}
+	if (location.x >= 250) {
+		location.x = 250;
+		bright_fadeout > 0;
+	}
 }
 
 int S_21Fist::FadeOut()
