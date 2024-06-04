@@ -7,6 +7,7 @@
 #include "UI.h"
 #include "S_Bullet.h"
 #include "S_21Fist.h"
+#include <math.h>
 
 class GameMainScene : public SceneBase
 {
@@ -33,6 +34,8 @@ private:
 	int grace;
 	// レベルアップしたか
 	bool is_levelup;
+	// メニュー表示中
+	bool is_draw_menu;
 
 public:
 	GameMainScene();

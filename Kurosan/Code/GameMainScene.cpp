@@ -5,12 +5,16 @@
 
 GameMainScene::GameMainScene()
 {
+	// 敵の生成上限数
 	enemymax = 5;
 
+	// オブジェクトの生成
 	wall = new Wall;
 	player = new Player;
 	ui = new UI;
 	enemy = new Enemy * [enemymax];
+
+	// オブジェクト配列の初期化
 	for (int i = 0; i < enemymax; i++) {
 		enemy[i] = nullptr;
 	}
@@ -27,9 +31,11 @@ GameMainScene::GameMainScene()
 		fist[i] = nullptr;
 	}
 
-
+	// 敵のスポーンディレイ初期化
 	e_delay = 0;
+	// 弾のクールタイム初期化
 	b_cooltime = 0;
+	// 拳のクールタイム初期化
 	f_cooltime=0;
 }
 
@@ -43,7 +49,7 @@ GameMainScene::~GameMainScene()
 	delete fist;
 }
 
-//初期化処理
+// 初期化処理
 void GameMainScene::Initialize()
 {
 	grace = LoadGraph("Resources/Images/background_grace.png");
@@ -53,14 +59,14 @@ void GameMainScene::Initialize()
 	ui->Initialize();
 }
 
-//更新処理
+// 更新処理
 eSceneType GameMainScene::Update()
 {
 	player->Update();
 	wall->Update();
 	ui->Update();
 
-	//敵生成
+	// 敵の生成
 	if (e_delay <= 0) {								//間隔
 		for (int i = 0; i < enemymax; i++) {		//作る上限
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
@@ -73,20 +79,20 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	// クールタイム減少処理
+	// 敵の生成ディレイ減少
 	if (e_delay > 0)
 	{
 		e_delay--;
 	}
 
-	//敵の更新
+	// 敵の更新
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
 			enemy[i]->Update();
 		}
 	}
 
-	// 弾生成処理
+	// 弾生成
 	if (b_cooltime <= 0)
 	{
 		for (int i = 0; i < 10; i++)
@@ -95,7 +101,8 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 60;
+				// 弾のクールタイム
+				b_cooltime = 60;	
 				break;
 			}
 		}
@@ -128,7 +135,6 @@ eSceneType GameMainScene::Update()
 		f_cooltime--;
 	}
 
-
 	// 弾の更新処理
 	for (int i = 0; i < 10; i++)
 	{
@@ -146,7 +152,6 @@ eSceneType GameMainScene::Update()
 			fist[i]->Update();
 		}
 	}
-
 
 	// 弾の消去処理（仮）
 	for (int i = 0; i < 10; i++)
@@ -178,11 +183,11 @@ eSceneType GameMainScene::Update()
 			for (int j = 0; j < 10; j++)
 			{
 				if (bullet[j] != nullptr) {
-					if (BhitCheck(enemy[i], bullet[j])) {
-						enemy[i]->Damage(bullet[j]->GetDamage());
+					if (BhitCheck(enemy[i], bullet[j])) { // 敵と弾が接触した時
+						enemy[i]->Damage(bullet[j]->GetDamage());// 敵にダメージを与える
 						bullet[j] = nullptr;
 						delete bullet[j];
-						if(enemy[i]->GetHP() <= 0)				// 敵が死んだとき
+						if(enemy[i]->GetHP() <= 0) // 敵が死んだとき
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
 							is_levelup = player->Levelup();
@@ -216,8 +221,6 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
-	
 
 	return GetNowScene();
 }
