@@ -27,13 +27,16 @@ void S_21Fist::Update()
 {
 	location.x += speed;
 
-	if (fist != true) {
-		R_Fist();
-	}
+	//if (fist != true) {
+	//	R_Fist();
+	//}
 
-	if (fist != false) {
-		L_Fist();
-	}
+	//if (fist != false) {
+	//	L_Fist();
+	//}
+
+	R_Fist();
+	L_Fist();
 	
 }
 
