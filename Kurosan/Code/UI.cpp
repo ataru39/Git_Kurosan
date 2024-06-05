@@ -4,6 +4,7 @@
 UI::UI()
 {
 	image = LoadGraph("Resources/Images/tile_0.png");
+	font = CreateFontToHandle(NULL, 40, 2);
 }
 
 UI::~UI()
@@ -38,7 +39,8 @@ void UI::Draw()const
 	for (int x = 0; x < 1280; x+=100) {
 		DrawGraph(x, 0, image, TRUE);
 	}
-	DrawFormatString(200, 60, 0x00fff0, "　時間　%d", time);
+	//DrawFormatString(200, 60, 0x00fff0, "　時間　%d", time);
+	DrawFormatStringToHandle(30, 40, 0xffffff, font, "　時間：%d", time);
 
 }
 

@@ -17,4 +17,5 @@ private:
 	int barimage[13];
 	int y_i;
 	int image;
+	int font;
 };
