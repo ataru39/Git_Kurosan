@@ -26,6 +26,11 @@ GameMainScene::GameMainScene()
 		fist[i] = nullptr;
 	}
 
+	frame = new S_Frame * [10];
+	for (int i = 0; i < 10; i++)
+	{
+		frame[i] = nullptr;
+	}
 
 	e_delay = 0;
 	b_cooltime = 0;
@@ -40,6 +45,7 @@ GameMainScene::~GameMainScene()
 	delete ui;
 	delete bullet;
 	delete fist;
+	delete frame;
 }
 
 //初期化処理
@@ -127,6 +133,27 @@ eSceneType GameMainScene::Update()
 		f_cooltime--;
 	}
 
+	// 炎生成処理
+	if (h_cooltime <= 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (frame[i] == nullptr)
+			{
+				frame[i] = new S_Frame();
+				frame[i]->Initialize(player->GetLocation());
+				h_cooltime = 60;
+				break;
+			}
+		}
+	}
+
+	// クールタイム減少処理
+	if (h_cooltime > 0)
+	{
+		h_cooltime--;
+	}
+
 
 	// 弾の更新処理
 	for (int i = 0; i < 10; i++)
@@ -143,6 +170,15 @@ eSceneType GameMainScene::Update()
 		if (fist[i] != nullptr)
 		{
 			fist[i]->Update();
+		}
+	}
+
+	// 炎の更新処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			frame[i]->Update();
 		}
 	}
 
@@ -172,6 +208,19 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+	// 炎の消去処理（仮）
+	for (int i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			h_location = frame[i]->GetLocation();
+			if (h_location.x > 1300)
+			{
+				frame[i] = nullptr;
+			}
+		}
+	}
+
 	//敵と弾の当たり判定
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
@@ -197,6 +246,22 @@ eSceneType GameMainScene::Update()
 						enemy[i]->Damage(fist[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
 						{
+							enemy[i] = nullptr;
+							delete enemy[i];
+						}
+						break;
+					}
+				}
+
+				if (frame[j] != nullptr) {
+					if (HhitCheck(enemy[i], frame[j])) {
+						enemy[i]->Damage(frame[j]->GetDamage());
+						frame[j] = nullptr;
+						delete frame[j];
+						if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
+						{
+							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+							player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -261,6 +326,15 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	//炎の描画
+	for (int i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			frame[i]->Draw();
+		}
+	}
+
 	// レベルとEXP
 	DrawFormatString(0, 0, 0x000000, "%d", player->GetExp());
 	DrawFormatString(0, 15, 0x000000, "%d", player->GetLevel());
@@ -290,6 +364,13 @@ bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 {
 	Vector2D diff_location = e->GetLocation() - f->GetLocation();
 	Vector2D box_ex = e->GetBoxSize() + f->GetBoxSize();
+	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+bool GameMainScene::HhitCheck(Enemy* e, S_Frame* h)
+{
+	Vector2D diff_location = e->GetLocation() - h->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + h->GetBoxSize();
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 

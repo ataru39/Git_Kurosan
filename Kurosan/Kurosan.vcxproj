@@ -28,6 +28,7 @@
     <ClCompile Include="Code\SceneManager.cpp" />
     <ClCompile Include="Code\S_21Fist.cpp" />
     <ClCompile Include="Code\S_Bullet.cpp" />
+    <ClCompile Include="Code\S_Frame.cpp" />
     <ClCompile Include="Code\Title.cpp" />
     <ClCompile Include="Code\UI.cpp" />
     <ClCompile Include="Code\Wall.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Code\Skill.h" />
     <ClInclude Include="Code\S_21Fist.h" />
     <ClInclude Include="Code\S_Bullet.h" />
+    <ClInclude Include="Code\S_Frame.h" />
     <ClInclude Include="Code\Title.h" />
     <ClInclude Include="Code\UI.h" />
     <ClInclude Include="Code\Wall.h" />
