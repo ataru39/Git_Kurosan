@@ -4,6 +4,8 @@
 Wall::Wall()
 {
 	image = LoadGraph("Resources/Images/kabe4.png");
+	font = CreateFontToHandle(NULL, 40, 2);
+
 }
 
 Wall::~Wall()
@@ -26,7 +28,8 @@ void Wall::Update()
 
 void Wall::Draw()const
 {
-	DrawFormatString(600, 60, 0x00fff0, "　壁の耐久値　%d", hp);
+	//DrawFormatString(600, 60, 0x00fff0, "　壁の耐久値　%d", hp);
+	DrawFormatStringToHandle(300, 40, 0x00fff0, font, "　壁の耐久値：%d", hp);
 
 	DrawGraph(0, 100, image, TRUE);
 	DrawGraph(0, 300, image, TRUE);

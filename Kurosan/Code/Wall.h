@@ -21,6 +21,7 @@ public:
 private:
 	int hp;
 	int image;
+	int font;
 	Vector2D location;
 	Vector2D box_size;
 
