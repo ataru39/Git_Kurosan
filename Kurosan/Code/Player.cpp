@@ -28,7 +28,7 @@ void Player::Initialize()
 	// レベル初期化
 	level = 1;
 	// スピード初期化
-	speed = 3.0f;
+	speed = 3.0f + level;
 }
 
 //更新処理
@@ -97,9 +97,15 @@ bool Player::Levelup()
 {
 	if (exp >= need_exp)
 	{
+		// レベルアップ
 		level += 1;
+		// レベルアップ必要EXP上昇
 		need_exp *= 2;
+		// EXPをゼロにする
 		exp = 0;
+
+		
+
 		return true;
 	}
 }
