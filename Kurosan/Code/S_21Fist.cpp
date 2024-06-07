@@ -36,6 +36,7 @@ void S_21Fist::Update()
 	//}
 
 	R_Fist();
+
 	L_Fist();
 	
 }
