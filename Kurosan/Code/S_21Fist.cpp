@@ -16,7 +16,7 @@ void S_21Fist::Initialize(Vector2D p_location)
 	location = p_location;
 	box_size = Vector2D(100.0f, 100.0f);
 	speed = 3.6f;
-	damage = 30.0f;
+	damage = 10.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 	kaiten2 = PI / 2;
@@ -25,6 +25,15 @@ void S_21Fist::Initialize(Vector2D p_location)
 
 void S_21Fist::Update()
 {
+	location.x += speed;
+
+	//if (fist != true) {
+	//	R_Fist();
+	//}
+
+	//if (fist != false) {
+	//	L_Fist();
+	//}
 
 	R_Fist();
 
@@ -34,7 +43,6 @@ void S_21Fist::Update()
 
 void S_21Fist::Draw() const
 {
-	//DrawFormatString(100, 100, 0xffffff,"%f", kaiten, TRUE);
 	
 	//‰Eè•`‰æ
 	if (location.x >= 250)
@@ -48,15 +56,15 @@ void S_21Fist::Draw() const
 	}
 
 	//¶è•`‰æ
-	if (location.x >= 250)
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-		DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	}
-	else {
-		DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
-	}
+	//if (location.x >= 250)
+	//{
+	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
+	//	DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
+	//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	//}
+	//else {
+	//	DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
+	//}
 }
 
 void S_21Fist::Finalize()
@@ -81,8 +89,6 @@ int S_21Fist::GetDamage() const
 //‰EèUŒ‚
 void S_21Fist::R_Fist()
 {
-	location.x += speed;
-
 	if (kaiten2 > 1.0)
 	{
 		kaiten2 -= 0.01f;
@@ -101,8 +107,6 @@ void S_21Fist::R_Fist()
 //¶èUŒ‚
 void S_21Fist::L_Fist()
 {
-	location.x += speed;
-
 	if (kaiten < 2.6) {
 		kaiten += 0.01f;
 	}
@@ -111,7 +115,7 @@ void S_21Fist::L_Fist()
 	}
 	if (location.x >= 250) {
 		location.x = 250;
-		bright_fadeout > 0;
+		bright_fadeout -= 10;
 	}
 }
 
