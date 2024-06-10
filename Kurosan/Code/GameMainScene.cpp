@@ -14,24 +14,36 @@ GameMainScene::GameMainScene()
 	ui = new UI;
 	enemy = new Enemy * [enemymax];
 
-	// オブジェクト配列の初期化
+	// 敵オブジェクト配列の初期化
 	for (int i = 0; i < enemymax; i++) {
 		enemy[i] = nullptr;
 	}
 
+	// 弾オブジェクト
 	bullet = new S_Bullet * [10];
+	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = nullptr;
 	}
 
+	// 拳オブジェクト
 	fist = new S_21Fist * [10];
+	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		fist[i] = nullptr;
 	}
 
+	// 炎オブジェクト
+	frame = new S_Frame * [10];
+	// 初期化
+	for (int i = 0; i < 10; i++)
+	{
+		frame[i] = nullptr;
+	}
 
+	// 敵のスポーンディレイ初期化
 	e_delay = 0;
 	// 弾のクールタイム初期化
 	b_cooltime = 0;
@@ -63,11 +75,6 @@ void GameMainScene::Initialize()
 // 更新処理
 eSceneType GameMainScene::Update()
 {
-	// レベルアップ中に以下の処理をしない
-	if (is_levelup)
-	{
-		Levelup();
-	}
 	player->Update();
 	wall->Update();
 	ui->Update();
@@ -106,7 +113,7 @@ eSceneType GameMainScene::Update()
 			if (bullet[i] == nullptr)
 			{
 				bullet[i] = new S_Bullet();
-				bullet[i]->Initialize(player->GetLocation());
+				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
 				b_cooltime = 60;
 				break;
 			}
@@ -155,7 +162,11 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-
+	// クールタイム減少処理
+	if (h_cooltime > 0)
+	{
+		h_cooltime--;
+	}
 
 	// 弾の更新処理
 	for (int i = 0; i < 10; i++)
@@ -175,7 +186,14 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-
+	// 炎の更新処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			frame[i]->Update();
+		}
+	}
 
 	// 弾の消去処理（仮）
 	for (int i = 0; i < 10; i++)
@@ -201,6 +219,18 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+	// 炎の消去処理（仮）
+	for (int i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			if (frame[i]->GetLocation().x > 1300)
+			{
+				frame[i] = nullptr;
+			}
+		}
+	}
+
 	//敵と弾の当たり判定
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
@@ -221,6 +251,7 @@ eSceneType GameMainScene::Update()
 						break;
 					}
 				}
+
 				if (fist[j] != nullptr) {
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
@@ -357,4 +388,9 @@ bool GameMainScene::HhitCheck(Enemy* e, S_Frame* h)
 eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
+}
+
+void GameMainScene::Levelup()
+{
+
 }
