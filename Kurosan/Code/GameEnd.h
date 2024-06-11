@@ -6,7 +6,7 @@ class End:public SceneBase
 {
 public:
 	End();
-	virtual~End();
+	//virtual~End();
 
 	int end_c, end_g;
 
