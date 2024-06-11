@@ -25,8 +25,10 @@ void S_21Fist::Initialize(Vector2D p_location)
 void S_21Fist::Update()
 {
 	location.x += speed;
-
-	R_Fist();
+	if (level > 3) 
+	{
+		R_Fist();
+	}
 
 	L_Fist();
 	
