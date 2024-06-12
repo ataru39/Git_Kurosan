@@ -117,13 +117,11 @@ int S_21Fist::FadeOut()
 	return bright_fadeout;
 }
 
-int S_21Fist::GetLevel()
-{
-	return level;
-}
 
 int S_21Fist::Level(int le)
 {
 	level = le;
+
+	return level;
 }
 
