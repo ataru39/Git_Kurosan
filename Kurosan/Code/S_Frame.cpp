@@ -39,6 +39,7 @@ void S_Frame::Update()
 	movement_vector.y *= (1 / distance);
 
 	location += movement_vector * speed;
+	location.x++;
 
 	//“–‚½‚Á‚½‚ç”š”­
 	if (delay > 0) {

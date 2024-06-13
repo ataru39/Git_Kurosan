@@ -20,15 +20,15 @@ public:
 	
 	void R_Fist();
 	void L_Fist();
-	int FadeOut();
+	float FadeOut();
 	void Level(int level);
 	int GetLevel();
 
 private:
-	int bright_fadeout;
+	float bright_fadeout;
 	float kaiten;
 	float kaiten2;
 	int image2;
-	int level;
+	float level;
 	bool atk;
 };

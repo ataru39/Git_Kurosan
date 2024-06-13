@@ -129,7 +129,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 拳生成処理
-	if (player->GetLevel() > 3) {
+	//if (player->GetLevel() > 2) {
 		if (f_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -143,7 +143,7 @@ eSceneType GameMainScene::Update()
 				}
 			}
 		}
-	}
+	//}
 
 	// クールタイム減少処理
 	if (f_cooltime > 0)
@@ -259,7 +259,6 @@ eSceneType GameMainScene::Update()
 				}
 
 				if (fist[j] != nullptr) {
-					//fist[i]->Level(player->GetLevel());
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
@@ -270,6 +269,7 @@ eSceneType GameMainScene::Update()
 						break;
 					}
 				}
+
 
 				if (frame[j] != nullptr) {
 					if (HhitCheck(enemy[i], frame[j])) {

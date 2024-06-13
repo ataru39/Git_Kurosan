@@ -16,7 +16,7 @@ void S_21Fist::Initialize(Vector2D p_location)
 	location = p_location;
 	box_size = Vector2D(100.0f, 100.0f);
 	speed = 3.6f;
-	damage = 4.0f;
+	damage = 15.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 	kaiten2 = PI / 2;
@@ -45,8 +45,8 @@ void S_21Fist::Draw() const
 	}
 
 	//¶Žè•`‰æ
-	if (atk) 
-	{
+//	if (atk) 
+	//{
 		if (location.x >= 250)
 		{
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
@@ -58,7 +58,7 @@ void S_21Fist::Draw() const
 		}
 
 
-	}
+//	}
 }
 
 void S_21Fist::Finalize()
@@ -113,7 +113,7 @@ void S_21Fist::L_Fist()
 	}
 }
 
-int S_21Fist::FadeOut()
+float S_21Fist::FadeOut()
 {
 	return bright_fadeout;
 }
