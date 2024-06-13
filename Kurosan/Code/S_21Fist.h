@@ -29,6 +29,6 @@ private:
 	float kaiten;
 	float kaiten2;
 	int image2;
-	int fistlevel;
-	bool level;
+	int level;
+	bool atk;
 };

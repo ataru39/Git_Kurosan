@@ -135,6 +135,7 @@ eSceneType GameMainScene::Update()
 			{
 				fist[i] = new S_21Fist();
 				fist[i]->Initialize(player->GetLocation());
+				fist[i]->Level(player->GetLevel());
 				f_cooltime = 300;
 				break;
 			}
@@ -292,6 +293,9 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	
+
 	return GetNowScene();
 }
 

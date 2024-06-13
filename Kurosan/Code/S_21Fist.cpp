@@ -20,23 +20,24 @@ void S_21Fist::Initialize(Vector2D p_location)
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 	kaiten2 = PI / 2;
+	atk = false;
 }
 
 void S_21Fist::Update()
 {
 	location.x += speed;
-	if (level > 3) 
+	if (level > 0)
 	{
 		R_Fist();
 	}
-
-	L_Fist();
+	else if(level>4){
+		L_Fist();
+	}
 	
 }
 
 void S_21Fist::Draw() const
 {
-	
 	//‰EŽè•`‰æ
 	if (location.x >= 250)
 	{
