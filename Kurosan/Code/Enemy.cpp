@@ -6,6 +6,7 @@ Enemy::Enemy() :type(0), image(0),image2(0), speed(0.0f), location(0.0f), box_si
 {
 	image = LoadGraph("Resources/Images/slime.png");
 	image2 = LoadGraph("Resources/Images/slime_red.png");
+
 }
 
 Enemy::~Enemy()
