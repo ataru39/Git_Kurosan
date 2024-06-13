@@ -1,40 +1,54 @@
 #include "GameMainScene.h"
 #include "DxLib.h"
 #include <math.h>
+#include "../Utility/InputControl.h"
 
 GameMainScene::GameMainScene()
 {
+	// 敵の生成上限数
 	enemymax = 5;
 
+	// オブジェクトの生成
 	wall = new Wall;
 	player = new Player;
 	ui = new UI;
 	enemy = new Enemy * [enemymax];
+
+	// 敵オブジェクト配列の初期化
 	for (int i = 0; i < enemymax; i++) {
 		enemy[i] = nullptr;
 	}
 
+	// 弾オブジェクト
 	bullet = new S_Bullet * [10];
+	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = nullptr;
 	}
-	
+
+	// 拳オブジェクト
 	fist = new S_21Fist * [10];
+	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		fist[i] = nullptr;
 	}
 
+	// 炎オブジェクト
 	frame = new S_Frame * [10];
+	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		frame[i] = nullptr;
 	}
 
+	// 敵のスポーンディレイ初期化
 	e_delay = 0;
+	// 弾のクールタイム初期化
 	b_cooltime = 0;
-	f_cooltime=0;
+	// 拳のクールタイム初期化
+	f_cooltime = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -48,7 +62,7 @@ GameMainScene::~GameMainScene()
 	delete frame;
 }
 
-//初期化処理
+// 初期化処理
 void GameMainScene::Initialize()
 {
 	grace = LoadGraph("Resources/Images/background_grace.png");
@@ -58,14 +72,14 @@ void GameMainScene::Initialize()
 	ui->Initialize();
 }
 
-//更新処理
+// 更新処理
 eSceneType GameMainScene::Update()
 {
 	player->Update();
 	wall->Update();
 	ui->Update();
 
-	//敵生成
+	// 敵の生成
 	if (e_delay <= 0) {								//間隔
 		for (int i = 0; i < enemymax; i++) {		//作る上限
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
@@ -78,20 +92,20 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	// クールタイム減少処理
+	// 敵の生成ディレイ減少
 	if (e_delay > 0)
 	{
 		e_delay--;
 	}
 
-	//敵の更新
+	// 敵の更新
 	for (int i = 0; i < enemymax; i++) {
 		if (enemy[i] != nullptr) {
 			enemy[i]->Update();
 		}
 	}
 
-	// 弾生成処理
+	// 弾生成
 	if (b_cooltime <= 0)
 	{
 		for (int i = 0; i < 10; i++)
@@ -99,8 +113,8 @@ eSceneType GameMainScene::Update()
 			if (bullet[i] == nullptr)
 			{
 				bullet[i] = new S_Bullet();
-				bullet[i]->Initialize(player->GetLocation());
-				b_cooltime = 6000;
+				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
+				b_cooltime = 60;
 				break;
 			}
 		}
@@ -154,7 +168,6 @@ eSceneType GameMainScene::Update()
 		h_cooltime--;
 	}
 
-
 	// 弾の更新処理
 	for (int i = 0; i < 10; i++)
 	{
@@ -182,14 +195,12 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-
 	// 弾の消去処理（仮）
 	for (int i = 0; i < 10; i++)
 	{
 		if (bullet[i] != nullptr)
 		{
-			b_location = bullet[i]->GetLocation();
-			if (b_location.x > 1300)
+			if (bullet[i]->GetLocation().x > 1300)
 			{
 				bullet[i] = nullptr;
 			}
@@ -202,7 +213,7 @@ eSceneType GameMainScene::Update()
 		if (fist[i] != nullptr)
 		{
 			f_location = fist[i]->GetLocation();
-			if (fist[i]->FadeOut()<=0) {
+			if (fist[i]->FadeOut() <= 0) {
 				fist[i] = nullptr;
 			}
 		}
@@ -213,8 +224,7 @@ eSceneType GameMainScene::Update()
 	{
 		if (frame[i] != nullptr)
 		{
-			h_location = frame[i]->GetLocation();
-			if (h_location.x > 1300)
+			if (frame[i]->GetLocation().x > 1300)
 			{
 				frame[i] = nullptr;
 			}
@@ -227,20 +237,21 @@ eSceneType GameMainScene::Update()
 			for (int j = 0; j < 10; j++)
 			{
 				if (bullet[j] != nullptr) {
-					if (BhitCheck(enemy[i], bullet[j])) {
-						enemy[i]->Damage(bullet[j]->GetDamage());
+					if (BhitCheck(enemy[i], bullet[j])) { // 敵と弾が接触した時
+						enemy[i]->Damage(bullet[j]->GetDamage());// 敵にダメージを与える
 						bullet[j] = nullptr;
 						delete bullet[j];
-						if(enemy[i]->GetHP() <= 0)				// 敵が死んだとき
+						if (enemy[i]->GetHP() <= 0) // 敵が死んだとき
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							player->Levelup();
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
 						break;
 					}
 				}
+
 				if (fist[j] != nullptr) {
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
@@ -274,14 +285,13 @@ eSceneType GameMainScene::Update()
 
 	//敵と壁の当たり判定
 	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr && enemy[i]->GetAtkFlg()!=true) {
+		if (enemy[i] != nullptr && enemy[i]->GetAtkFlg() != true) {
 			if (WhitCheck(enemy[i], wall)) {
 				enemy[i]->ChengeAtkFlg(true);
 				wall->Damage(enemy[i]->GetDamage());
 			}
 		}
 	}
-
 	return GetNowScene();
 }
 
@@ -294,7 +304,7 @@ void GameMainScene::Draw()const
 			DrawRotaGraph(g, z, 2.0, 0, grace, FALSE);
 		}
 	}
-	
+
 	ui->Draw();
 	wall->Draw();
 	player->Draw();
@@ -346,7 +356,7 @@ void GameMainScene::Finalize()
 
 }
 
-bool GameMainScene::WhitCheck(Enemy* e,Wall* w)
+bool GameMainScene::WhitCheck(Enemy* e, Wall* w)
 {
 	Vector2D diff_location = e->GetLocation() - w->GetLocation();
 	Vector2D box_ex = e->GetBoxSize() + w->GetBoxSize();
@@ -360,7 +370,7 @@ bool GameMainScene::BhitCheck(Enemy* e, S_Bullet* b)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
-bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f) 
+bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 {
 	Vector2D diff_location = e->GetLocation() - f->GetLocation();
 	Vector2D box_ex = e->GetBoxSize() + f->GetBoxSize();
@@ -378,4 +388,9 @@ bool GameMainScene::HhitCheck(Enemy* e, S_Frame* h)
 eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
+}
+
+void GameMainScene::Levelup()
+{
+
 }

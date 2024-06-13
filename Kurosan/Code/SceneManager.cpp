@@ -160,7 +160,7 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 	case eSceneType::E_RESULT:
 		return new ResultScene;
 	//case eSceneType::E_END:
-		//return new GameEnd;
+	//	return new GameEnd;
 	default:
 		return nullptr;
 	}

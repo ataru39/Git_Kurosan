@@ -20,20 +20,17 @@ void S_21Fist::Initialize(Vector2D p_location)
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 	kaiten2 = PI / 2;
-	fist = false;
 }
 
 void S_21Fist::Update()
 {
 	location.x += speed;
-
-	if (fist != true) {
+	if (level > 3) 
+	{
 		R_Fist();
 	}
 
-	if (fist != false) {
-		L_Fist();
-	}
+	L_Fist();
 	
 }
 
@@ -119,3 +116,14 @@ int S_21Fist::FadeOut()
 {
 	return bright_fadeout;
 }
+
+int S_21Fist::GetLevel()
+{
+	return level;
+}
+
+int S_21Fist::Level(int le)
+{
+	level = le;
+}
+

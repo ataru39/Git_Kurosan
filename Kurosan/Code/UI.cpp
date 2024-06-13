@@ -43,4 +43,3 @@ void UI::Draw()const
 	DrawFormatStringToHandle(30, 40, 0xffffff, font, "Å@éûä‘ÅF%d", time);
 
 }
-

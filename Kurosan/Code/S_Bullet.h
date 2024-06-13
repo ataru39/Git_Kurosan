@@ -8,7 +8,7 @@ public:
 	S_Bullet();
 	virtual ~S_Bullet();
 
-	virtual void Initialize(Vector2D p_location);
+	virtual void Initialize(Vector2D p_location, int p_Lv);
 	virtual void Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;

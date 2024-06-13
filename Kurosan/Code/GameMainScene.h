@@ -8,6 +8,7 @@
 #include "S_Bullet.h"
 #include "S_21Fist.h"
 #include "S_Frame.h"
+#include <math.h>
 
 class GameMainScene : public SceneBase
 {
@@ -37,8 +38,11 @@ private:
 	int h_cooltime;
 	Vector2D h_location;
 
-
 	int grace;
+	// レベルアップしたか
+	bool is_levelup;
+	// メニュー表示中
+	bool is_draw_menu;
 
 public:
 	GameMainScene();
@@ -53,5 +57,5 @@ public:
 	bool FhitCheck(Enemy* e ,S_21Fist* f);
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
+	void Levelup();
 };
-
