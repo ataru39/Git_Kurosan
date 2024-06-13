@@ -21,7 +21,7 @@ public:
 	void R_Fist();
 	void L_Fist();
 	int FadeOut();
-	int Level(int level);
+	void Level(int level);
 	int GetLevel();
 
 private:

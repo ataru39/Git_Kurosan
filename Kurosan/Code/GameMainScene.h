@@ -44,6 +44,8 @@ private:
 	// ƒƒjƒ…[•\¦’†
 	bool is_draw_menu;
 
+	int sound;
+
 public:
 	GameMainScene();
 	virtual ~GameMainScene();
@@ -57,5 +59,4 @@ public:
 	bool FhitCheck(Enemy* e ,S_21Fist* f);
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
-	void Levelup();
 };

@@ -49,6 +49,7 @@ GameMainScene::GameMainScene()
 	b_cooltime = 0;
 	// 拳のクールタイム初期化
 	f_cooltime = 0;
+
 }
 
 GameMainScene::~GameMainScene()
@@ -66,6 +67,7 @@ GameMainScene::~GameMainScene()
 void GameMainScene::Initialize()
 {
 	grace = LoadGraph("Resources/Images/background_grace.png");
+	sound = LoadSoundMem("Resources/Images/Sounds/ファンタジー4-進展-.mp3");
 
 	player->Initialize();
 	wall->Initialize();
@@ -127,17 +129,18 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 拳生成処理
-	if (f_cooltime <= 0)
-	{
-		for (int i = 0; i < 10; i++)
+	if (player->GetLevel() > 3) {
+		if (f_cooltime <= 0)
 		{
-			if (fist[i] == nullptr)
+			for (int i = 0; i < 10; i++)
 			{
-				fist[i] = new S_21Fist();
-				fist[i]->Initialize(player->GetLocation());
-				fist[i]->Level(player->GetLevel());
-				f_cooltime = 300;
-				break;
+				if (fist[i] == nullptr)
+				{
+					fist[i] = new S_21Fist();
+					fist[i]->Initialize(player->GetLocation());
+					f_cooltime = 300;
+					break;
+				}
 			}
 		}
 	}
@@ -149,16 +152,18 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 炎生成処理
-	if (h_cooltime <= 0)
-	{
-		for (int i = 0; i < 10; i++)
+	if (player->GetLevel() > 4) {
+		if (h_cooltime <= 0)
 		{
-			if (frame[i] == nullptr)
+			for (int i = 0; i < 10; i++)
 			{
-				frame[i] = new S_Frame();
-				frame[i]->Initialize(player->GetLocation());
-				h_cooltime = 60;
-				break;
+				if (frame[i] == nullptr)
+				{
+					frame[i] = new S_Frame();
+					frame[i]->Initialize(player->GetLocation());
+					h_cooltime = 60;
+					break;
+				}
 			}
 		}
 	}
@@ -254,6 +259,7 @@ eSceneType GameMainScene::Update()
 				}
 
 				if (fist[j] != nullptr) {
+					//fist[i]->Level(player->GetLevel());
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
@@ -293,8 +299,6 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
-	
 
 	return GetNowScene();
 }
@@ -394,7 +398,3 @@ eSceneType GameMainScene::GetNowScene()const
 	return eSceneType::E_MAIN;
 }
 
-void GameMainScene::Levelup()
-{
-
-}
