@@ -16,34 +16,23 @@ void S_21Fist::Initialize(Vector2D p_location)
 	location = p_location;
 	box_size = Vector2D(100.0f, 100.0f);
 	speed = 3.6f;
-	damage = 10.0f;
+	damage = 4.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 	kaiten2 = PI / 2;
-	fist = false;
+	atk = false;
 }
 
 void S_21Fist::Update()
 {
 	location.x += speed;
-
-	//if (fist != true) {
-	//	R_Fist();
-	//}
-
-	//if (fist != false) {
-	//	L_Fist();
-	//}
-
 	R_Fist();
-
 	L_Fist();
 	
 }
 
 void S_21Fist::Draw() const
 {
-	
 	//‰EŽè•`‰æ
 	if (location.x >= 250)
 	{
@@ -56,15 +45,20 @@ void S_21Fist::Draw() const
 	}
 
 	//¶Žè•`‰æ
-	//if (location.x >= 250)
-	//{
-	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-	//	DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
-	//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	//}
-	//else {
-	//	DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
-	//}
+	if (atk) 
+	{
+		if (location.x >= 250)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
+			DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else {
+			DrawRotaGraph(location.x, location.y - 50, 1.0f, kaiten, image, TRUE);
+		}
+
+
+	}
 }
 
 void S_21Fist::Finalize()
@@ -123,3 +117,15 @@ int S_21Fist::FadeOut()
 {
 	return bright_fadeout;
 }
+
+
+//void S_21Fist::Level(int le)
+//{
+//	level = le;
+//}
+
+int S_21Fist::GetLevel()
+{
+	return level;
+}
+

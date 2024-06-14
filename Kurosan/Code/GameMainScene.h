@@ -44,6 +44,8 @@ private:
 	// ƒƒjƒ…[•\¦’†
 	bool is_draw_menu;
 
+	int sound;
+
 public:
 	GameMainScene();
 	virtual ~GameMainScene();
