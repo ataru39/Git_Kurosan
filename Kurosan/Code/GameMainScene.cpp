@@ -6,7 +6,7 @@
 GameMainScene::GameMainScene()
 {
 	// 敵の生成上限数
-	enemymax = 5;
+	enemymax = 200;
 
 	// オブジェクトの生成
 	wall = new Wall;
@@ -114,7 +114,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60;
+				b_cooltime = 60 - player->GetLevel();
 				break;
 			}
 		}
@@ -257,6 +257,8 @@ eSceneType GameMainScene::Update()
 						enemy[i]->Damage(fist[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
 						{
+							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -272,7 +274,7 @@ eSceneType GameMainScene::Update()
 						if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							player->Levelup();
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -292,6 +294,13 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	// レベルアップした時
+	if (is_levelup)
+	{
+		Levelup();
+	}
+
 	return GetNowScene();
 }
 
@@ -392,5 +401,6 @@ eSceneType GameMainScene::GetNowScene()const
 
 void GameMainScene::Levelup()
 {
-
+	e_delay -= player->GetLevel() * 2;
+	is_levelup = false;
 }

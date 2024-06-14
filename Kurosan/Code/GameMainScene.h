@@ -58,4 +58,5 @@ public:
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
 	void Levelup();
+
 };
