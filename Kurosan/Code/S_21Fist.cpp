@@ -26,47 +26,45 @@ void S_21Fist::Initialize(Vector2D p_location)
 
 void S_21Fist::Update()
 {
-	//location.x += speed;
+	location.x += speed;
 
-	////ç∂éËçUåÇ
-	//if (kaiten < 2.6) {
-	//	kaiten += 0.01f;
-	//}
-	//if (bright_fadeout > 0) {
-	//	location.y++;
-	//}
-	//if (location.x >= 250) {
-	//	location.x = 250;
-	//	bright_fadeout -= 10;
-	//}
-
-	ougi_y += speed;
-	if (ougi_x >= 390) {
-	ougi_x = 390;
-	bright_fadeout -= 10;
+	//ç∂éËçUåÇ
+	if (kaiten < 2.6) {
+		kaiten += 0.01f;
 	}
+	if (bright_fadeout > 0) {
+		location.y++;
+	}
+	if (location.x >= 250) {
+		location.x = 250;
+		bright_fadeout -= 10;
+	}
+
+	//ougi_y += speed;
+	//if (ougi_x >= 390) {
+	//ougi_x = 390;
+	//bright_fadeout -= 10;
+	//}
 
 }
 
 void S_21Fist::Draw() const
 {
 	//ç∂éËï`âÊ
-	//if (location.x >= 250)
-	//{
+	if (location.x >= 250)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
+		DrawRotaGraph(location.x, location.y-50 , 1.0f, kaiten, image, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+	else {
+		DrawRotaGraph(location.x, location.y-50, 1.0f, kaiten, image, TRUE);
+	}
+	//if (ougi_y < 390) {
 	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-	//	DrawRotaGraph(location.x, location.y-50 , 1.0f, kaiten, image, TRUE);
+	//	DrawRotaGraph(ougi_x, ougi_y , 1.0f, 0.0f, image2, TRUE);
 	//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	//}
-	//else {
-	//	DrawRotaGraph(location.x, location.y-50, 1.0f, kaiten, image, TRUE);
-	//}
-	if (ougi_y < 390) {
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-		DrawRotaGraph(ougi_x, ougi_y , 1.0f, 0.0f, image2, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	//	DrawGraph(100, ougi_y, image2, TRUE);
-	}
 
 }
 
