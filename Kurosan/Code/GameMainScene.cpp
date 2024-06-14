@@ -27,13 +27,22 @@ GameMainScene::GameMainScene()
 		bullet[i] = nullptr;
 	}
 
-	// 拳オブジェクト
+	// 左手オブジェクト
 	fist = new S_21Fist * [10];
 	// 初期化
 	for (int i = 0; i < 10; i++)
 	{
 		fist[i] = nullptr;
 	}
+
+	//右手オブジェクト
+	fist2 = new S_21FistL * [10];
+	//初期化
+	for (int i = 0; i < 10; i++)
+	{
+		fist2[i] = nullptr;
+	}
+
 
 	// 炎オブジェクト
 	frame = new S_Frame * [10];
@@ -47,8 +56,10 @@ GameMainScene::GameMainScene()
 	e_delay = 0;
 	// 弾のクールタイム初期化
 	b_cooltime = 0;
-	// 拳のクールタイム初期化
+	// 左手のクールタイム初期化
 	f_cooltime = 0;
+	// 右手のクールタイム初期化
+	l_cooltime = 0;
 
 }
 
@@ -60,6 +71,7 @@ GameMainScene::~GameMainScene()
 	delete ui;
 	delete bullet;
 	delete fist;
+	delete fist2;
 	delete frame;
 }
 
@@ -116,7 +128,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60;
+				b_cooltime = 600;
 				break;
 			}
 		}
@@ -128,8 +140,8 @@ eSceneType GameMainScene::Update()
 		b_cooltime--;
 	}
 
-	// 拳生成処理
-	//if (player->GetLevel() > 2) {
+	// 左手成処理
+	if (player->GetLevel() > 1) {
 		if (f_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -143,12 +155,35 @@ eSceneType GameMainScene::Update()
 				}
 			}
 		}
-	//}
+	}
 
-	// クールタイム減少処理
+	// 左手クールタイム減少処理
 	if (f_cooltime > 0)
 	{
 		f_cooltime--;
+	}
+
+	//右手生成処理
+	if (player->GetLevel() > 2) {
+		if (l_cooltime <= 0)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (fist2[i] == nullptr)
+				{
+					fist2[i] = new S_21FistL();
+					fist2[i]->Initialize(player->GetLocation());
+					l_cooltime = 300;
+					break;
+				}
+			}
+		}
+	}
+
+	// 右手クールタイム減少処理
+	if (l_cooltime > 0)
+	{
+		l_cooltime--;
 	}
 
 	// 炎生成処理
@@ -183,12 +218,21 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	// 拳の更新処理
+	// 左手の更新処理
 	for (int i = 0; i < 10; i++)
 	{
 		if (fist[i] != nullptr)
 		{
 			fist[i]->Update();
+		}
+	}
+
+	// 右手の更新処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fist2[i] != nullptr)
+		{
+			fist2[i]->Update();
 		}
 	}
 
@@ -213,7 +257,7 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	//拳の削除処理
+	//左手の削除処理
 	for (int i = 0; i < 10; i++)
 	{
 		if (fist[i] != nullptr)
@@ -221,6 +265,18 @@ eSceneType GameMainScene::Update()
 			f_location = fist[i]->GetLocation();
 			if (fist[i]->FadeOut() <= 0) {
 				fist[i] = nullptr;
+			}
+		}
+	}
+
+	//右手の削除処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fist2[i] != nullptr)
+		{
+			f_location = fist2[i]->GetLocation();
+			if (fist2[i]->FadeOut() <= 0) {
+				fist2[i] = nullptr;
 			}
 		}
 	}
@@ -257,7 +313,7 @@ eSceneType GameMainScene::Update()
 						break;
 					}
 				}
-
+				//左手
 				if (fist[j] != nullptr) {
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
@@ -269,7 +325,18 @@ eSceneType GameMainScene::Update()
 						break;
 					}
 				}
-
+				//右手
+				if (fist2[j] != nullptr) {
+					if (FlhitCheck(enemy[i], fist2[j])) {
+						enemy[i]->Damage(fist2[j]->GetDamage());
+						if (enemy[i]->GetHP() <= 0)
+						{
+							enemy[i] = nullptr;
+							delete enemy[i];
+						}
+						break;
+					}
+				}
 
 				if (frame[j] != nullptr) {
 					if (HhitCheck(enemy[i], frame[j])) {
@@ -326,31 +393,9 @@ void GameMainScene::Draw()const
 		}
 	}
 
-	//弾の描画
 	for (int i = 0; i < 10; i++)
 	{
-		if (bullet[i] != nullptr)
-		{
-			bullet[i]->Draw();
-		}
-	}
-
-	//拳の描画
-	for (int i = 0; i < 10; i++)
-	{
-		if (fist[i] != nullptr)
-		{
-			fist[i]->Draw();
-		}
-	}
-
-	//炎の描画
-	for (int i = 0; i < 10; i++)
-	{
-		if (frame[i] != nullptr)
-		{
-			frame[i]->Draw();
-		}
+		SkillDraw(i);
 	}
 
 	// レベルとEXP
@@ -364,6 +409,46 @@ void GameMainScene::Finalize()
 
 }
 
+void GameMainScene::SkillDraw(int i)const
+{
+	//弾の描画
+	for (i = 0; i < 10; i++)
+	{
+		if (bullet[i] != nullptr)
+		{
+			bullet[i]->Draw();
+		}
+	}
+
+	//左手の描画
+	for ( i = 0; i < 10; i++)
+	{
+		if (fist[i] != nullptr)
+		{
+			fist[i]->Draw();
+		}
+	}
+
+	//右手の描画
+	for (i = 0; i < 10; i++)
+	{
+		if (fist2[i] != nullptr)
+		{
+			fist2[i]->Draw();
+		}
+	}
+
+	//炎の描画
+	for ( i = 0; i < 10; i++)
+	{
+		if (frame[i] != nullptr)
+		{
+			frame[i]->Draw();
+		}
+	}
+
+}
+
 bool GameMainScene::WhitCheck(Enemy* e, Wall* w)
 {
 	Vector2D diff_location = e->GetLocation() - w->GetLocation();
@@ -371,6 +456,7 @@ bool GameMainScene::WhitCheck(Enemy* e, Wall* w)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
+//弾
 bool GameMainScene::BhitCheck(Enemy* e, S_Bullet* b)
 {
 	Vector2D diff_location = e->GetLocation() - b->GetLocation();
@@ -378,6 +464,7 @@ bool GameMainScene::BhitCheck(Enemy* e, S_Bullet* b)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
+//左手
 bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 {
 	Vector2D diff_location = e->GetLocation() - f->GetLocation();
@@ -385,6 +472,15 @@ bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
+//右手
+bool GameMainScene::FlhitCheck(Enemy* e, S_21FistL* l)
+{
+	Vector2D diff_location = e->GetLocation() - l->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + l->GetBoxSize();
+	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+//炎
 bool GameMainScene::HhitCheck(Enemy* e, S_Frame* h)
 {
 	Vector2D diff_location = e->GetLocation() - h->GetLocation();
@@ -397,4 +493,5 @@ eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
 }
+
 
