@@ -2,11 +2,15 @@
 #include "DxLib.h"
 #include "math.h"
 
-Enemy::Enemy() :type(0), image(0),image2(0), speed(0.0f), location(0.0f), box_size(0.0f)
+Enemy::Enemy() :type(0), image(0),image2(0), image_g(0), image_m(0), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	image = LoadGraph("Resources/Images/slime.png");
 	image2 = LoadGraph("Resources/Images/slime_red.png");
-
+	image_g = LoadGraph("Resources/Images/ghost.png");
+	image_m = LoadGraph("Resources/Images/mash.png");
+	e_type[0] = { image };
+	e_type[1] = { image_g };
+	e_type[2] = { image_m };
 }
 
 Enemy::~Enemy()
@@ -91,10 +95,10 @@ void Enemy::Draw()const
 	if (!dmgflg) {
 		if (angflg) {
 			//DrawGraph(location.x, location.y, image, TRUE);
-			DrawRotaGraph2(location.x, location.y, 50, 50, 1.0, PI / 1, image, TRUE, TRUE);
+			DrawRotaGraph2(location.x, location.y, 50, 50, 1.0, PI / 1, e_type[1], TRUE, TRUE);
 		}
 		else {
-			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, image, TRUE, FALSE);
+			DrawRotaGraph2(location.x, location.y, 0, 0, 1, 0, e_type[1], TRUE, FALSE);
 		}
 
 	}
