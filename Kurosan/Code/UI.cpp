@@ -14,32 +14,37 @@ UI::~UI()
 
 void UI::Update()
 {
+	// フレームカウント
 	frame++;
 
-	//時間を増やす処理
+	// カウントダウン
 	if (frame % 60 == 0) {
-		time++;
+		sec--;
 	}
 
-	if (time == 61) {
-		time = 0;
+	// 0秒の時、分を繰り下げる
+	if (sec <= -1) {
+		minute -= 1;
+		sec = 59;
 	}
-	
 }
 
 void UI::Initialize()
 {
-	time = 0;
+	// 秒 初期化
+	sec = 0;
+	// 分 初期化
+	minute = 3;
+	// フレーム
 	frame = 0;
-	y_i = 0;
 }
 
 void UI::Draw()const
 {
-	for (int x = 0; x < 1280; x+=100) {
+	// 上の茶色のやつ
+	for (int x = 0; x < 1280; x += 100) {
 		DrawGraph(x, 0, image, TRUE);
 	}
-	//DrawFormatString(200, 60, 0x00fff0, "　時間　%d", time);
-	DrawFormatStringToHandle(30, 40, 0xffffff, font, "　時間：%d", time);
-
+	// 時間表示
+	DrawFormatStringToHandle(30, 40, 0xffffff, font, "残り%d：%d", minute, sec);
 }
