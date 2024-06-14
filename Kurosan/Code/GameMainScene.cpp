@@ -88,7 +88,7 @@ eSceneType GameMainScene::Update()
 			{
 				enemy[i] = new Enemy();				//空の配列にエネミーを作る
 				enemy[i]->Initialize();				//初期化処理
-				e_delay = 60;						//敵を作る間隔
+				e_delay = 60 - player->GetLevel() * 2;	//敵を作る間隔
 				break;								//forループから抜ける
 			}
 		}
@@ -116,7 +116,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60 - player->GetLevel();
+				b_cooltime = 60 - (player->GetLevel() * 5);
 				break;
 			}
 		}
@@ -302,12 +302,6 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	// レベルアップした時
-	if (is_levelup)
-	{
-		Levelup();
-	}
-
 	return GetNowScene();
 }
 
@@ -406,8 +400,8 @@ eSceneType GameMainScene::GetNowScene()const
 	return eSceneType::E_MAIN;
 }
 
-void GameMainScene::Levelup()
-{
-	e_delay -= player->GetLevel() * 2;
-	is_levelup = false;
-}
+//void GameMainScene::Levelup()
+//{
+//	e_delay -= player->GetLevel() * 2;
+//	is_levelup = false;
+//}
