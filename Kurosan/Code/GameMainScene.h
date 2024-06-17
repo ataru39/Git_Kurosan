@@ -45,10 +45,13 @@ private:
 	Vector2D h_location;
 
 	int grace;
+
 	// レベルアップしたか
 	bool is_levelup;
-	// メニュー表示中
-	bool is_draw_menu;
+	// ゲームクリアしたか
+	bool is_clear;
+	// カウンター
+	int cnt;
 
 	int sound;
 
@@ -66,6 +69,4 @@ public:
 	bool FlhitCheck(Enemy* e ,S_21FistL* l);
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
-	void Levelup();
-
 };

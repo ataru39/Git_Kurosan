@@ -12,23 +12,6 @@ UI::~UI()
 	DeleteGraph(image);
 }
 
-void UI::Update()
-{
-	// フレームカウント
-	frame++;
-
-	// カウントダウン
-	if (frame % 60 == 0) {
-		sec--;
-	}
-
-	// 0秒の時、分を繰り下げる
-	if (sec <= -1) {
-		minute -= 1;
-		sec = 59;
-	}
-}
-
 void UI::Initialize()
 {
 	// 秒 初期化
@@ -39,6 +22,35 @@ void UI::Initialize()
 	frame = 0;
 }
 
+bool UI::GetIsClear()
+{
+	if (minute == 0 && sec == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+void UI::Update()
+{
+	if(GetIsClear() == false)
+	{
+		// フレームカウント
+		frame++;
+
+		// カウントダウン
+		if (frame % 60 == 0 && sec > -1) {
+			sec--;
+		}
+
+		// 0秒の時、分を繰り下げる
+		if (sec <= -1 && minute > -1) {
+			minute -= 1;
+			sec = 59;
+		}
+	}
+}
+
 void UI::Draw()const
 {
 	// 上の茶色のやつ
@@ -46,5 +58,5 @@ void UI::Draw()const
 		DrawGraph(x, 0, image, TRUE);
 	}
 	// 時間表示
-	DrawFormatStringToHandle(30, 40, 0xffffff, font, "残り%d：%d", minute, sec);
+	DrawFormatStringToHandle(800, 40, 0xffffff, font, "TIME %d:%2d", minute, sec);
 }

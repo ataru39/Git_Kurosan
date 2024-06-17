@@ -59,6 +59,7 @@ GameMainScene::GameMainScene()
 	f_cooltime = 0;
 	l_cooltime = 0;
 
+	cnt = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -369,6 +370,17 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+	// ゲームクリア表示
+	is_clear = ui->GetIsClear();
+	if (is_clear)
+	{
+		cnt++;
+		if (cnt > 180)
+		{
+			return eSceneType::E_TITLE;
+		}
+	}
+
 	return GetNowScene();
 }
 
@@ -433,8 +445,22 @@ void GameMainScene::Draw()const
 	}
 
 	// レベルとEXP
-	DrawFormatString(0, 0, 0x000000, "%d", player->GetExp());
-	DrawFormatString(0, 15, 0x000000, "%d", player->GetLevel());
+	SetFontSize(20);
+	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
+	DrawFormatString(220, 30, 0xffffff, "%d", player->GetLevel());
+
+	if (is_clear)
+	{
+		// 半透明にしてメニュー背景の四角
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawFillBox(150, 250, 1130, 530, GetColor(0, 0, 255));
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// 不透明に戻して白い枠
+		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
+
+		SetFontSize(120);
+		DrawString(200, 300, "ゲームクリア!!", GetColor(255, 255, 255));
+	}
 }
 
 //終了時処理
@@ -483,9 +509,3 @@ eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
 }
-
-//void GameMainScene::Levelup()
-//{
-//	e_delay -= player->GetLevel() * 2;
-//	is_levelup = false;
-//}
