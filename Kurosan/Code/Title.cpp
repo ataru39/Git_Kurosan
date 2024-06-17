@@ -26,6 +26,11 @@ eSceneType Title::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_A)) {
 		return eSceneType:: E_MAIN;
 	}
+	//Xボタンでゲームメインへ
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_X)) {
+		return eSceneType::E_END;
+	}
+
 	//現在のシーンタイプを返す
 	return GetNowScene();
 }
@@ -54,6 +59,8 @@ void Title::Draw()const
 	DrawString(410, 200, "浦田のマジック", 0x0000ff, TRUE);
 	SetFontSize(70);
 	DrawFormatString(220, 400, 0xff0000, "Aボタンを押してスタート", FALSE);
+	SetFontSize(40);
+	DrawFormatString(420, 500, 0xff0000, "Xボタンを押して終了", FALSE);
 
 }
 
