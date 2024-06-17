@@ -7,7 +7,8 @@ class Enemy
 {
 private:
 	int type;            //タイプ
-	int image,image2,image_g,image_m;           //画像
+	int image,image_g,image_m;			//通常画像
+	int image2, image_g2, image_m2;		//ダメージ画像
 	float speed;         //速さ
 	Vector2D location;   //位置情報
 	Vector2D box_size;   //当たり判定の大きさ
@@ -21,7 +22,10 @@ private:
 	bool angflg;
 	int angcnt;
 	int exp;
-	int e_type[3];
+	int e_type[3][5];
+	int fram;
+	int fun;
+
 
 public:
 	Enemy();
