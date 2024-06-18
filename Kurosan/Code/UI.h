@@ -1,4 +1,5 @@
 #pragma once
+
 class UI
 {
 public:
@@ -7,15 +8,14 @@ public:
 
 	void Draw()const;
 	void Update();
-	int Time();
 	void Initialize();
-	void Finalize();
+	bool GetIsClear();
+	int GetTime();
 
 private:
-	int time;
+	int sec;	// •b
+	int minute;	// •ª
 	int frame;
-	int barimage[13];
-	int y_i;
 	int image;
 	int font;
 };

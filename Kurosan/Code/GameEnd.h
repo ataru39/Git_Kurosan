@@ -8,7 +8,7 @@ public:
 	End();
 	//virtual~End();
 
-	int end_c, end_g;
+	//int end_c, end_g;
 
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;

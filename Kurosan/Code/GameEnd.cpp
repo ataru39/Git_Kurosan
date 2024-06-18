@@ -4,7 +4,7 @@
 
 End::End()
 {
-	end_c = LoadGraph("Resources/Images/title_C.png");
+
 }
 
 void End::Initialize()
@@ -13,6 +13,7 @@ void End::Initialize()
 
 eSceneType End::Update()
 {
+
 	return GetNowScene();
 }
 

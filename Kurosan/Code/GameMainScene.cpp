@@ -6,7 +6,7 @@
 GameMainScene::GameMainScene()
 {
 	// 敵の生成上限数
-	enemymax = 5;
+	enemymax = 200;
 
 	// オブジェクトの生成
 	wall = new Wall;
@@ -34,6 +34,14 @@ GameMainScene::GameMainScene()
 	{
 		fist[i] = nullptr;
 	}
+	//左手
+	fistl = new S_21FistL * [10];
+	// 初期化
+	for (int i = 0; i < 10; i++)
+	{
+		fistl[i] = nullptr;
+	}
+
 
 	// 炎オブジェクト
 	frame = new S_Frame * [10];
@@ -49,7 +57,10 @@ GameMainScene::GameMainScene()
 	b_cooltime = 0;
 	// 拳のクールタイム初期化
 	f_cooltime = 0;
+	l_cooltime = 0;
 
+	// カウント
+	cnt = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -60,6 +71,7 @@ GameMainScene::~GameMainScene()
 	delete ui;
 	delete bullet;
 	delete fist;
+	delete fistl;
 	delete frame;
 }
 
@@ -87,8 +99,21 @@ eSceneType GameMainScene::Update()
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
 			{
 				enemy[i] = new Enemy();				//空の配列にエネミーを作る
-				enemy[i]->Initialize();				//初期化処理
-				e_delay = 60;						//敵を作る間隔
+				if (ui->GetTime() == 3) {
+					fun = 1;
+				}
+				if (ui->GetTime() == 2) {
+					fun = 1;
+				}
+				if (ui->GetTime() == 1) {
+					fun = 2;
+				}
+				if(ui->GetTime()==0){
+					fun = 3;
+				}
+				e_type = (rand() % fun);
+				enemy[i]->Initialize(e_type);				//初期化処理
+				e_delay = 60 - player->GetLevel() * 2;	//敵を作る間隔
 				break;								//forループから抜ける
 			}
 		}
@@ -116,7 +141,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60;
+				b_cooltime = 60 - (player->GetLevel() * 5);
 				break;
 			}
 		}
@@ -129,7 +154,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 拳生成処理
-	if (player->GetLevel() > 3) {
+	if (player->GetLevel() > 2) {
 		if (f_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -144,11 +169,33 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
 	// クールタイム減少処理
 	if (f_cooltime > 0)
 	{
 		f_cooltime--;
+	}
+
+
+	// 左手生成処理
+	if (player->GetLevel() > 1) {
+		if (l_cooltime <= 0)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (fistl[i] == nullptr)
+				{
+					fistl[i] = new S_21FistL();
+					fistl[i]->Initialize(player->GetLocation());
+					l_cooltime = 300;
+					break;
+				}
+			}
+		}
+	}
+	// クールタイム減少処理
+	if (l_cooltime > 0)
+	{
+		l_cooltime--;
 	}
 
 	// 炎生成処理
@@ -191,6 +238,14 @@ eSceneType GameMainScene::Update()
 			fist[i]->Update();
 		}
 	}
+	// 拳の更新処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fistl[i] != nullptr)
+		{
+			fistl[i]->Update();
+		}
+	}
 
 	// 炎の更新処理
 	for (int i = 0; i < 10; i++)
@@ -221,6 +276,18 @@ eSceneType GameMainScene::Update()
 			f_location = fist[i]->GetLocation();
 			if (fist[i]->FadeOut() <= 0) {
 				fist[i] = nullptr;
+			}
+		}
+	}
+
+	//左手の削除処理
+	for (int i = 0; i < 10; i++)
+	{
+		if (fistl[i] != nullptr)
+		{
+			l_location = fistl[i]->GetLocation();
+			if (fistl[i]->FadeOut() <= 0) {
+				fistl[i] = nullptr;
 			}
 		}
 	}
@@ -264,6 +331,23 @@ eSceneType GameMainScene::Update()
 						enemy[i]->Damage(fist[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
 						{
+							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+							is_levelup = player->Levelup();
+							enemy[i] = nullptr;
+							delete enemy[i];
+						}
+						break;
+					}
+				}
+
+				if (fistl[j] != nullptr) {
+					//fist[i]->Level(player->GetLevel());
+					if (FlhitCheck(enemy[i], fistl[j])) {
+						enemy[i]->Damage(fistl[j]->GetDamage());
+						if (enemy[i]->GetHP() <= 0)
+						{
+							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -279,7 +363,7 @@ eSceneType GameMainScene::Update()
 						if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							player->Levelup();
+							is_levelup = player->Levelup();
 							enemy[i] = nullptr;
 							delete enemy[i];
 						}
@@ -297,6 +381,17 @@ eSceneType GameMainScene::Update()
 				enemy[i]->ChengeAtkFlg(true);
 				wall->Damage(enemy[i]->GetDamage());
 			}
+		}
+	}
+
+	// ゲームクリア表示
+	is_clear = ui->GetIsClear();
+	if (is_clear)
+	{
+		cnt++;
+		if (cnt > 180)
+		{
+			return eSceneType::E_TITLE;
 		}
 	}
 
@@ -344,6 +439,16 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	//左手の描画
+	for (int i = 0; i < 10; i++)
+	{
+		if (fistl[i] != nullptr)
+		{
+			fistl[i]->Draw();
+		}
+	}
+
+
 	//炎の描画
 	for (int i = 0; i < 10; i++)
 	{
@@ -354,8 +459,24 @@ void GameMainScene::Draw()const
 	}
 
 	// レベルとEXP
-	DrawFormatString(0, 0, 0x000000, "%d", player->GetExp());
-	DrawFormatString(0, 15, 0x000000, "%d", player->GetLevel());
+	SetFontSize(20);
+	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
+	DrawFormatString(220, 30, 0xffffff, "%d", player->GetLevel());
+	DrawFormatString(550, 500, 0xffffff, "%d", e_type);
+	DrawFormatString(600, 500, 0xffffff, "%d", ui->GetTime());
+
+	if (is_clear)
+	{
+		// 半透明にしてメニュー背景の四角
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawFillBox(150, 250, 1130, 530, GetColor(0, 0, 255));
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// 不透明に戻して白い枠
+		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
+
+		SetFontSize(120);
+		DrawString(200, 300, "ゲームクリア!!", GetColor(255, 255, 255));
+	}
 }
 
 //終了時処理
@@ -385,6 +506,13 @@ bool GameMainScene::FhitCheck(Enemy* e, S_21Fist* f)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
+bool GameMainScene::FlhitCheck(Enemy* e, S_21FistL* l)
+{
+	Vector2D diff_location = e->GetLocation() - l->GetLocation();
+	Vector2D box_ex = e->GetBoxSize() + l->GetBoxSize();
+	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
 bool GameMainScene::HhitCheck(Enemy* e, S_Frame* h)
 {
 	Vector2D diff_location = e->GetLocation() - h->GetLocation();
@@ -397,4 +525,3 @@ eSceneType GameMainScene::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
 }
-

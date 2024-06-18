@@ -7,6 +7,7 @@
 #include "UI.h"
 #include "S_Bullet.h"
 #include "S_21Fist.h"
+#include "S21_FistL.h"
 #include "S_Frame.h"
 #include <math.h>
 
@@ -23,6 +24,7 @@ private:
 	UI* ui;
 	S_Bullet** bullet;
 	S_21Fist** fist;
+	S_21FistL** fistl;
 	S_Frame** frame;
 
 	//弾
@@ -34,17 +36,27 @@ private:
 	int f_drey;
 	Vector2D f_location;
 
+	//左手
+	int l_cooltime;
+	Vector2D l_location;
+
 	//炎
 	int h_cooltime;
 	Vector2D h_location;
 	
 	int grace;
+
 	// レベルアップしたか
 	bool is_levelup;
-	// メニュー表示中
-	bool is_draw_menu;
+	// ゲームクリアしたか
+	bool is_clear;
+	// カウンター
+	int cnt;
 
 	int sound;
+
+	int fun;
+	int e_type;
 
 public:
 	GameMainScene();
@@ -57,6 +69,7 @@ public:
 	bool WhitCheck(Enemy* e ,Wall* w);
 	bool BhitCheck(Enemy* e ,S_Bullet* b);
 	bool FhitCheck(Enemy* e ,S_21Fist* f);
+	bool FlhitCheck(Enemy* e ,S_21FistL* l);
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
 };

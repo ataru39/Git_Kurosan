@@ -104,8 +104,6 @@ bool Player::Levelup()
 		// EXP‚ğƒ[ƒ‚É‚·‚é
 		exp = 0;
 
-		
-
 		return true;
 	}
 }
