@@ -154,17 +154,17 @@ eSceneType GameMainScene::Update()
 	// ‰Š¶¬ˆ—
 	if (player->GetLevel() > 4) {
 		if (h_cooltime <= 0)
-		{
-			for (int i = 0; i < 10; i++)
 			{
-				if (frame[i] == nullptr)
-				{
-					frame[i] = new S_Frame();
-					frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
-					h_cooltime = 60;
-					break;
+				for (int i = 0; i < 10; i++)
+				{	
+					if (frame[i] == nullptr && enemy[i] != nullptr)
+					{	
+						frame[i] = new S_Frame();
+						frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
+						h_cooltime = 60;
+						break;	
+					}
 				}
-			}
 		}
 	}
 

@@ -10,6 +10,7 @@ public:
 	virtual ~S_Frame();
 
 	Vector2D destination_location; //–Ú“I’n
+	Vector2D movement_vector;
 
 	virtual void Initialize(Vector2D p_location,Vector2D e_location);
 	virtual void Update() override;
@@ -21,7 +22,7 @@ public:
 	virtual int GetDamage() const override;
 
 	int f_count;
-
+	
 	private:
 	int images[7];
 	
