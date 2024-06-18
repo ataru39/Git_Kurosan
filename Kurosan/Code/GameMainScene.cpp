@@ -59,6 +59,7 @@ GameMainScene::GameMainScene()
 	f_cooltime = 0;
 	l_cooltime = 0;
 
+	// ƒJƒEƒ“ƒg
 	cnt = 0;
 }
 
