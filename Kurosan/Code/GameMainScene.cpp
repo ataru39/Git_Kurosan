@@ -98,7 +98,20 @@ eSceneType GameMainScene::Update()
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
 			{
 				enemy[i] = new Enemy();				//空の配列にエネミーを作る
-				enemy[i]->Initialize();				//初期化処理
+				if (ui->GetTime() == 3) {
+					fun = 1;
+				}
+				if (ui->GetTime() == 2) {
+					fun = 1;
+				}
+				if (ui->GetTime() == 1) {
+					fun = 2;
+				}
+				if(ui->GetTime()==0){
+					fun = 3;
+				}
+				e_type = (rand() % fun);
+				enemy[i]->Initialize(e_type);				//初期化処理
 				e_delay = 60 - player->GetLevel() * 2;	//敵を作る間隔
 				break;								//forループから抜ける
 			}
@@ -448,6 +461,8 @@ void GameMainScene::Draw()const
 	SetFontSize(20);
 	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
 	DrawFormatString(220, 30, 0xffffff, "%d", player->GetLevel());
+	DrawFormatString(550, 500, 0xffffff, "%d", e_type);
+	DrawFormatString(600, 500, 0xffffff, "%d", ui->GetTime());
 
 	if (is_clear)
 	{

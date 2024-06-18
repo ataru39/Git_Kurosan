@@ -22,12 +22,12 @@ Enemy::~Enemy()
 }
 
 //初期化処理
-void Enemy::Initialize()
+void Enemy::Initialize(int teki)
 {
 	#define PI    3.1415926535897932384626433832795f
-	fun = 1;
 	//敵の種類
-	type = (rand() % fun);
+	//type = (rand() % fun);
+	type = teki;
 	//出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(50) * 11 + 100);
 	//生成位置の設定
@@ -48,7 +48,6 @@ void Enemy::Initialize()
 	delay = 300;
 	angflg = false;
 	angcnt = 15;
-	fram = 0;
 }
 
 void Enemy::Update()
@@ -117,7 +116,7 @@ void Enemy::Draw()const
 		}
 	}
 
-	DrawFormatString(500, 500, 0xffffff, "%d", fram, true);
+	DrawFormatString(500, 500, 0xffffff, "%d", type, true);
 }
 
 void Enemy::Finalize()
@@ -139,12 +138,6 @@ void Enemy::Movement()
 void Enemy::Spawn()
 {
 
-}
-
-//敵タイプを取得
-int Enemy::GetType()const
-{
-	return type;
 }
 
 //位置情報を取得
@@ -190,3 +183,4 @@ int Enemy::GetExp()
 {
 	return this->exp;
 }
+

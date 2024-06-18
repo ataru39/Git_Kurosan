@@ -55,6 +55,9 @@ private:
 
 	int sound;
 
+	int fun;
+	int e_type;
+
 public:
 	GameMainScene();
 	virtual ~GameMainScene();

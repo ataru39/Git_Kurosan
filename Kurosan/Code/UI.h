@@ -1,4 +1,5 @@
 #pragma once
+
 class UI
 {
 public:
@@ -9,6 +10,7 @@ public:
 	void Update();
 	void Initialize();
 	bool GetIsClear();
+	int GetTime();
 
 private:
 	int sec;	// •b

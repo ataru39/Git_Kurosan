@@ -5,6 +5,7 @@ UI::UI()
 {
 	image = LoadGraph("Resources/Images/tile_0.png");
 	font = CreateFontToHandle(NULL, 40, 2);
+
 }
 
 UI::~UI()
@@ -59,4 +60,9 @@ void UI::Draw()const
 	}
 	// ŽžŠÔ•\Ž¦
 	DrawFormatStringToHandle(800, 40, 0xffffff, font, "TIME %d:%2d", minute, sec);
+}
+
+int UI::GetTime()
+{
+	return int(minute);
 }
