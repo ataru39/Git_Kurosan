@@ -6,7 +6,7 @@
 GameMainScene::GameMainScene()
 {
 	// 敵の生成上限数
-	enemymax = 200;
+	enemymax = 300;
 
 	// オブジェクトの生成
 	wall = new Wall;
@@ -99,21 +99,19 @@ eSceneType GameMainScene::Update()
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
 			{
 				enemy[i] = new Enemy();				//空の配列にエネミーを作る
-				if (ui->GetTime() == 3) {
-					fun = 1;
+				if (ui->GetTime() >= 2) {
+					e_type=0;
 				}
-				if (ui->GetTime() == 2) {
-					fun = 1;
+				else if (ui->GetTime() >= 1) {
+					//fun = 2;
+					e_type = (rand() % 2);
 				}
-				if (ui->GetTime() == 1) {
-					fun = 2;
+				else{
+					//fun = 3;
+					e_type = (rand() % 3);
 				}
-				if(ui->GetTime()==0){
-					fun = 3;
-				}
-				e_type = (rand() % fun);
-				enemy[i]->Initialize(e_type);				//初期化処理
-				e_delay = 60 - player->GetLevel() * 2;	//敵を作る間隔
+				enemy[i]->Initialize(e_type,player->GetLevel());				//初期化処理
+				e_delay = 60 /*- player->GetLevel() * 2*/;	//敵を作る間隔
 				break;								//forループから抜ける
 			}
 		}
@@ -154,7 +152,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 拳生成処理
-	if (player->GetLevel() > 2) {
+	if (player->GetLevel() > 5) {
 		if (f_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -177,7 +175,7 @@ eSceneType GameMainScene::Update()
 
 
 	// 左手生成処理
-	if (player->GetLevel() > 1) {
+	if (player->GetLevel() > 4) {
 		if (l_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -199,7 +197,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// 炎生成処理
-	if (player->GetLevel() > 0) {
+	if (player->GetLevel() > 2) {
 		if (h_cooltime <= 0)
 			{
 				for (int i = 0; i < 10; i++)
@@ -401,6 +399,17 @@ eSceneType GameMainScene::Update()
 			return eSceneType::E_TITLE;
 		}
 	}
+	
+	//ゲームオーバー表示
+	is_over = wall->WallBreak();
+	if (is_over) 
+	{
+		cnt++;
+		if (cnt > 180) 
+		{
+			return eSceneType::E_TITLE;
+		}
+	}
 
 	return GetNowScene();
 }
@@ -414,10 +423,6 @@ void GameMainScene::Draw()const
 			DrawRotaGraph(g, z, 2.0, 0, grace, FALSE);
 		}
 	}
-
-	ui->Draw();
-	wall->Draw();
-	player->Draw();
 
 	//敵の描画
 	for (int i = 0; i < enemymax; i++)
@@ -465,6 +470,8 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	ui->Draw();
+
 	// レベルとEXP
 	SetFontSize(20);
 	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
@@ -472,6 +479,10 @@ void GameMainScene::Draw()const
 	DrawFormatString(550, 500, 0xffffff, "%d", e_type);
 	DrawFormatString(600, 500, 0xffffff, "%d", ui->GetTime());
 
+	wall->Draw();
+	player->Draw();
+
+	//クリア表示
 	if (is_clear)
 	{
 		// 半透明にしてメニュー背景の四角
@@ -485,12 +496,28 @@ void GameMainScene::Draw()const
 		
 		DrawString(200, 300, "ゲームクリア!!", GetColor(255, 255, 255));
 	}
+
+	//ゲームオーバー表示
+	if (is_over)
+	{
+		// 半透明にしてメニュー背景の四角
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawFillBox(150, 250, 1130, 530, GetColor(0, 0, 255));
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// 不透明に戻して白い枠
+		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
+
+		SetFontSize(120);
+		DrawString(200, 300, "ゲームオーバー", GetColor(255, 255, 255));
+	}
 }
 
 //終了時処理
 void GameMainScene::Finalize()
 {
-
+	player->Finalize();
+	ui->Finalize();
+	wall->Finalize();
 }
 
 bool GameMainScene::WhitCheck(Enemy* e, Wall* w)

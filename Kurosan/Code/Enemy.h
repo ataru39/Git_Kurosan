@@ -30,7 +30,7 @@ public:
 	Enemy();
 	~Enemy();
 
-	void Initialize(int minute);          //‰Šú‰»ˆ—
+	void Initialize(int minute,int plevel);          //‰Šú‰»ˆ—
 	void Update();   //XVˆ—
 	void Draw()const;           //•`‰æˆ—
 	void Finalize();            //I—¹ˆ—

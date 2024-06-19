@@ -23,6 +23,11 @@ void UI::Initialize()
 	frame = 0;
 }
 
+void UI::Finalize()
+{
+	DeleteGraph(image);
+}
+
 bool UI::GetIsClear()
 {
 	if (minute == 0 && sec == 0)

@@ -9,6 +9,7 @@ public:
 	void Draw()const;
 	void Update();
 	void Initialize();
+	void Finalize();
 	bool GetIsClear();
 	int GetTime();
 

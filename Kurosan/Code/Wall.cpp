@@ -4,13 +4,15 @@
 Wall::Wall()
 {
 	image = LoadGraph("Resources/Images/kabe4.png");
+	o_image = LoadGraph("Resources/Images/tile_0.png");
 	font = CreateFontToHandle(NULL, 40, 2);
 
 }
 
 Wall::~Wall()
 {
-
+	DeleteGraph(image);
+	DeleteGraph(o_image);
 }
 
 void Wall::Initialize()
@@ -18,31 +20,37 @@ void Wall::Initialize()
 	hp = 1000;
 	location = Vector2D(0.0f, 100.0f);
 	box_size = Vector2D(180.0f, 720.0f);
-
 }
 
 void Wall::Update()
 {
-
+	flg = WallBreak();
 }
 
 void Wall::Draw()const
 {
-	//DrawFormatString(600, 60, 0x00fff0, "　壁の耐久値　%d", hp);
 	DrawFormatStringToHandle(300, 40, 0x00fff0, font, "　壁の耐久値：%d", hp);
 
 	DrawGraph(0, 100, image, TRUE);
 	DrawGraph(0, 300, image, TRUE);
 	DrawGraph(0, 500, image, TRUE);
 	DrawGraph(0, 700, image, TRUE);
-	
-	//DrawBox(0, 100, 200, 720, 0x0000f, TRUE);
-	//DrawBox(location.x, location.y, location.x + box_size.x, location.y + box_size.y, 0x00ff00, TRUE);
+
+	if (flg != false) {
+		for (int i = 0; i < 800; i+=100) 
+		{
+			for (int j = 0; j < 1300; j+=100) 
+			{
+				DrawGraph(j, i, o_image, TRUE);
+			}
+		}
+	}
 }
 
 void Wall::Finalize()
 {
-
+	DeleteGraph(image);
+	DeleteGraph(o_image);
 }
 
 Vector2D Wall::GetLocation() const
@@ -58,6 +66,16 @@ Vector2D Wall::GetBoxSize() const
 int Wall::WallHp()
 {
 	return this->hp;
+}
+
+bool Wall::WallBreak()
+{
+	if (WallHp() > 0) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
 void Wall::Damage(int damage)
