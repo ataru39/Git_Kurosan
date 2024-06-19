@@ -111,7 +111,7 @@ eSceneType GameMainScene::Update()
 					e_type = (rand() % 3);
 				}
 				enemy[i]->Initialize(e_type,player->GetLevel());				//‰Šú‰»ˆ—
-				e_delay = 60 /*- player->GetLevel() * 2*/;	//“G‚ðì‚éŠÔŠu
+				e_delay = 60 - player->GetLevel() * 5;	//“G‚ðì‚éŠÔŠu
 				break;								//forƒ‹[ƒv‚©‚ç”²‚¯‚é
 			}
 		}
@@ -139,7 +139,7 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60 - (player->GetLevel() * 5);
+				b_cooltime = 60 - (player->GetLevel() * 4);
 				break;
 			}
 		}
@@ -161,7 +161,7 @@ eSceneType GameMainScene::Update()
 				{
 					fist[i] = new S_21Fist();
 					fist[i]->Initialize(player->GetLocation());
-					f_cooltime = 300;
+					f_cooltime = 300 - (player->GetLevel() * 4);
 					break;
 				}
 			}
@@ -184,7 +184,7 @@ eSceneType GameMainScene::Update()
 				{
 					fistl[i] = new S_21FistL();
 					fistl[i]->Initialize(player->GetLocation());
-					l_cooltime = 300;
+					l_cooltime = 300 - (player->GetLevel() * 4);
 					break;
 				}
 			}
