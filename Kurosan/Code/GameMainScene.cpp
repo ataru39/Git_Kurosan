@@ -199,7 +199,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// âäê∂ê¨èàóù
-	if (player->GetLevel() > 4) {
+	if (player->GetLevel() > 0) {
 		if (h_cooltime <= 0)
 			{
 				for (int i = 0; i < 10; i++)
@@ -208,7 +208,7 @@ eSceneType GameMainScene::Update()
 					{	
 						frame[i] = new S_Frame();
 						frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
-						h_cooltime = 60;
+						h_cooltime = 240;
 						break;	
 					}
 				}
@@ -312,6 +312,7 @@ eSceneType GameMainScene::Update()
 				if (bullet[j] != nullptr) {
 					if (BhitCheck(enemy[i], bullet[j])) { // ìGÇ∆íeÇ™ê⁄êGÇµÇΩéû
 						enemy[i]->Damage(bullet[j]->GetDamage());// ìGÇ…É_ÉÅÅ[ÉWÇó^Ç¶ÇÈ
+
 						bullet[j] = nullptr;
 						delete bullet[j];
 						if (enemy[i]->GetHP() <= 0) // ìGÇ™éÄÇÒÇæÇ∆Ç´
@@ -357,9 +358,8 @@ eSceneType GameMainScene::Update()
 
 				if (frame[j] != nullptr) {
 					if (HhitCheck(enemy[i], frame[j])) {
+						frame[j]->Explosion(true);
 						enemy[i]->Damage(frame[j]->GetDamage());
-						frame[j] = nullptr;
-						delete frame[j];
 						if (enemy[i]->GetHP() <= 0)				// ìGÇ™éÄÇÒÇæÇ∆Ç´
 						{
 							player->RcvExp(enemy[i]->GetExp());	// ÉvÉåÉCÉÑÅ[Ç…EXPÇìnÇ∑
@@ -369,6 +369,13 @@ eSceneType GameMainScene::Update()
 						}
 						break;
 					}
+
+					if (frame[j]->GetF_Count() == 7)
+					{
+						frame[j] = nullptr;
+						delete frame[j];
+					}
+
 				}
 			}
 		}
@@ -475,6 +482,7 @@ void GameMainScene::Draw()const
 		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
 
 		SetFontSize(120);
+		
 		DrawString(200, 300, "ÉQÅ[ÉÄÉNÉäÉA!!", GetColor(255, 255, 255));
 	}
 }

@@ -5,7 +5,7 @@
 
 S_Frame::S_Frame()
 {
-	image = LoadGraph("Resources/Images/F2.png");
+	image = LoadGraph("Resources/Images/F3.png");
 	LoadDivGraph("Resources/Images/Flames.png", 7, 7, 1, 50, 50, images);
 }
 
@@ -17,14 +17,16 @@ S_Frame::~S_Frame()
 void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
 {
 	location = p_location;
-	box_size = Vector2D(1.0f, 1.0f);
-	speed = 12.0f;
-	damage = 10.0f;
+	box_size = Vector2D(0.2f, 0.2f);
+	speed = 22.0f;
+	damage = 20.0f;
 
 	f_size = 1.0f;
 	f_count = 0;
 	delay = 5;
 	a = 0.2;
+
+	f_flg = false;
 
 	destination_location += e_location;
 
@@ -40,17 +42,22 @@ void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
 
 void S_Frame::Update()
 {
-	location += (movement_vector * speed);
-	
-	//“–‚½‚Á‚½‚ç”š”­
-	if (delay > 0) {
-		delay--;
-		if (delay < 1) {
-			f_size += 0.4f;
-			f_count++;
-			delay = 2;
-		}
+	if (f_flg == false) {
+		location += (movement_vector * speed);
+	}
 
+	//“–‚½‚Á‚½‚ç”š”­
+	if (f_flg) {
+		if (delay > 0) {
+			delay--;
+			if (delay < 1) {
+				f_size += 0.8f;
+				box_size = Vector2D(100, 100);
+				f_count++;
+				delay = 9;
+			}
+
+		}
 	}
 }
 
@@ -58,12 +65,17 @@ void S_Frame::Update()
 void S_Frame::Draw() const
 {
 	DrawRotaGraph(location.x, location.y, 1, 1, image, TRUE);
-	//DrawRotaGraph(location.x, location.y, f_size, 1, images[f_count], TRUE);
+	DrawRotaGraph(location.x, location.y, f_size, 1, images[f_count], TRUE);
 }
 
 void S_Frame::Finalize()
 {
 
+}
+
+void S_Frame::Explosion(bool h_flg)
+{
+	f_flg = h_flg;
 }
 
 Vector2D S_Frame::GetLocation() const
@@ -73,10 +85,15 @@ Vector2D S_Frame::GetLocation() const
 
 Vector2D S_Frame::GetBoxSize() const
 {
-	return Vector2D();
+	return Vector2D(box_size);
 }
 
 int S_Frame::GetDamage() const
 {
 	return int(damage);
+}
+
+int S_Frame::GetF_Count()
+{
+	return f_count;
 }

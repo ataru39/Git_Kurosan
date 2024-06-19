@@ -43,7 +43,8 @@ private:
 	//炎
 	int h_cooltime;
 	Vector2D h_location;
-	
+	int f_time;
+
 	int grace;
 
 	// レベルアップしたか

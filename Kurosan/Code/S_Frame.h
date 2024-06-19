@@ -16,10 +16,12 @@ public:
 	virtual void Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
+	void Explosion(bool h_flg);
 
 	virtual Vector2D GetLocation() const override;
 	virtual Vector2D GetBoxSize() const override;
 	virtual int GetDamage() const override;
+	int GetF_Count();
 
 	int f_count;
 	
@@ -29,4 +31,5 @@ public:
 	float f_size;
 	int delay;
 	int a;
+	bool f_flg;
 };
