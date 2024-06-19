@@ -14,6 +14,7 @@ public:
 	void Finalize();      //I—¹ˆ—
 	void Damage(int damage);
 	int WallHp();
+	bool WallBreak();
 
 	Vector2D GetLocation()const;
 	Vector2D GetBoxSize()const;
@@ -21,7 +22,9 @@ public:
 private:
 	int hp;
 	int image;
+	int o_image;
 	int font;
+	int flg;
 	Vector2D location;
 	Vector2D box_size;
 

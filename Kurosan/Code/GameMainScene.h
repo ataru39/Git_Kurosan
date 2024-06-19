@@ -50,6 +50,8 @@ private:
 	bool is_levelup;
 	// ゲームクリアしたか
 	bool is_clear;
+	//ゲームオーバー
+	bool is_over;
 	// カウンター
 	int cnt;
 
