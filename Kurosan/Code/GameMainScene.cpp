@@ -108,7 +108,7 @@ eSceneType GameMainScene::Update()
 				if (ui->GetTime() == 1) {
 					fun = 2;
 				}
-				if(ui->GetTime()==0){
+				if (ui->GetTime() == 0) {
 					fun = 3;
 				}
 				e_type = (rand() % fun);
@@ -201,17 +201,17 @@ eSceneType GameMainScene::Update()
 	// ‰Š¶¬ˆ—
 	if (player->GetLevel() > 4) {
 		if (h_cooltime <= 0)
+		{
+			for (int i = 0; i < 10; i++)
 			{
-				for (int i = 0; i < 10; i++)
-				{	
-					if (frame[i] == nullptr && enemy[i] != nullptr)
-					{	
-						frame[i] = new S_Frame();
-						frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
-						h_cooltime = 60;
-						break;	
-					}
+				if (frame[i] == nullptr && enemy[i] != nullptr)
+				{
+					frame[i] = new S_Frame();
+					frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
+					h_cooltime = 60;
+					break;
 				}
+			}
 		}
 	}
 
