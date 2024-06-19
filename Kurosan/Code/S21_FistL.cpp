@@ -14,7 +14,7 @@ void S_21FistL::Initialize(Vector2D p_location)
 	location = p_location;
 	box_size = Vector2D(100.0f, 50.0f);
 	speed = 3.6f;
-	damage = 15.0f;
+	damage = 5.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
 

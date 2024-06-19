@@ -99,16 +99,13 @@ eSceneType GameMainScene::Update()
 			if (enemy[i] == nullptr)				//配列enemyの中が空の時
 			{
 				enemy[i] = new Enemy();				//空の配列にエネミーを作る
-				if (ui->GetTime() == 3) {
+				if (ui->GetTime() >= 2) {
 					fun = 1;
 				}
-				if (ui->GetTime() == 2) {
-					fun = 1;
-				}
-				if (ui->GetTime() == 1) {
+				else if (ui->GetTime() >= 1) {
 					fun = 2;
 				}
-				if(ui->GetTime()==0){
+				else{
 					fun = 3;
 				}
 				e_type = (rand() % fun);
