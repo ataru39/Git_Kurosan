@@ -30,7 +30,7 @@ private:
 	//弾
 	int b_cooltime;
 	Vector2D b_location;
-	
+
 	//拳
 	int f_cooltime;
 	int f_drey;
@@ -43,20 +43,42 @@ private:
 	//炎
 	int h_cooltime;
 	Vector2D h_location;
-	int f_time;
 
 	int grace;
 
 	// レベルアップしたか
 	bool is_levelup;
+
 	// ゲームクリアしたか
 	bool is_clear;
+
 	//ゲームオーバー
 	bool is_over;
-	// カウンター
+
+	// ゲームクリアカウンター
 	int cnt;
 
-	int sound;
+	// ゲームメインBGM
+	int bgm_gm;
+
+	// ゲームクリアSE
+	int se_clear;
+
+	// ゲームオーバーSE
+	int se_over;
+
+	// 弾発射SE
+	int se_bullet;
+
+	// 拳発動SE
+	int se_fist;
+	// 拳ヒットSE
+	int se_fist_hit;
+
+	// 炎発射SE
+	int se_flame;
+	// 炎ヒットSE
+	int se_flame_hit;
 
 	int fun;
 	int e_type;
@@ -69,10 +91,10 @@ public:
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
-	bool WhitCheck(Enemy* e ,Wall* w);
-	bool BhitCheck(Enemy* e ,S_Bullet* b);
-	bool FhitCheck(Enemy* e ,S_21Fist* f);
-	bool FlhitCheck(Enemy* e ,S_21FistL* l);
+	bool WhitCheck(Enemy* e, Wall* w);
+	bool BhitCheck(Enemy* e, S_Bullet* b);
+	bool FhitCheck(Enemy* e, S_21Fist* f);
+	bool FlhitCheck(Enemy* e, S_21FistL* l);
 	bool HhitCheck(Enemy* e, S_Frame* h);
 	virtual eSceneType GetNowScene() const override;
 };

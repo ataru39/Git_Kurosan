@@ -42,7 +42,6 @@ GameMainScene::GameMainScene()
 		fistl[i] = nullptr;
 	}
 
-
 	// 炎オブジェクト
 	frame = new S_Frame * [10];
 	// 初期化
@@ -53,11 +52,13 @@ GameMainScene::GameMainScene()
 
 	// 敵のスポーンディレイ初期化
 	e_delay = 0;
+
 	// 弾のクールタイム初期化
 	b_cooltime = 0;
+
 	// 拳のクールタイム初期化
 	f_cooltime = 0;
-	l_cooltime = 0;
+	l_cooltime = 200;
 
 	// カウント
 	cnt = 0;
@@ -73,13 +74,27 @@ GameMainScene::~GameMainScene()
 	delete fist;
 	delete fistl;
 	delete frame;
+	InitSoundMem();
 }
 
 // 初期化処理
 void GameMainScene::Initialize()
 {
+	// 画像読込
 	grace = LoadGraph("Resources/Images/background_grace.png");
-	sound = LoadSoundMem("Resources/Images/Sounds/ファンタジー4-進展-.mp3");
+	
+	// サウンド読込
+	bgm_gm = LoadSoundMem("Resources/Sounds/GameMain_BGM.mp3");
+	se_clear = LoadSoundMem("Resources/Sounds/GameClear.mp3");
+	se_over = LoadSoundMem("Resources/Sounds/GameOver.mp3");
+	se_bullet = LoadSoundMem("Resources/Sounds/Bullet_Act.mp3");
+	se_fist = LoadSoundMem("Resources/Sounds/Fist_Act.mp3");
+	se_fist_hit = LoadSoundMem("Resources/Sounds/Fist_Hit.mp3");
+	se_flame = LoadSoundMem("Resources/Images/Sounds/Flame_Act.mp3.mp3");
+	se_flame_hit = LoadSoundMem("Resources/Sounds/Flame_Hit.mp3");
+
+	ChangeVolumeSoundMem(200, bgm_gm);
+	ChangeVolumeSoundMem(170, se_bullet);
 
 	player->Initialize();
 	wall->Initialize();
@@ -92,6 +107,12 @@ eSceneType GameMainScene::Update()
 	player->Update();
 	wall->Update();
 	ui->Update();
+
+	// BGMが再生されてない時にBGM再生
+	if(!CheckSoundMem(bgm_gm))
+	{
+		PlaySoundMem(bgm_gm, DX_PLAYTYPE_BACK);
+	}
 
 	// 敵の生成
 	if (e_delay <= 0) {								//間隔
@@ -111,7 +132,7 @@ eSceneType GameMainScene::Update()
 					e_type = (rand() % 3);
 				}
 				enemy[i]->Initialize(e_type,player->GetLevel());				//初期化処理
-				e_delay = 60 /*- player->GetLevel() * 2*/;	//敵を作る間隔
+				e_delay = 90 - player->GetLevel() * 8;	//敵を作る間隔
 				break;								//forループから抜ける
 			}
 		}
@@ -139,7 +160,8 @@ eSceneType GameMainScene::Update()
 			{
 				bullet[i] = new S_Bullet();
 				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60 - (player->GetLevel() * 5);
+				b_cooltime = 50 - (player->GetLevel() * 3);
+				PlaySoundMem(se_bullet, DX_PLAYTYPE_BACK);
 				break;
 			}
 		}
@@ -161,7 +183,8 @@ eSceneType GameMainScene::Update()
 				{
 					fist[i] = new S_21Fist();
 					fist[i]->Initialize(player->GetLocation());
-					f_cooltime = 300;
+					f_cooltime = 300 - (player->GetLevel() * 25);
+					PlaySoundMem(se_fist, DX_PLAYTYPE_BACK);
 					break;
 				}
 			}
@@ -173,7 +196,6 @@ eSceneType GameMainScene::Update()
 		f_cooltime--;
 	}
 
-
 	// 左手生成処理
 	if (player->GetLevel() > 4) {
 		if (l_cooltime <= 0)
@@ -184,7 +206,8 @@ eSceneType GameMainScene::Update()
 				{
 					fistl[i] = new S_21FistL();
 					fistl[i]->Initialize(player->GetLocation());
-					l_cooltime = 300;
+					l_cooltime = 300 - (player->GetLevel() * 25);
+					PlaySoundMem(se_fist, DX_PLAYTYPE_BACK);
 					break;
 				}
 			}
@@ -199,17 +222,18 @@ eSceneType GameMainScene::Update()
 	// 炎生成処理
 	if (player->GetLevel() > 2) {
 		if (h_cooltime <= 0)
+		{
+			for (int i = 0; i < 10; i++)
 			{
-				for (int i = 0; i < 10; i++)
-				{	
-					if (frame[i] == nullptr && enemy[i] != nullptr)
-					{	
-						frame[i] = new S_Frame();
-						frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
-						h_cooltime = 240;
-						break;	
-					}
+				if (frame[i] == nullptr && enemy[i] != nullptr)
+				{
+					frame[i] = new S_Frame();
+					frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
+					h_cooltime = 300;
+					PlaySoundMem(se_flame, DX_PLAYTYPE_BACK);
+					break;
 				}
+			}
 		}
 	}
 
@@ -310,7 +334,6 @@ eSceneType GameMainScene::Update()
 				if (bullet[j] != nullptr) {
 					if (BhitCheck(enemy[i], bullet[j])) { // 敵と弾が接触した時
 						enemy[i]->Damage(bullet[j]->GetDamage());// 敵にダメージを与える
-
 						bullet[j] = nullptr;
 						delete bullet[j];
 						if (enemy[i]->GetHP() <= 0) // 敵が死んだとき
@@ -328,6 +351,10 @@ eSceneType GameMainScene::Update()
 					//fist[i]->Level(player->GetLevel());
 					if (FhitCheck(enemy[i], fist[j])) {
 						enemy[i]->Damage(fist[j]->GetDamage());
+						if (!CheckSoundMem(se_fist_hit))
+						{
+							PlaySoundMem(se_fist_hit, DX_PLAYTYPE_BACK);
+						}
 						if (enemy[i]->GetHP() <= 0)
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
@@ -342,6 +369,10 @@ eSceneType GameMainScene::Update()
 				if (fistl[j] != nullptr) {
 					//fist[i]->Level(player->GetLevel());
 					if (FlhitCheck(enemy[i], fistl[j])) {
+						if (!CheckSoundMem(se_fist_hit))
+						{
+							PlaySoundMem(se_fist_hit, DX_PLAYTYPE_BACK);
+						}
 						enemy[i]->Damage(fistl[j]->GetDamage());
 						if (enemy[i]->GetHP() <= 0)
 						{
@@ -356,8 +387,13 @@ eSceneType GameMainScene::Update()
 
 				if (frame[j] != nullptr) {
 					if (HhitCheck(enemy[i], frame[j])) {
-						frame[j]->Explosion(true);
+						if (!CheckSoundMem(se_flame_hit))
+						{
+							PlaySoundMem(se_flame_hit, DX_PLAYTYPE_BACK);
+						}
 						enemy[i]->Damage(frame[j]->GetDamage());
+						frame[j] = nullptr;
+						delete frame[j];
 						if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
 						{
 							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
@@ -367,13 +403,6 @@ eSceneType GameMainScene::Update()
 						}
 						break;
 					}
-
-					if (frame[j]->GetF_Count() == 7)
-					{
-						frame[j] = nullptr;
-						delete frame[j];
-					}
-
 				}
 			}
 		}
@@ -394,6 +423,7 @@ eSceneType GameMainScene::Update()
 	if (is_clear)
 	{
 		cnt++;
+		PlaySoundMem(se_clear, DX_PLAYTYPE_BACK);
 		if (cnt > 180)
 		{
 			return eSceneType::E_TITLE;
@@ -405,7 +435,8 @@ eSceneType GameMainScene::Update()
 	if (is_over) 
 	{
 		cnt++;
-		if (cnt > 180) 
+		PlaySoundMem(se_over, DX_PLAYTYPE_BACK);
+		if (cnt > 180)
 		{
 			return eSceneType::E_TITLE;
 		}
@@ -493,7 +524,6 @@ void GameMainScene::Draw()const
 		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
 
 		SetFontSize(120);
-		
 		DrawString(200, 300, "ゲームクリア!!", GetColor(255, 255, 255));
 	}
 
