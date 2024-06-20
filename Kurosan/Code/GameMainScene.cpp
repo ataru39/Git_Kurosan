@@ -426,6 +426,9 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	wall->Draw();
+	player->Draw();
+
 	//’e‚Ì•`‰æ
 	for (int i = 0; i < 10; i++)
 	{
@@ -471,9 +474,6 @@ void GameMainScene::Draw()const
 	DrawFormatString(220, 30, 0xffffff, "%d", player->GetLevel());
 	DrawFormatString(550, 500, 0xffffff, "%d", e_type);
 	DrawFormatString(600, 500, 0xffffff, "%d", ui->GetTime());
-
-	wall->Draw();
-	player->Draw();
 
 	//ƒNƒŠƒA•\¦
 	if (is_clear)

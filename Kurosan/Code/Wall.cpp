@@ -17,14 +17,23 @@ Wall::~Wall()
 
 void Wall::Initialize()
 {
-	hp = 1000;
+	hp = 1;
 	location = Vector2D(0.0f, 100.0f);
 	box_size = Vector2D(180.0f, 720.0f);
+	cnt = 30;
 }
 
 void Wall::Update()
 {
 	flg = WallBreak();
+	if (flg!=false && cnt > 0) 
+	{
+		cnt--;
+	}
+	if (cnt <= 0) 
+	{
+		cnt = 30;
+	}
 }
 
 void Wall::Draw()const
@@ -41,7 +50,9 @@ void Wall::Draw()const
 		{
 			for (int j = 0; j < 1300; j+=100) 
 			{
-				DrawGraph(j, i, o_image, TRUE);
+				if (cnt == 30) {
+					DrawGraph(j, i, o_image, TRUE);
+				}
 			}
 		}
 	}
