@@ -17,7 +17,7 @@ void S_Bullet::Initialize(Vector2D p_location, int p_Lv)
 	location.y-=30;
 	box_size = Vector2D(50.0f, 50.0f);
 	speed = 7.0f + p_Lv;
-	damage = 15.0f;
+	damage = 10.0f + p_Lv;
 }
 
 void S_Bullet::Update()

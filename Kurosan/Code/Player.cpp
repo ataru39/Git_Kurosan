@@ -28,7 +28,7 @@ void Player::Initialize()
 	// レベル初期化
 	level = 1;
 	// スピード初期化
-	speed = 3.0f + level * 2;
+	speed = 4.0f + level * 4;
 }
 
 //更新処理
