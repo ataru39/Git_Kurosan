@@ -58,7 +58,6 @@ void S_21FistL::Draw() const
 void S_21FistL::Finalize()
 {
 	DeleteGraph(image);
-
 }
 
 Vector2D S_21FistL::GetLocation() const

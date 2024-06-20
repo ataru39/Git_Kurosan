@@ -8,7 +8,8 @@ S_21Fist::S_21Fist()
 
 S_21Fist::~S_21Fist()
 {
-
+	DeleteGraph(image);
+	DeleteGraph(image2);
 }
 
 void S_21Fist::Initialize(Vector2D p_location)

@@ -18,7 +18,7 @@ Player::~Player()
 //‰Šú‰»ˆ—
 void Player::Initialize()
 {
-	location = Vector2D(140.0f, 410.0f);
+	location = Vector2D(80.0f, 410.0f);
 	box_size = Vector2D(50.0f, 100.0f);
 
 	// EXP‚Ì‰Šú‰»

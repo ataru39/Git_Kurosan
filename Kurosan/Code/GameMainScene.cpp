@@ -392,6 +392,17 @@ eSceneType GameMainScene::Update()
 			return eSceneType::E_TITLE;
 		}
 	}
+	
+	//ゲームオーバー表示
+	is_over = wall->WallBreak();
+	if (is_over) 
+	{
+		cnt++;
+		if (cnt > 180) 
+		{
+			return eSceneType::E_TITLE;
+		}
+	}
 
 	return GetNowScene();
 }
@@ -405,10 +416,6 @@ void GameMainScene::Draw()const
 			DrawRotaGraph(g, z, 2.0, 0, grace, FALSE);
 		}
 	}
-
-	ui->Draw();
-	wall->Draw();
-	player->Draw();
 
 	//敵の描画
 	for (int i = 0; i < enemymax; i++)
@@ -456,6 +463,8 @@ void GameMainScene::Draw()const
 		}
 	}
 
+	ui->Draw();
+
 	// レベルとEXP
 	SetFontSize(20);
 	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
@@ -463,6 +472,10 @@ void GameMainScene::Draw()const
 	DrawFormatString(550, 500, 0xffffff, "%d", e_type);
 	DrawFormatString(600, 500, 0xffffff, "%d", ui->GetTime());
 
+	wall->Draw();
+	player->Draw();
+
+	//クリア表示
 	if (is_clear)
 	{
 		// 半透明にしてメニュー背景の四角
@@ -475,12 +488,28 @@ void GameMainScene::Draw()const
 		SetFontSize(120);
 		DrawString(200, 300, "ゲームクリア!!", GetColor(255, 255, 255));
 	}
+
+	//ゲームオーバー表示
+	if (is_over)
+	{
+		// 半透明にしてメニュー背景の四角
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawFillBox(150, 250, 1130, 530, GetColor(0, 0, 255));
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// 不透明に戻して白い枠
+		DrawLineBox(150, 250, 1130, 530, GetColor(255, 255, 255));
+
+		SetFontSize(120);
+		DrawString(200, 300, "ゲームオーバー", GetColor(255, 255, 255));
+	}
 }
 
 //終了時処理
 void GameMainScene::Finalize()
 {
-
+	player->Finalize();
+	ui->Finalize();
+	wall->Finalize();
 }
 
 bool GameMainScene::WhitCheck(Enemy* e, Wall* w)
