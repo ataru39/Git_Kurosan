@@ -121,7 +121,6 @@ void Enemy::Draw()const
 		}
 	}
 
-	DrawFormatString(500, 500, 0xffffff, "%d", type, true);
 }
 
 void Enemy::Finalize()
