@@ -17,9 +17,10 @@ Wall::~Wall()
 
 void Wall::Initialize()
 {
-	hp = 1000;
+	hp = 1;
 	location = Vector2D(0.0f, 100.0f);
 	box_size = Vector2D(180.0f, 720.0f);
+	cnt = 30;
 }
 
 void Wall::Update()

@@ -25,6 +25,7 @@ private:
 	int o_image;
 	int font;
 	int flg;
+	int cnt;
 	Vector2D location;
 	Vector2D box_size;
 
