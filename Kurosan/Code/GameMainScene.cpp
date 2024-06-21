@@ -89,295 +89,301 @@ void GameMainScene::Initialize()
 // 更新処理
 eSceneType GameMainScene::Update()
 {
-	player->Update();
-	wall->Update();
-	ui->Update();
+	//クリアまたはオーバーの時に処理を止める
+	if (wall->WallBreak() || is_clear==true) {
 
-	// 敵の生成
-	if (e_delay <= 0) {								//間隔
-		for (int i = 0; i < enemymax; i++) {		//作る上限
-			if (enemy[i] == nullptr)				//配列enemyの中が空の時
-			{
-				enemy[i] = new Enemy();				//空の配列にエネミーを作る
-				if (ui->GetTime() >= 2) {
-					e_type=0;
+	}
+	else {
+		player->Update();
+		wall->Update();
+		ui->Update();
+
+		// 敵の生成
+		if (e_delay <= 0) {								//間隔
+			for (int i = 0; i < enemymax; i++) {		//作る上限
+				if (enemy[i] == nullptr)				//配列enemyの中が空の時
+				{
+					enemy[i] = new Enemy();				//空の配列にエネミーを作る
+					if (ui->GetTime() >= 2) {
+						e_type = 0;
+					}
+					else if (ui->GetTime() >= 1) {
+						//fun = 2;
+						e_type = (rand() % 2);
+					}
+					else {
+						//fun = 3;
+						e_type = (rand() % 3);
+					}
+					enemy[i]->Initialize(e_type, player->GetLevel());				//初期化処理
+					e_delay = 60 /*- player->GetLevel() * 2*/;	//敵を作る間隔
+					break;								//forループから抜ける
 				}
-				else if (ui->GetTime() >= 1) {
-					//fun = 2;
-					e_type = (rand() % 2);
-				}
-				else{
-					//fun = 3;
-					e_type = (rand() % 3);
-				}
-				enemy[i]->Initialize(e_type,player->GetLevel());				//初期化処理
-				e_delay = 60 /*- player->GetLevel() * 2*/;	//敵を作る間隔
-				break;								//forループから抜ける
 			}
 		}
-	}
 
-	// 敵の生成ディレイ減少
-	if (e_delay > 0)
-	{
-		e_delay--;
-	}
-
-	// 敵の更新
-	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr) {
-			enemy[i]->Update();
-		}
-	}
-
-	// 弾生成
-	if (b_cooltime <= 0)
-	{
-		for (int i = 0; i < 10; i++)
+		// 敵の生成ディレイ減少
+		if (e_delay > 0)
 		{
-			if (bullet[i] == nullptr)
-			{
-				bullet[i] = new S_Bullet();
-				bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
-				b_cooltime = 60 - (player->GetLevel() * 5);
-				break;
+			e_delay--;
+		}
+
+		// 敵の更新
+		for (int i = 0; i < enemymax; i++) {
+			if (enemy[i] != nullptr) {
+				enemy[i]->Update();
 			}
 		}
-	}
 
-	// 弾クールタイム減少処理
-	if (b_cooltime > 0)
-	{
-		b_cooltime--;
-	}
-
-	// 拳生成処理
-	if (player->GetLevel() > 5) {
-		if (f_cooltime <= 0)
+		// 弾生成
+		if (b_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				if (fist[i] == nullptr)
+				if (bullet[i] == nullptr)
 				{
-					fist[i] = new S_21Fist();
-					fist[i]->Initialize(player->GetLocation());
-					f_cooltime = 300;
+					bullet[i] = new S_Bullet();
+					bullet[i]->Initialize(player->GetLocation(), player->GetLevel());
+					b_cooltime = 60 - (player->GetLevel() * 5);
 					break;
 				}
 			}
 		}
-	}
-	// クールタイム減少処理
-	if (f_cooltime > 0)
-	{
-		f_cooltime--;
-	}
 
-
-	// 左手生成処理
-	if (player->GetLevel() > 4) {
-		if (l_cooltime <= 0)
+		// 弾クールタイム減少処理
+		if (b_cooltime > 0)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				if (fistl[i] == nullptr)
-				{
-					fistl[i] = new S_21FistL();
-					fistl[i]->Initialize(player->GetLocation());
-					l_cooltime = 300;
-					break;
-				}
-			}
+			b_cooltime--;
 		}
-	}
-	// クールタイム減少処理
-	if (l_cooltime > 0)
-	{
-		l_cooltime--;
-	}
 
-	// 炎生成処理
-	if (player->GetLevel() > 2) {
-		if (h_cooltime <= 0)
+		// 拳生成処理
+		if (player->GetLevel() > 5) {
+			if (f_cooltime <= 0)
 			{
 				for (int i = 0; i < 10; i++)
-				{	
+				{
+					if (fist[i] == nullptr)
+					{
+						fist[i] = new S_21Fist();
+						fist[i]->Initialize(player->GetLocation());
+						f_cooltime = 300;
+						break;
+					}
+				}
+			}
+		}
+		// クールタイム減少処理
+		if (f_cooltime > 0)
+		{
+			f_cooltime--;
+		}
+
+
+		// 左手生成処理
+		if (player->GetLevel() > 4) {
+			if (l_cooltime <= 0)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					if (fistl[i] == nullptr)
+					{
+						fistl[i] = new S_21FistL();
+						fistl[i]->Initialize(player->GetLocation());
+						l_cooltime = 300;
+						break;
+					}
+				}
+			}
+		}
+		// クールタイム減少処理
+		if (l_cooltime > 0)
+		{
+			l_cooltime--;
+		}
+
+		// 炎生成処理
+		if (player->GetLevel() > 2) {
+			if (h_cooltime <= 0)
+			{
+				for (int i = 0; i < 10; i++)
+				{
 					if (frame[i] == nullptr && enemy[i] != nullptr)
-					{	
+					{
 						frame[i] = new S_Frame();
 						frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
 						h_cooltime = 60;
-						break;	
+						break;
 					}
 				}
+			}
 		}
-	}
 
-	// クールタイム減少処理
-	if (h_cooltime > 0)
-	{
-		h_cooltime--;
-	}
-
-	// 弾の更新処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (bullet[i] != nullptr)
+		// クールタイム減少処理
+		if (h_cooltime > 0)
 		{
-			bullet[i]->Update();
+			h_cooltime--;
 		}
-	}
 
-	// 拳の更新処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (fist[i] != nullptr)
+		// 弾の更新処理
+		for (int i = 0; i < 10; i++)
 		{
-			fist[i]->Update();
-		}
-	}
-	// 拳の更新処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (fistl[i] != nullptr)
-		{
-			fistl[i]->Update();
-		}
-	}
-
-	// 炎の更新処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (frame[i] != nullptr)
-		{
-			frame[i]->Update();
-		}
-	}
-
-	// 弾の消去処理（仮）
-	for (int i = 0; i < 10; i++)
-	{
-		if (bullet[i] != nullptr)
-		{
-			if (bullet[i]->GetLocation().x > 1300)
+			if (bullet[i] != nullptr)
 			{
-				bullet[i] = nullptr;
+				bullet[i]->Update();
 			}
 		}
-	}
 
-	//拳の削除処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (fist[i] != nullptr)
+		// 拳の更新処理
+		for (int i = 0; i < 10; i++)
 		{
-			f_location = fist[i]->GetLocation();
-			if (fist[i]->FadeOut() <= 0) {
-				fist[i] = nullptr;
-			}
-		}
-	}
-
-	//左手の削除処理
-	for (int i = 0; i < 10; i++)
-	{
-		if (fistl[i] != nullptr)
-		{
-			l_location = fistl[i]->GetLocation();
-			if (fistl[i]->FadeOut() <= 0) {
-				fistl[i] = nullptr;
-			}
-		}
-	}
-
-	// 炎の消去処理（仮）
-	for (int i = 0; i < 10; i++)
-	{
-		if (frame[i] != nullptr)
-		{
-			if (frame[i]->GetLocation().x > 1300)
+			if (fist[i] != nullptr)
 			{
-				frame[i] = nullptr;
+				fist[i]->Update();
 			}
 		}
-	}
-
-	//敵と弾の当たり判定
-	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr) {
-			for (int j = 0; j < 10; j++)
+		// 拳の更新処理
+		for (int i = 0; i < 10; i++)
+		{
+			if (fistl[i] != nullptr)
 			{
-				if (bullet[j] != nullptr) {
-					if (BhitCheck(enemy[i], bullet[j])) { // 敵と弾が接触した時
-						enemy[i]->Damage(bullet[j]->GetDamage());// 敵にダメージを与える
-						bullet[j] = nullptr;
-						delete bullet[j];
-						if (enemy[i]->GetHP() <= 0) // 敵が死んだとき
-						{
-							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							is_levelup = player->Levelup();
-							enemy[i] = nullptr;
-							delete enemy[i];
-						}
-						break;
-					}
-				}
+				fistl[i]->Update();
+			}
+		}
 
-				if (fist[j] != nullptr) {
-					//fist[i]->Level(player->GetLevel());
-					if (FhitCheck(enemy[i], fist[j])) {
-						enemy[i]->Damage(fist[j]->GetDamage());
-						if (enemy[i]->GetHP() <= 0)
-						{
-							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							is_levelup = player->Levelup();
-							enemy[i] = nullptr;
-							delete enemy[i];
-						}
-						break;
-					}
-				}
+		// 炎の更新処理
+		for (int i = 0; i < 10; i++)
+		{
+			if (frame[i] != nullptr)
+			{
+				frame[i]->Update();
+			}
+		}
 
-				if (fistl[j] != nullptr) {
-					//fist[i]->Level(player->GetLevel());
-					if (FlhitCheck(enemy[i], fistl[j])) {
-						enemy[i]->Damage(fistl[j]->GetDamage());
-						if (enemy[i]->GetHP() <= 0)
-						{
-							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							is_levelup = player->Levelup();
-							enemy[i] = nullptr;
-							delete enemy[i];
-						}
-						break;
-					}
+		// 弾の消去処理（仮）
+		for (int i = 0; i < 10; i++)
+		{
+			if (bullet[i] != nullptr)
+			{
+				if (bullet[i]->GetLocation().x > 1300)
+				{
+					bullet[i] = nullptr;
 				}
+			}
+		}
 
-				if (frame[j] != nullptr) {
-					if (HhitCheck(enemy[i], frame[j])) {
-						enemy[i]->Damage(frame[j]->GetDamage());
-						frame[j] = nullptr;
-						delete frame[j];
-						if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
-						{
-							player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
-							is_levelup = player->Levelup();
-							enemy[i] = nullptr;
-							delete enemy[i];
+		//拳の削除処理
+		for (int i = 0; i < 10; i++)
+		{
+			if (fist[i] != nullptr)
+			{
+				f_location = fist[i]->GetLocation();
+				if (fist[i]->FadeOut() <= 0) {
+					fist[i] = nullptr;
+				}
+			}
+		}
+
+		//左手の削除処理
+		for (int i = 0; i < 10; i++)
+		{
+			if (fistl[i] != nullptr)
+			{
+				l_location = fistl[i]->GetLocation();
+				if (fistl[i]->FadeOut() <= 0) {
+					fistl[i] = nullptr;
+				}
+			}
+		}
+
+		// 炎の消去処理（仮）
+		for (int i = 0; i < 10; i++)
+		{
+			if (frame[i] != nullptr)
+			{
+				if (frame[i]->GetLocation().x > 1300)
+				{
+					frame[i] = nullptr;
+				}
+			}
+		}
+
+		//敵と弾の当たり判定
+		for (int i = 0; i < enemymax; i++) {
+			if (enemy[i] != nullptr) {
+				for (int j = 0; j < 10; j++)
+				{
+					if (bullet[j] != nullptr) {
+						if (BhitCheck(enemy[i], bullet[j])) { // 敵と弾が接触した時
+							enemy[i]->Damage(bullet[j]->GetDamage());// 敵にダメージを与える
+							bullet[j] = nullptr;
+							delete bullet[j];
+							if (enemy[i]->GetHP() <= 0) // 敵が死んだとき
+							{
+								player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+								is_levelup = player->Levelup();
+								enemy[i] = nullptr;
+								delete enemy[i];
+							}
+							break;
 						}
-						break;
+					}
+
+					if (fist[j] != nullptr) {
+						//fist[i]->Level(player->GetLevel());
+						if (FhitCheck(enemy[i], fist[j])) {
+							enemy[i]->Damage(fist[j]->GetDamage());
+							if (enemy[i]->GetHP() <= 0)
+							{
+								player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+								is_levelup = player->Levelup();
+								enemy[i] = nullptr;
+								delete enemy[i];
+							}
+							break;
+						}
+					}
+
+					if (fistl[j] != nullptr) {
+						//fist[i]->Level(player->GetLevel());
+						if (FlhitCheck(enemy[i], fistl[j])) {
+							enemy[i]->Damage(fistl[j]->GetDamage());
+							if (enemy[i]->GetHP() <= 0)
+							{
+								player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+								is_levelup = player->Levelup();
+								enemy[i] = nullptr;
+								delete enemy[i];
+							}
+							break;
+						}
+					}
+
+					if (frame[j] != nullptr) {
+						if (HhitCheck(enemy[i], frame[j])) {
+							enemy[i]->Damage(frame[j]->GetDamage());
+							frame[j] = nullptr;
+							delete frame[j];
+							if (enemy[i]->GetHP() <= 0)				// 敵が死んだとき
+							{
+								player->RcvExp(enemy[i]->GetExp());	// プレイヤーにEXPを渡す
+								is_levelup = player->Levelup();
+								enemy[i] = nullptr;
+								delete enemy[i];
+							}
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	//敵と壁の当たり判定
-	for (int i = 0; i < enemymax; i++) {
-		if (enemy[i] != nullptr && enemy[i]->GetAtkFlg() != true) {
-			if (WhitCheck(enemy[i], wall)) {
-				enemy[i]->ChengeAtkFlg(true);
-				wall->Damage(enemy[i]->GetDamage());
+		//敵と壁の当たり判定
+		for (int i = 0; i < enemymax; i++) {
+			if (enemy[i] != nullptr && enemy[i]->GetAtkFlg() != true) {
+				if (WhitCheck(enemy[i], wall)) {
+					enemy[i]->ChengeAtkFlg(true);
+					wall->Damage(enemy[i]->GetDamage());
+				}
 			}
 		}
 	}
@@ -425,7 +431,7 @@ void GameMainScene::Draw()const
 			enemy[i]->Draw();
 		}
 	}
-
+	ui->Draw();
 	wall->Draw();
 	player->Draw();
 
@@ -465,8 +471,6 @@ void GameMainScene::Draw()const
 			frame[i]->Draw();
 		}
 	}
-
-	ui->Draw();
 
 	// レベルとEXP
 	SetFontSize(20);

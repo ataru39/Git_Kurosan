@@ -26,14 +26,6 @@ void Wall::Initialize()
 void Wall::Update()
 {
 	flg = WallBreak();
-	if (flg!=false && cnt > 0) 
-	{
-		cnt--;
-	}
-	if (cnt <= 0) 
-	{
-		cnt = 30;
-	}
 }
 
 void Wall::Draw()const
@@ -50,9 +42,7 @@ void Wall::Draw()const
 		{
 			for (int j = 0; j < 1300; j+=100) 
 			{
-				if (cnt == 30) {
-					DrawGraph(j, i, o_image, TRUE);
-				}
+				DrawGraph(j, i, o_image, TRUE);
 			}
 		}
 	}
