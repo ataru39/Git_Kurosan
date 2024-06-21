@@ -40,13 +40,6 @@ void S_21Fist::Update()
 		location.x = 250;
 		bright_fadeout -= 10;
 	}
-
-	//ougi_y += speed;
-	//if (ougi_x >= 390) {
-	//ougi_x = 390;
-	//bright_fadeout -= 10;
-	//}
-
 }
 
 void S_21Fist::Draw() const
@@ -61,12 +54,6 @@ void S_21Fist::Draw() const
 	else {
 		DrawRotaGraph(location.x, location.y-50, 1.0f, kaiten, image, TRUE);
 	}
-	//if (ougi_y < 390) {
-	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, bright_fadeout);
-	//	DrawRotaGraph(ougi_x, ougi_y , 1.0f, 0.0f, image2, TRUE);
-	//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	//}
-
 }
 
 void S_21Fist::Finalize()
@@ -98,4 +85,3 @@ int S_21Fist::GetLevel()
 {
 	return level;
 }
-

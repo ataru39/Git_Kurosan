@@ -34,7 +34,7 @@ void SceneManager::Initialize()
 	{
 		throw("Dxライブラリが初期化できませんでした\n");
 	}
-	
+
 	//描画先指定処理
 	if (SetDrawScreen(DX_SCREEN_BACK) == -1)
 	{
@@ -105,7 +105,7 @@ void SceneManager::Finalize()
 	}
 
 	//DXライブラリの使用を終了する
-		DxLib_End();
+	DxLib_End();
 }
 
 //シーンマネージャー機能：描画処理
@@ -157,10 +157,6 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new Title;
 	case eSceneType::E_MAIN:
 		return new GameMainScene;
-	case eSceneType::E_RESULT:
-		return new ResultScene;
-	case eSceneType::E_END:
-		return new End;
 	default:
 		return nullptr;
 	}

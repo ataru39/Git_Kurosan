@@ -6,7 +6,6 @@ Wall::Wall()
 	image = LoadGraph("Resources/Images/kabe4.png");
 	o_image = LoadGraph("Resources/Images/tile_0.png");
 	font = CreateFontToHandle(NULL, 40, 2);
-
 }
 
 Wall::~Wall()
@@ -38,9 +37,9 @@ void Wall::Draw()const
 	DrawGraph(0, 700, image, TRUE);
 
 	if (flg != false) {
-		for (int i = 0; i < 800; i+=100) 
+		for (int i = 0; i < 800; i += 100)
 		{
-			for (int j = 0; j < 1300; j+=100) 
+			for (int j = 0; j < 1300; j += 100)
 			{
 				DrawGraph(j, i, o_image, TRUE);
 			}
@@ -83,7 +82,3 @@ void Wall::Damage(int damage)
 {
 	hp -= damage;
 }
-
-
-
-

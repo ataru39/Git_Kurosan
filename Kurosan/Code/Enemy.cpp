@@ -2,19 +2,19 @@
 #include "DxLib.h"
 #include "math.h"
 
-Enemy::Enemy() :type(0), image(0),image2(0), image_g(0), image_m(0), speed(0.0f), location(0.0f), box_size(0.0f)
+Enemy::Enemy()
 {
-	//画像読み込み
+	// 画像読み込み
 	image = LoadGraph("Resources/Images/slime.png");
 	image2 = LoadGraph("Resources/Images/slime_red.png");
 	image_g = LoadGraph("Resources/Images/ghost.png");
 	image_g2 = LoadGraph("Resources/Images/ghost_red.png");
 	image_m = LoadGraph("Resources/Images/mash.png");
 	image_m2 = LoadGraph("Resources/Images/mash_red.png");
-				//画像					//ダメージ			//HP				 //スピード				//ダメージ画像
-	/*スライム*/e_type[0][0] = { image }; e_type[0][1] = {1}; e_type[0][2] = {30}; e_type[0][3] = {2};   e_type[0][4] = { image2 };
-	/*ゴースト*/e_type[1][0] = {image_g}; e_type[1][1] = {5}; e_type[1][2] = {90}; e_type[1][3] = {10};  e_type[1][4] = { image_g2 };
-	/* きのこ */e_type[2][0] = {image_m}; e_type[2][1] = {10}; e_type[2][2] = {100}; e_type[2][3] = {5}; e_type[2][4] = { image_m2 };
+	//画像					  	//ダメージ画像
+	/*スライム*/ e_type[0][0] = { image };  e_type[0][4] = { image2 };
+	/*ゴースト*/ e_type[1][0] = { image_g };  e_type[1][4] = { image_g2 };
+	/* きのこ */ e_type[2][0] = { image_m };  e_type[2][4] = { image_m2 };
 }
 
 Enemy::~Enemy()
@@ -22,43 +22,61 @@ Enemy::~Enemy()
 }
 
 //初期化処理
-void Enemy::Initialize(int teki,int plevel)
+void Enemy::Initialize(int teki)
 {
-	#define PI    3.1415926535897932384626433832795f
-	//プレイヤーレベルに応じてステータス強化
-				//ダメージ			//HP					//スピード
-	/*スライム*/e_type[0][1] = { 5  }; e_type[0][2] = { 20 } ; e_type[0][3] = { 2  };
-	/*ゴースト*/e_type[1][1] = { 8 }; e_type[1][2] = { 10 } ; e_type[1][3] = { 10 };
-	/* きのこ */e_type[2][1] = { 10 }; e_type[2][2] = { 90 } ; e_type[2][3] = { 1  };
-	//敵の種類
-	//type = (rand() % fun);
+#define PI    3.1415926535897932384626433832795f
+
+	//ダメージ			//HP					//スピード
+	/*スライム*/ e_type[0][1] = { 5 }; e_type[0][2] = { 20 }; e_type[0][3] = { 2 };
+	/*ゴースト*/ e_type[1][1] = { 8 }; e_type[1][2] = { 10 }; e_type[1][3] = { 10 };
+	/* きのこ */ e_type[2][1] = { 10 }; e_type[2][2] = { 90 }; e_type[2][3] = { 1 };
+
 	type = teki;
-	//出現させるX座標パターンを取得
+
+	// 出現させるX座標パターンを取得
 	float random_y = (float)(GetRand(50) * 11 + 100);
-	//生成位置の設定
+
+	// 生成位置の設定
 	location = Vector2D(1300.0f, random_y);
-	//当たり判定の設定
+
+	// 当たり判定の設定
 	box_size = Vector2D(50.0f, 50.0f);
-	//種類ごとのスピード
+
+	// 種類ごとのスピード
 	speed = e_type[type][3];
-	//種類ごとのHP
+
+	// 種類ごとのHP
 	hp = e_type[type][2];
-	//種類ごとの攻撃力
+
+	// 種類ごとの攻撃力
 	dmg = e_type[type][1];
+
 	// EXPの設定
 	exp = 1;
+
+	// ダメージを受けたか
 	dmgflg = false;
+
+	// ダメージリアクション時間
 	dmgcnt = 10;
+
+	// アタックするか
 	atk_flg = false;
+
+	// アタック間隔
 	delay = 300;
+
+	// 画像の反転状態
 	angflg = false;
+
+	// 反転間隔
 	angcnt = 15;
 }
 
 void Enemy::Update()
 {
 	//位置情報に移動量を加算する
-	location += Vector2D(-speed , 0.0f);	
+	location += Vector2D(-speed, 0.0f);
 
 	if (location.x <= 200) {
 		location.x = 200;
@@ -67,8 +85,9 @@ void Enemy::Update()
 	if (dmgflg) {
 		dmgcnt--;
 	}
+
 	if (dmgcnt <= 0) {
-		dmgflg=false;
+		dmgflg = false;
 	}
 
 	if (atk_flg) {
@@ -131,17 +150,6 @@ void Enemy::Finalize()
 	DeleteGraph(image_g2);
 	DeleteGraph(image_m);
 	DeleteGraph(image_m2);
-
-}
-
-void Enemy::Movement()
-{
-
-}
-
-void Enemy::Spawn()
-{
-
 }
 
 //位置情報を取得
@@ -187,4 +195,3 @@ int Enemy::GetExp()
 {
 	return this->exp;
 }
-

@@ -14,7 +14,7 @@ S_Frame::~S_Frame()
 
 }
 
-void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
+void S_Frame::Initialize(Vector2D p_location, Vector2D e_location)
 {
 	location = p_location;
 	box_size = Vector2D(0.2f, 0.2f);
@@ -36,8 +36,6 @@ void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
 	float distance = std::sqrtf(std::powf(movement_vector.x, 2) + std::powf(movement_vector.y, 2));
 	movement_vector.x *= (1 / distance);
 	movement_vector.y *= (1 / distance);
-
-	
 }
 
 void S_Frame::Update()
@@ -55,9 +53,7 @@ void S_Frame::Update()
 				box_size = Vector2D(100, 100);
 				f_count++;
 				delay = 2;
-				
 			}
-
 		}
 		if (f_count >= 7)
 		{
@@ -69,7 +65,7 @@ void S_Frame::Update()
 
 void S_Frame::Draw() const
 {
-	if(f_count == 0)
+	if (f_count == 0)
 	{
 		DrawRotaGraph(location.x, location.y, 1, 1, image, TRUE);
 	}

@@ -8,7 +8,7 @@ public:
 	Title();
 	virtual ~Title();
 
-	int title_c,title_g,title_cc;
+	int title_c, title_g, title_cc;
 
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;

@@ -17,7 +17,6 @@ void S_21FistL::Initialize(Vector2D p_location)
 	damage = 5.0f;
 	bright_fadeout = 255;
 	kaiten = PI / 2;
-
 }
 
 void S_21FistL::Update()
@@ -52,7 +51,6 @@ void S_21FistL::Draw() const
 	else {
 		DrawRotaGraph(location.x, location.y + 50, 1.0f, kaiten, image, TRUE);
 	}
-
 }
 
 void S_21FistL::Finalize()

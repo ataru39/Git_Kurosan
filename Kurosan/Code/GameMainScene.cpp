@@ -8,7 +8,7 @@ GameMainScene::GameMainScene()
 	// 敵の生成上限数
 	enemymax = 300;
 
-	// オブジェクトの生成
+	// オブジェクト生成
 	wall = new Wall;
 	player = new Player;
 	ui = new UI;
@@ -88,16 +88,20 @@ void GameMainScene::Initialize()
 	bgm_gm = LoadSoundMem("Resources/Sounds/GameMain_BGM.mp3");
 	se_clear = LoadSoundMem("Resources/Sounds/GameClear.mp3");
 	se_over = LoadSoundMem("Resources/Sounds/GameOver.mp3");
+
 	se_bullet = LoadSoundMem("Resources/Sounds/Bullet_Act01.mp3");
+
 	se_fist = LoadSoundMem("Resources/Sounds/Fist_Act.mp3");
 	se_fist_hit = LoadSoundMem("Resources/Sounds/Fist_Hit.mp3");
+
 	se_flame = LoadSoundMem("Resources/Images/Sounds/Flame_Act.mp3.mp3");
 	se_flame_hit = LoadSoundMem("Resources/Sounds/Flame_Hit.mp3");
-	se_levelup = LoadSoundMem("Resources/Sounds/LevelUp.mp3");
 
+	se_levelup = LoadSoundMem("Resources/Sounds/LevelUp.mp3");
 
 	ChangeVolumeSoundMem(200, bgm_gm);
 	ChangeVolumeSoundMem(170, se_bullet);
+	ChangeVolumeSoundMem(170, se_fist_hit);
 	ChangeVolumeSoundMem(150, se_levelup);
 
 	player->Initialize();
@@ -138,7 +142,6 @@ eSceneType GameMainScene::Update()
 				return eSceneType::E_TITLE;
 			}
 		}
-
 	}
 	else {
 		player->Update();
@@ -186,7 +189,7 @@ eSceneType GameMainScene::Update()
 						//fun = 3;
 						e_type = (rand() % 3);
 					}
-					enemy[i]->Initialize(e_type, player->GetLevel());				//初期化処理
+					enemy[i]->Initialize(e_type);				//初期化処理
 					e_delay = 90 - player->GetLevel() * 8;	//敵を作る間隔
 					break;								//forループから抜ける
 				}
@@ -333,7 +336,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 
-		// 弾の消去処理（仮）
+		// 弾の消去処理
 		for (int i = 0; i < 10; i++)
 		{
 			if (bullet[i] != nullptr)
@@ -369,7 +372,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 
-		// 炎の消去処理（仮）
+		// 炎の消去処理
 		for (int i = 0; i < 10; i++)
 		{
 			if (frame[i] != nullptr)
@@ -538,7 +541,6 @@ void GameMainScene::Draw()const
 		}
 	}
 
-
 	//炎の描画
 	for (int i = 0; i < 10; i++)
 	{
@@ -552,7 +554,6 @@ void GameMainScene::Draw()const
 	SetFontSize(20);
 	DrawString(30, 30, "プレイヤーレベル", 0xffffff);
 	DrawFormatString(220, 30, 0xffffff, "%d", player->GetLevel());
-
 
 	//クリア表示
 	if (is_clear)

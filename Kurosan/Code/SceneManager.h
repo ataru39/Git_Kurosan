@@ -13,7 +13,7 @@ class SceneManager
 private:
 	SceneBase* current_scene;   //Œ»İƒV[ƒ“î•ñ
 	int credit_image;
-	
+
 public:
 	SceneManager();
 	~SceneManager();

@@ -4,12 +4,10 @@
 #include"stdio.h"
 #define PI    3.1415926535897932384626433832795f
 
-
 Player::Player()
 {
 	image = LoadGraph("Resources/Images/wizard.png");
-	LoadDivGraph("Resources/Images/kamifubuki.png",12,1,12,1920,480,l_image);
-
+	LoadDivGraph("Resources/Images/kamifubuki.png", 12, 1, 12, 1920, 480, l_image);
 }
 
 Player::~Player()
@@ -50,7 +48,7 @@ void Player::Draw()
 
 	if (Levelup() == true)
 	{
-		for(int i=0;i<11;i++)
+		for (int i = 0; i < 11; i++)
 		{
 			DrawGraph(0, 0, l_image[i], TRUE);
 		}
@@ -92,7 +90,7 @@ void Player::Movement()
 		move += Vector2D(0.0f, -speed);
 	}
 
-		location += move;
+	location += move;
 }
 
 int Player::GetLevel()

@@ -5,7 +5,6 @@ UI::UI()
 {
 	image = LoadGraph("Resources/Images/tile_0.png");
 	font = CreateFontToHandle(NULL, 40, 2);
-
 }
 
 UI::~UI()
@@ -39,7 +38,7 @@ bool UI::GetIsClear()
 
 void UI::Update()
 {
-	if(GetIsClear() == false)
+	if (GetIsClear() == false)
 	{
 		// フレームカウント
 		frame++;

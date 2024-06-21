@@ -17,9 +17,8 @@ public:
 	virtual Vector2D GetLocation() const override;
 	virtual Vector2D GetBoxSize() const override;
 	virtual int GetDamage() const override;
-	
+
 	float FadeOut();
-	void Level(int level);
 	int GetLevel();
 
 private:

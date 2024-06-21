@@ -12,7 +12,7 @@ public:
 	Vector2D destination_location; //–Ú“I’n
 	Vector2D movement_vector;
 
-	virtual void Initialize(Vector2D p_location,Vector2D e_location);
+	virtual void Initialize(Vector2D p_location, Vector2D e_location);
 	virtual void Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
@@ -25,10 +25,10 @@ public:
 	bool GetF_Flg();
 
 	int f_count;
-	
+
 private:
 	int images[7];
-	
+
 	float f_size;
 	int delay;
 	int a;
