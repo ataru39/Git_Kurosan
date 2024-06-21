@@ -22,10 +22,11 @@ public:
 	virtual Vector2D GetBoxSize() const override;
 	virtual int GetDamage() const override;
 	int GetF_Count();
+	bool GetF_Flg();
 
 	int f_count;
 	
-	private:
+private:
 	int images[7];
 	
 	float f_size;

@@ -220,7 +220,7 @@ eSceneType GameMainScene::Update()
 	}
 
 	// ‰Š¶¬ˆ—
-	if (player->GetLevel() > 2) {
+	if (player->GetLevel() > 0) {
 		if (h_cooltime <= 0)
 		{
 			for (int i = 0; i < 10; i++)
@@ -387,13 +387,15 @@ eSceneType GameMainScene::Update()
 
 				if (frame[j] != nullptr) {
 					if (HhitCheck(enemy[i], frame[j])) {
+						if(!frame[j]->GetF_Flg())
+						{
+							frame[j]->Explosion(true);
+						}
+						enemy[i]->Damage(frame[j]->GetDamage());
 						if (!CheckSoundMem(se_flame_hit))
 						{
 							PlaySoundMem(se_flame_hit, DX_PLAYTYPE_BACK);
 						}
-						enemy[i]->Damage(frame[j]->GetDamage());
-						frame[j] = nullptr;
-						delete frame[j];
 						if (enemy[i]->GetHP() <= 0)				// “G‚ªŽ€‚ñ‚¾‚Æ‚«
 						{
 							player->RcvExp(enemy[i]->GetExp());	// ƒvƒŒƒCƒ„[‚ÉEXP‚ð“n‚·
@@ -402,6 +404,11 @@ eSceneType GameMainScene::Update()
 							delete enemy[i];
 						}
 						break;
+					}
+					if (frame[j]->GetF_Count() > 7)
+					{
+						delete frame[j];
+						frame[j] = nullptr;
 					}
 				}
 			}

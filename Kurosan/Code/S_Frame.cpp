@@ -23,7 +23,7 @@ void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
 
 	f_size = 1.0f;
 	f_count = 0;
-	delay = 5;
+	delay = 3;
 	a = 0.2;
 
 	f_flg = false;
@@ -54,9 +54,14 @@ void S_Frame::Update()
 				f_size += 0.8f;
 				box_size = Vector2D(100, 100);
 				f_count++;
-				delay = 9;
+				delay = 2;
+				
 			}
 
+		}
+		if (f_count >= 7)
+		{
+			box_size = Vector2D(0.0f, 0.0f);
 		}
 	}
 }
@@ -64,7 +69,10 @@ void S_Frame::Update()
 
 void S_Frame::Draw() const
 {
-	DrawRotaGraph(location.x, location.y, 1, 1, image, TRUE);
+	if(f_count == 0)
+	{
+		DrawRotaGraph(location.x, location.y, 1, 1, image, TRUE);
+	}
 	DrawRotaGraph(location.x, location.y, f_size, 1, images[f_count], TRUE);
 }
 
@@ -96,4 +104,9 @@ int S_Frame::GetDamage() const
 int S_Frame::GetF_Count()
 {
 	return f_count;
+}
+
+bool S_Frame::GetF_Flg()
+{
+	return f_flg;
 }
