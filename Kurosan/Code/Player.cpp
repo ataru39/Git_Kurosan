@@ -8,6 +8,7 @@
 Player::Player()
 {
 	image = LoadGraph("Resources/Images/wizard.png");
+	LoadDivGraph("Resources/Images/kamifubuki.png",12,1,12,1920,480,l_image);
 }
 
 Player::~Player()
@@ -41,12 +42,23 @@ void Player::Update()
 void Player::Draw()
 {
 	DrawRotaGraph(location.x, location.y, 2, PI / 2, image, TRUE);
+
+	if (Levelup() == true)
+	{
+		for(int i=0;i<11;i++)
+		{
+			DrawGraph(0, 0, l_image[i], TRUE);
+		}
+	}
 }
 
 //I—¹Žžˆ—
 void Player::Finalize()
 {
 	DeleteGraph(image);
+	for (int i = 0; i < 11; i++) {
+		DeleteGraph(l_image[i]);
+	}
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—
@@ -106,4 +118,5 @@ bool Player::Levelup()
 
 		return true;
 	}
+	return false;
 }
