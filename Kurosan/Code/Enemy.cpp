@@ -29,7 +29,7 @@ void Enemy::Initialize(int teki,int plevel)
 				//ダメージ			//HP					//スピード
 	/*スライム*/e_type[0][1] = { 5  }; e_type[0][2] = { 20 } ; e_type[0][3] = { 2  };
 	/*ゴースト*/e_type[1][1] = { 8 }; e_type[1][2] = { 10 } ; e_type[1][3] = { 10 };
-	/* きのこ */e_type[2][1] = { 10 }; e_type[2][2] = { 30 } ; e_type[2][3] = { 1  };
+	/* きのこ */e_type[2][1] = { 10 }; e_type[2][2] = { 90 } ; e_type[2][3] = { 1  };
 	//敵の種類
 	//type = (rand() % fun);
 	type = teki;

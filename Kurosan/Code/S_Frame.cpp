@@ -19,7 +19,7 @@ void S_Frame::Initialize(Vector2D p_location,Vector2D e_location)
 	location = p_location;
 	box_size = Vector2D(0.2f, 0.2f);
 	speed = 22.0f;
-	damage = 20.0f;
+	damage = 10.0f;
 
 	f_size = 1.0f;
 	f_count = 0;

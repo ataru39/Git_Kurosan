@@ -30,7 +30,7 @@ void Player::Initialize()
 	// レベル初期化
 	level = 1;
 	// スピード初期化
-	speed = 4.0f + level * 4;
+	speed = 7.5f;
 }
 
 //更新処理
@@ -112,7 +112,7 @@ int Player::RcvExp(int exp)
 
 bool Player::Levelup()
 {
-	if (exp >= need_exp)
+	if (exp >= need_exp && level < 11)
 	{
 		// レベルアップ
 		level += 1;

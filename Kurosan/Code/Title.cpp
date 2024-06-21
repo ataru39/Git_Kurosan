@@ -56,7 +56,7 @@ void Title::Draw()const
 	}*/
 
 	SetFontSize(64);
-	DrawString(410, 200, "浦田のマジック", 0x0000ff, TRUE);
+	DrawString(410, 200, "Dokkan Magic", 0x0000ff, TRUE);
 	SetFontSize(70);
 	DrawFormatString(220, 400, 0xff0000, "Aボタンを押してスタート", FALSE);
 	SetFontSize(40);
