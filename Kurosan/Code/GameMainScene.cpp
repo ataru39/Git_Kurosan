@@ -87,7 +87,7 @@ void GameMainScene::Initialize()
 	bgm_gm = LoadSoundMem("Resources/Sounds/GameMain_BGM.mp3");
 	se_clear = LoadSoundMem("Resources/Sounds/GameClear.mp3");
 	se_over = LoadSoundMem("Resources/Sounds/GameOver.mp3");
-	se_bullet = LoadSoundMem("Resources/Sounds/Bullet_Act.mp3");
+	se_bullet = LoadSoundMem("Resources/Sounds/Bullet_Act01.mp3");
 	se_fist = LoadSoundMem("Resources/Sounds/Fist_Act.mp3");
 	se_fist_hit = LoadSoundMem("Resources/Sounds/Fist_Hit.mp3");
 	se_flame = LoadSoundMem("Resources/Images/Sounds/Flame_Act.mp3.mp3");
@@ -229,7 +229,7 @@ eSceneType GameMainScene::Update()
 				{
 					frame[i] = new S_Frame();
 					frame[i]->Initialize(player->GetLocation(), enemy[i]->GetLocation());
-					h_cooltime = 300;
+					h_cooltime = 300 - (player->GetLevel() * 15);
 					PlaySoundMem(se_flame, DX_PLAYTYPE_BACK);
 					break;
 				}
