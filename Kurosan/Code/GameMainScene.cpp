@@ -62,6 +62,7 @@ GameMainScene::GameMainScene()
 
 	// カウント
 	cnt = 0;
+	levelcnt = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -82,7 +83,7 @@ void GameMainScene::Initialize()
 {
 	// 画像読込
 	grace = LoadGraph("Resources/Images/background_grace.png");
-	
+
 	// サウンド読込
 	bgm_gm = LoadSoundMem("Resources/Sounds/GameMain_BGM.mp3");
 	se_clear = LoadSoundMem("Resources/Sounds/GameClear.mp3");
@@ -92,9 +93,12 @@ void GameMainScene::Initialize()
 	se_fist_hit = LoadSoundMem("Resources/Sounds/Fist_Hit.mp3");
 	se_flame = LoadSoundMem("Resources/Images/Sounds/Flame_Act.mp3.mp3");
 	se_flame_hit = LoadSoundMem("Resources/Sounds/Flame_Hit.mp3");
+	se_levelup = LoadSoundMem("Resources/Sounds/LevelUp.mp3");
+
 
 	ChangeVolumeSoundMem(200, bgm_gm);
 	ChangeVolumeSoundMem(170, se_bullet);
+	ChangeVolumeSoundMem(150, se_levelup);
 
 	player->Initialize();
 	wall->Initialize();
@@ -104,7 +108,7 @@ void GameMainScene::Initialize()
 // 更新処理
 eSceneType GameMainScene::Update()
 {
-	if (wall->WallBreak() || is_clear) 
+	if (wall->WallBreak() || is_clear)
 	{
 		//BGMが再生されていたら止める
 		if (CheckSoundMem(bgm_gm))
@@ -145,6 +149,21 @@ eSceneType GameMainScene::Update()
 		wall->Update();
 		ui->Update();
 
+		if (is_levelup) {
+			if (!CheckSoundMem(se_levelup))
+			{
+				PlaySoundMem(se_levelup, DX_PLAYTYPE_BACK);
+			}
+			levelcnt = 60;
+		}
+
+		if (levelcnt > 0) {
+			levelcnt--;
+		}
+		else if (levelcnt <= 0)
+		{
+			is_levelup = false;
+		}
 		// BGMが再生されてない時にBGM再生
 		if (!CheckSoundMem(bgm_gm))
 		{
@@ -481,6 +500,10 @@ void GameMainScene::Draw()const
 	ui->Draw();
 	wall->Draw();
 	player->Draw();
+
+	if (levelcnt > 0) {
+		DrawString(player->GetLocation().x - 40, player->GetLocation().y - 60, "LEVEL UP", 0xffff00);
+	}
 
 	//弾の描画
 	for (int i = 0; i < 10; i++)

@@ -80,6 +80,10 @@ private:
 	// ‰ŠƒqƒbƒgSE
 	int se_flame_hit;
 
+	int se_levelup;
+
+	int levelcnt;
+
 	int fun;
 	int e_type;
 
