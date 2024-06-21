@@ -8,6 +8,8 @@
 Player::Player()
 {
 	image = LoadGraph("Resources/Images/wizard.png");
+	LoadDivGraph("Resources/Images/kamifubuki.png",12,1,12,1920,480,l_image);
+
 }
 
 Player::~Player()
@@ -35,18 +37,33 @@ void Player::Initialize()
 void Player::Update()
 {
 	Movement();
+	if (Levelup())
+	{
+		PlaySoundMem(levelsound, DX_PLAYTYPE_NORMAL, TRUE);
+	}
 }
 
 //ï`âÊèàóù
 void Player::Draw()
 {
 	DrawRotaGraph(location.x, location.y, 2, PI / 2, image, TRUE);
+
+	if (Levelup() == true)
+	{
+		for(int i=0;i<11;i++)
+		{
+			DrawGraph(0, 0, l_image[i], TRUE);
+		}
+	}
 }
 
 //èIóπéûèàóù
 void Player::Finalize()
 {
 	DeleteGraph(image);
+	for (int i = 0; i < 11; i++) {
+		DeleteGraph(l_image[i]);
+	}
 }
 
 //à íuèÓïÒéÊìæèàóù
@@ -106,4 +123,5 @@ bool Player::Levelup()
 
 		return true;
 	}
+	return false;
 }

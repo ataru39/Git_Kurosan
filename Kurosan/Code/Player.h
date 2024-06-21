@@ -6,12 +6,14 @@ class Player
 {
 private:
 	int image;				//描画する画像データ
+	int l_image[12];
 	int exp;				// 経験値
 	int need_exp;			// レベルアップ必要EXP
 	int level;				// レベル
 	Vector2D location;		//位置座標
 	Vector2D box_size;		//当たり判定の大きさ
 	float speed;			// スピード
+	int levelsound;
 
 public:
 	Player();
